@@ -1,56 +1,40 @@
-# {1팀 (Favorite Photo)}
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-[📝**BackEnd Repository**](https://github.com/ajantang/1-FavoritePhoto-1-BE)  
-[📝**팀 협업 문서(Notion)**](https://www.notion.so/1193c19d1a2f80cc8fa8f23ecd549104?v=1193c19d1a2f81bea9c7000c6921c343)
+## Getting Started
 
-# 🙋‍♂️ 팀원 구성
+First, run the development server:
 
-- 박명준(https://github.com/mjpark-k)
-- 박성현(https://github.com/wxy0415)
-- 송영섭(https://github.com/songyoungsub)
-- 안재민(https://github.com/mini-1018)
-- 이진우(https://github.com/ajantang)
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-# 프로젝트 소개
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- "최애의 포토"는 디지털 시대의 새로운 수집 문화를 선도하는 플랫폼입니다. 자신이 좋아하는 아이돌이나 스포츠 스타, 그림 등 디지털 포토카드를 손쉽게 사고팔 수 있는 공간으로, 특별한 커뮤니티를 제공합니다.
-- 프로젝트 기간: 2024. 10. 08(화) ~ 2024. 10. 31(목)
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-# 🛠 기술 스택
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-- **FrontEnd**  
-  ![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white) ![](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=for-the-badge) ![](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white) ![](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-- **BackEnd**  
-  ![](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)![](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-- **Database**  
-  ![](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-- **공통 Tool**  
-  ![](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)![](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)![](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)![](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-# 팀원별 구현 기능 상세
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-### 박명준
+## Learn More
 
-### 박성현
+To learn more about Next.js, take a look at the following resources:
 
-### 송영섭
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### 안재민
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-### 이진우
+## Deploy on Vercel
 
-# 📂 파일구조
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-<details>
-  <summary>파일 구조</summary>
-  <pre>
-  </pre>
-</details>
-
-# 🏁 구현 홈페이지
-
-[Favorite Photo]()
-
-# 😊 프로젝트 회고록
-
-[프로젝트 회고록]()
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
