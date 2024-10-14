@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  gap: 15px;
+}
+
+.grade {
+  font-size: 1.5rem;
+  font-weight: 700px;
+  color: var(--blue);
+}
+
+.bar {
+  font-size: 1.5rem;
+  font-weight: 700px;
+  color: var(--gray-400);
+}
+
+.category {
+  font-size: 1.5rem;
+  font-weight: 700px;
+  color: var(--gray-300);
+}
