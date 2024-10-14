@@ -7,6 +7,10 @@
   background-color: var(--black);
 }
 
+.nav-none {
+  display: none;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
