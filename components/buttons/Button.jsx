@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 /**
  * @param children - button text
+ * @param count - option : count
  * @param style - thick-color-width-(option : height)
  * 1. thick(main) : thick-main-width(343px 345px 440px)
  * 2. thin(main) : thin-main-width(72px 141px 165px 170px 272px 345px [**440px(height : 55px,60px)**] 520px)
