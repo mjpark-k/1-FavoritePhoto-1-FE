@@ -17,15 +17,20 @@
   --main: #efff04;
 }
 
+a {
+  text-decoration: none;
+}
+
 html {
   font-size: 16px;
 }
 
 body {
-  background-color: var(--black);
   font-family: "Noto Sans KR", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  background-color: var(--black);
+  color: var(--white);
 }
 
 * {
@@ -36,6 +41,5 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-x: hidden;
   width: 100%;
 }
