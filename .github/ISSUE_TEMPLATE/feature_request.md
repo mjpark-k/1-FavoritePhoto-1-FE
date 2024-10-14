@@ -1,9 +1,9 @@
 ---
 name: 기능 요청
-about: BE 기능 요청합니다
+about: FE 기능 요청합니다
 title: ""
 labels: enhancement
-assignees: ajantang, songyoungsub
+assignees: mjpark-k, wxy0415, mini-1018
 ---
 
 ## 어떤 기능인가요?

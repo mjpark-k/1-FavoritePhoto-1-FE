@@ -1,9 +1,9 @@
 ---
 name: 버그 수정 요청
-about: BE 버그 수정 요청합니다
+about: FE 버그 수정 요청합니다
 title: ""
 labels: bug
-assignees: ajantang, songyoungsub
+assignees: mjpark-k, wxy0415, mini-1018
 ---
 
 ## 어떤 버그인가요?
