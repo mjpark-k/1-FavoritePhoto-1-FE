@@ -1,5 +1,6 @@
 import styles from "@/components/cards/Card.module.css";
 import Image from "next/image";
+import GradeCategory from "./info/GradeCategory";
 
 export default function Card() {
   return (
@@ -16,11 +17,7 @@ export default function Card() {
         <div className={styles["card-information"]}>
           <p className={styles["card-title"]}>title</p>
           <div className={styles["card-information-wrapper"]}>
-            <div className={styles["card-information-grade-wrapper"]}>
-              <p className={styles["card-grade"]}>grade</p>
-              <p className={styles["card-grade-divider"]}>|</p>
-              <p className={styles["card-category"]}>category</p>
-            </div>
+            <GradeCategory style={"small"} />
             <p className={styles["card-nickname"]}>nickname</p>
           </div>
         </div>
