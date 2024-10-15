@@ -1,0 +1,28 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.container {
+  padding: 30px;
+  position: relative;
+  background-color: var(--gray-500);
+  border-radius: 2px;
+}
+
+.close-button {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  cursor: pointer;
+}
