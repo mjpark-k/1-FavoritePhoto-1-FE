@@ -1,4 +1,4 @@
-import styles from '@/components/searchForm/Input.module.css';
+import styles from '@/components/inputs/Input.module.css';
 import classNames from 'classnames';
 import Image from 'next/image';
 
@@ -8,6 +8,7 @@ import Image from 'next/image';
  * 2. password
  * 3. search
  * 4. textarea
+ * 5. price
  * @param visibility
  * password visibility(value : Boolean)
  * @param onClick
@@ -54,6 +55,11 @@ export default function Input({ visibility, onClick, style, error, ...props }) {
       </div>
     ),
     textarea: <textarea className={inputClass} {...props} />,
+    price: (
+      <div className={containerClass}>
+        <input className={inputClass} {...props} />P
+      </div>
+    ),
   };
 
   const input = inputs[style];
