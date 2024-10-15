@@ -1,6 +1,7 @@
 import styles from "@/styles/Home.module.css";
 import Card from "@/components/cards/Card.js";
 import Button from "@/components/buttons/Button";
+import SearchForm from "@/components/searchForm/SaerchForm";
 
 export default function Home() {
   return (
@@ -12,7 +13,10 @@ export default function Home() {
           style={"thin-main-440px-60px"}
         />
       </div>
-      <Card />
+      <div className={styles["home-main-container"]}>
+        <SearchForm />
+        <Card />
+      </div>
     </>
   );
 }
