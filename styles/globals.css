@@ -1,6 +1,5 @@
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-@import url('https://websfont.github.io/baskinRobbins/baskinRobbins.css');
 
 :root {
   --black: #0f0f0f;
@@ -52,4 +51,11 @@ input:focus {
 
 button {
   cursor: pointer;
+}
+
+@font-face {
+  font-family: 'baskinRobbins';
+  font-weight: 400;
+  font-style: normal;
+  src: url('/fonts/baskinRobbins.ttf') format('truetype');
 }
