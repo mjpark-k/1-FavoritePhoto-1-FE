@@ -1,0 +1,21 @@
+.home-nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 60px auto 0;
+  width: 1480px;
+  border-bottom: 2px solid var(--gray-200);
+  padding-bottom: 20px;
+}
+
+.home-title {
+  font-family: "baskinRobbins";
+  font-size: 62px;
+  line-height: 63.49px;
+  letter-spacing: -0.03em;
+  font-weight: bold;
+}
+
+.home-main-container {
+  width: 1480px;
+  margin: 20px auto 0;
+}
