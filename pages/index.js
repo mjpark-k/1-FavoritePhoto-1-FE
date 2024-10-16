@@ -1,7 +1,7 @@
 import styles from "@/styles/Home.module.css";
 import Card from "@/components/cards/Card.js";
 import Button from "@/components/buttons/Button";
-import SearchForm from "@/components/searchForm/SaerchForm";
+import Input from "@/components/inputs/Input.jsx";
 import Dropdown from "@/components/dropdowns/Dropdown";
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
       <div className={styles["home-main-container"]}>
         <div className={styles["home-main-container-nav-wrapper"]}>
           <div className={styles["home-main-container-nav"]}>
-            <SearchForm />
+            <Input style={"search"} placeholder={"검색"} />
             <div className={styles["home-main-container-dropdowns"]}>
               <Dropdown
                 placeholder={"등급"}
@@ -47,6 +47,7 @@ export default function Home() {
             options={soltOptions}
           />
         </div>
+        <Card />
       </div>
     </>
   );

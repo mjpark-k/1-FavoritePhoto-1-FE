@@ -53,6 +53,7 @@
   font-weight: 400;
   border: 1px solid var(--gray-200);
   padding: 0 20px;
+  border-radius: 2px;
 }
 .dropdown-menu-180 {
   margin-top: 5px;
@@ -69,6 +70,7 @@
   font-weight: 400;
   border: 1px solid var(--gray-200);
   padding: 0 20px;
+  border-radius: 2px;
 }
 .dropdown-menu-520 {
   margin-top: 5px;
@@ -85,6 +87,7 @@
   font-weight: 300;
   border: 1px solid var(--gray-200);
   padding: 0 20px;
+  border-radius: 2px;
 }
 .dropdown-menu-440 {
   margin-top: 5px;
