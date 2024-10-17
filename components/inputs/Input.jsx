@@ -3,11 +3,17 @@ import classNames from 'classnames';
 import Image from 'next/image';
 
 /**
- * @param style
+ * @param option
  * 1. default
  * 2. password
  * 3. search
  * 4. textarea
+ * 5. price
+ * @param style
+ * 1. default
+ * 2. password
+ * 3. search
+ * 4. textarea-width(440px)
  * 5. price
  * @param visibility
  * password visibility(value : Boolean)
@@ -16,7 +22,14 @@ import Image from 'next/image';
  * @param error
  * react-hook-form errors
  */
-export default function Input({ visibility, onClick, style, error, ...props }) {
+export default function Input({
+  visibility,
+  option,
+  onClick,
+  style,
+  error,
+  ...props
+}) {
   const inputClass = classNames({
     [styles[style]]: style,
     [styles['error']]: error,
@@ -62,7 +75,7 @@ export default function Input({ visibility, onClick, style, error, ...props }) {
     ),
   };
 
-  const input = inputs[style];
+  const input = inputs[option];
 
   return <div className={styles['input-container']}>{input}</div>;
 }
