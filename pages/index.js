@@ -47,7 +47,11 @@ export default function Home() {
             options={soltOptions}
           />
         </div>
-        <Card />
+        <div className={styles["home-main-card-grid"]}>
+          {Array.from({ length: 18 }).map((_, index) => (
+            <Card key={index} />
+          ))}
+        </div>
       </div>
     </>
   );
