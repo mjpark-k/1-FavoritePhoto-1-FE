@@ -191,6 +191,30 @@
   border: 1px solid var(--gray-100);
 }
 
+/* gray색의 버튼 (거절하기) */
+.thin-gray-170px {
+  width: 170px;
+  height: 60px;
+  border-radius: 2px;
+  background-color: var(--gray-500);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--white);
+  border: 1px solid var(--gray-100);
+}
+
+/* 360px-60px gray색의 버튼 */
+.thin-gray-360px {
+  width: 360px;
+  height: 60px;
+  border-radius: 2px;
+  background-color: var(--gray-500);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--white);
+  border: 1px solid var(--gray-100);
+}
+
 .thin-black-165 {
   width: 165px;
   height: 55px;
@@ -277,6 +301,26 @@
     height: 55px;
     font-size: 1rem;
   }
+
+  .thin-main-170px {
+    width: 141px;
+    height: 55px;
+    font-size: 1rem;
+  }
+
+  /* gray색의 버튼 (거절하기) */
+  .thin-gray-170px {
+    width: 141px;
+    height: 55px;
+    font-size: 1rem;
+  }
+
+  /* 360px-60px gray색의 버튼 */
+  .thin-gray-360px {
+    width: 302px;
+    height: 55px;
+    font-size: 1rem;
+  }
 }
 
 /* Mobile view */
@@ -285,5 +329,27 @@
     width: 277px;
     height: 55px;
     font-size: 1rem;
+  }
+
+  .thin-main-170px {
+    width: 72.5px;
+    height: 40px;
+    font-size: 0.75rem;
+  }
+
+  /* gray색의 버튼 (거절하기) */
+  .thin-gray-170px {
+    width: 72.5px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+
+  /* 360px-60px gray색의 버튼 */
+  .thin-gray-360px {
+    width: 150px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 0.75rem;
   }
 }
