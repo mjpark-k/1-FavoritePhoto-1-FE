@@ -103,6 +103,17 @@
   border: 0;
 }
 
+.thin-main-210px {
+  width: 210px;
+  height: 60px;
+  border-radius: 2px;
+  background-color: var(--main);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--black);
+  border: 0;
+}
+
 .thin-main-165px {
   width: 165px;
   height: 55px;
@@ -136,7 +147,7 @@
   border: 0;
 }
 
-.thin-345.disabled {
+.thin-345px.disabled {
   width: 345px;
   height: 55px;
   border-radius: 2px;
@@ -147,7 +158,7 @@
   border: 0;
 }
 
-.thin-black-520 {
+.thin-black-520px {
   width: 520px;
   height: 60px;
   border-radius: 2px;
@@ -158,7 +169,7 @@
   border: 1px solid var(--gray-100);
 }
 
-.thin-black-440 {
+.thin-black-440px {
   width: 440px;
   height: 55px;
   border-radius: 2px;
@@ -169,7 +180,7 @@
   border: 1px solid var(--gray-100);
 }
 
-.thin-black-345 {
+.thin-black-345px {
   width: 345px;
   height: 55px;
   border-radius: 2px;
@@ -180,7 +191,18 @@
   border: 1px solid var(--gray-100);
 }
 
-.thin-black-170 {
+.thin-black-210px {
+  width: 210px;
+  height: 60px;
+  border-radius: 2px;
+  background-color: var(--black);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--white);
+  border: 1px solid var(--gray-100);
+}
+
+.thin-black-170px {
   width: 170px;
   height: 60px;
   border-radius: 2px;
@@ -191,7 +213,7 @@
   border: 1px solid var(--gray-100);
 }
 
-.thin-black-165 {
+.thin-black-165px {
   width: 165px;
   height: 55px;
   border-radius: 2px;
@@ -202,7 +224,7 @@
   border: 1px solid var(--gray-100);
 }
 
-.thin-black-141 {
+.thin-black-141px {
   width: 141px;
   height: 55px;
   border-radius: 2px;
@@ -213,7 +235,7 @@
   border: 1px solid var(--gray-100);
 }
 
-.thin-black-72 {
+.thin-black-72px {
   width: 72.5px;
   height: 40px;
   border-radius: 2px;
@@ -224,7 +246,7 @@
   border: 1px solid var(--gray-100);
 }
 
-.thick-black-345 {
+.thick-black-345px {
   width: 345px;
   height: 75px;
   border-radius: 2px;
@@ -235,7 +257,7 @@
   border: 1px solid var(--gray-100);
 }
 
-.thick-black-343 {
+.thick-black-343px {
   width: 343px;
   height: 75px;
   border-radius: 2px;
@@ -243,6 +265,18 @@
   font-size: 1.125rem;
   font-weight: 500;
   color: var(--gray-100);
+  border: 1px solid var(--gray-100);
+}
+
+/* 360px-60px gray색의 버튼 */
+.thin-gray-360px {
+  width: 360px;
+  height: 60px;
+  border-radius: 2px;
+  background-color: var(--gray-500);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--white);
   border: 1px solid var(--gray-100);
 }
 
@@ -259,7 +293,7 @@
 }
 
 /* 440px - 80px black 버튼 추가 */
-.thick-black-440px {
+.thick-black-440px-80px {
   width: 440px;
   height: 80px;
   border-radius: 2px;
@@ -270,10 +304,42 @@
   border: 1px solid var(--gray-100);
 }
 
+/* gray 색의 버튼 (거절하기) */
+.thin-gray-170px {
+  width: 170px;
+  height: 60px;
+  border-radius: 2px;
+  background-color: var(--gray-500);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--white);
+  border: 1px solid var(--gray-100);
+}
+
 /* Tablet view */
 @media (min-width: 744px) and (max-width: 1199px) {
   .thin-black-440px-60px {
     width: 277px;
+    height: 55px;
+    font-size: 1rem;
+  }
+
+  .thin-main-170px {
+    width: 141px;
+    height: 55px;
+    font-size: 1rem;
+  }
+
+  /* gray색의 버튼 (거절하기) */
+  .thin-gray-170px {
+    width: 141px;
+    height: 55px;
+    font-size: 1rem;
+  }
+
+  /* 360px-60px gray색의 버튼 */
+  .thin-gray-360px {
+    width: 302px;
     height: 55px;
     font-size: 1rem;
   }
@@ -285,5 +351,27 @@
     width: 277px;
     height: 55px;
     font-size: 1rem;
+  }
+
+  .thin-main-170px {
+    width: 72.5px;
+    height: 40px;
+    font-size: 0.75rem;
+  }
+
+  /* gray색의 버튼 (거절하기) */
+  .thin-gray-170px {
+    width: 72.5px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+
+  /* 360px-60px gray색의 버튼 */
+  .thin-gray-360px {
+    width: 150px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 0.75rem;
   }
 }

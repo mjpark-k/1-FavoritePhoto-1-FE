@@ -89,6 +89,18 @@
   resize: none;
 }
 
+.textarea-440px {
+  width: 440px;
+  height: 120px;
+  border-radius: 2px;
+  padding: 18px 20px 18px 20px;
+  background-color: var(--black);
+  border: 1px solid var(--gray-200);
+  color: var(--white);
+  font-weight: 400;
+  resize: none;
+}
+
 .textarea::-webkit-scrollbar {
   display: none;
 }

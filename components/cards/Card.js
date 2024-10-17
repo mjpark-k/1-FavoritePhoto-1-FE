@@ -3,13 +3,13 @@ import styles from "@/components/cards/Card.module.css";
 import Image from "next/image";
 import GradeCategory from "./info/GradeCategory";
 
-export default function Card() {
+export default function Card({ onClick }) {
   const router = useRouter();
   const { pathname } = router;
 
   return (
     <>
-      <div className={styles["card-container"]}>
+      <div className={styles["card-container"]} onClick={onClick}>
         <Image
           src="/card-default-img.svg"
           className={styles["card-image"]}
