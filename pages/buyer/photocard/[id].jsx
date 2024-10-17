@@ -7,6 +7,7 @@ import { useState } from 'react';
 import DefaultContent from '@/components/modal/contents/DefaultContent';
 import CardList from '@/components/modal/contents/CardList';
 import CardExchange from '@/components/modal/contents/CardExchange';
+import QuantityButton from '@/components/buttons/QuantityButton';
 
 export default function Index() {
   const [purchaseModal, setPurchaseModal] = useState(false);
@@ -36,14 +37,47 @@ export default function Index() {
       <div className={styles['container']}>
         <div className={styles['market-place']}>마켓플레이스</div>
         <div className={styles['title']}>우리집 앞마당</div>
-        <div className={styles['photocard-image']}>
-          <Image src={'/'} fill alt="photocard-image" />
+        <div className={styles['card-container']}>
+          <div className={styles['photocard-image']}>
+            <Image src={'/card-default-img.svg'} fill alt="photocard-image" />
+          </div>
+          <div className={styles['card-info-container']}>
+            <div className={styles['card-header']}>
+              <GradeCategory style={'medium'} />
+              미쓰손
+            </div>
+            <div className={styles['bar']} />
+            <div className={styles['card-description']}>카드설명</div>
+            <div className={styles['bar']} />
+            <div className={styles['price-container']}>
+              <div className={styles['price']}>가격</div>
+              <div className={styles['point']}>4P</div>
+            </div>
+            <div className={styles['remain-container']}>
+              <div className={styles['remain']}>잔여</div>
+              <div className={styles['quantity']}>
+                2<div className={styles['total']}>{`/5`}</div>
+              </div>
+            </div>
+            <div className={styles['bar']} />
+            <div className={styles['purchase-quantity-container']}>
+              <div className={styles['purchase-quantity']}>구매수량</div>
+              <QuantityButton style={'width-176px'} />
+            </div>
+            <div className={styles['total-price-container']}>
+              <div className={styles['total-price']}>총 가격</div>
+              <div className={styles['total-point-card-container']}>
+                <div className={styles['total-point']}>8P</div>
+                <div className={styles['total-card']}>{`(2장)`}</div>
+              </div>
+            </div>
+            <Button
+              children={'포토카드 구매하기'}
+              style={'thick-main-440px'}
+              onClick={purchaseModalClick}
+            />
+          </div>
         </div>
-        <Button
-          children={'구매하기'}
-          style={'thin-main-440px-60px'}
-          onClick={purchaseModalClick}
-        />
 
         <div className={styles['title']}>
           교환 희망 정보
