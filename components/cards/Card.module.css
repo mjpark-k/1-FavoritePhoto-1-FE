@@ -5,10 +5,20 @@
   padding: 40px;
   cursor: pointer;
   border: 1px solid #ffffff1a;
+  position: relative;
 }
 
 .card-image {
   display: block;
+}
+
+.card-state {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  padding: 4px 10px;
+  background: #00000080;
+  line-height: 23.17px;
 }
 
 .card-information {

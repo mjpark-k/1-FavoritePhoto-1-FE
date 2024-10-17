@@ -1,8 +1,12 @@
+import { useRouter } from "next/router";
 import styles from "@/components/cards/Card.module.css";
 import Image from "next/image";
 import GradeCategory from "./info/GradeCategory";
 
 export default function Card() {
+  const router = useRouter();
+  const { pathname } = router;
+
   return (
     <>
       <div className={styles["card-container"]}>
@@ -14,6 +18,9 @@ export default function Card() {
           alt="card-image"
           priority
         />
+        {pathname === "/mysales" && (
+          <div className={styles["card-state"]}>판매 중</div>
+        )}
         <div className={styles["card-information"]}>
           <p className={styles["card-title"]}>title</p>
           <div className={styles["card-information-wrapper"]}>

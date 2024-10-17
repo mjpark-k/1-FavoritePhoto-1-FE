@@ -1,5 +1,4 @@
 import styles from "@/styles/Mygallery.module.css";
-import Button from "@/components/buttons/Button";
 import Dropdown from "@/components/dropdowns/Dropdown";
 import Input from "@/components/inputs/Input";
 import Card from "@/components/cards/Card";
@@ -8,16 +7,14 @@ import classNames from "classnames";
 export default function mygallery() {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
   const genres = ["풍경", "여행", "인물", "사물"];
+  const saleMethods = ["판매 중", "교환 제시 대기 중"];
+  const sales = ["판매 중", "판매 완료"];
 
   return (
     <>
       <div className={styles["mygallery-nav-wrapper"]}>
         <div className={styles["mygallery-nav"]}>
-          <div className={styles["mygallery-title"]}>마이갤러리</div>
-          <Button
-            children={"포토카드 생성하기"}
-            style={"thin-main-440px-60px"}
-          />
+          <div className={styles["mygallery-title"]}>나의 판매 포토카드</div>
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
@@ -64,6 +61,16 @@ export default function mygallery() {
           <div className={styles["mygallery-main-container-dropdowns"]}>
             <Dropdown placeholder={"등급"} style={"default"} options={grades} />
             <Dropdown placeholder={"장르"} style={"default"} options={genres} />
+            <Dropdown
+              placeholder={"판매방법"}
+              style={"default"}
+              options={saleMethods}
+            />
+            <Dropdown
+              placeholder={"매진여부"}
+              style={"default"}
+              options={sales}
+            />
           </div>
         </div>
       </div>
