@@ -1,5 +1,5 @@
-@import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
 :root {
   --black: #0f0f0f;
@@ -25,11 +25,12 @@ html {
 }
 
 body {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   background-color: var(--black);
   color: var(--white);
+  overflow-y: scroll;
 }
 
 * {
@@ -54,10 +55,10 @@ button {
 }
 
 @font-face {
-  font-family: 'baskinRobbins';
+  font-family: "baskinRobbins";
   font-weight: 400;
   font-style: normal;
-  src: url('/fonts/baskinRobbins.ttf') format('truetype');
+  src: url("/fonts/baskinRobbins.ttf") format("truetype");
 }
 
 ::-webkit-scrollbar {

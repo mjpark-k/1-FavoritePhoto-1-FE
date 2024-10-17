@@ -35,3 +35,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.home-main-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 80px;
+  margin-top: 60px;
+}
