@@ -4,6 +4,7 @@ import Dropdown from "@/components/dropdowns/Dropdown";
 import Input from "@/components/inputs/Input";
 import Card from "@/components/cards/Card";
 import classNames from "classnames";
+import Link from "next/link";
 
 export default function mygallery() {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
@@ -14,10 +15,12 @@ export default function mygallery() {
       <div className={styles["mygallery-nav-wrapper"]}>
         <div className={styles["mygallery-nav"]}>
           <div className={styles["mygallery-title"]}>마이갤러리</div>
-          <Button
-            children={"포토카드 생성하기"}
-            style={"thin-main-440px-60px"}
-          />
+          <Link href="/mygallery/createcard">
+            <Button
+              children={"포토카드 생성하기"}
+              style={"thin-main-440px-60px"}
+            />
+          </Link>
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
@@ -60,7 +63,7 @@ export default function mygallery() {
           </div>
         </div>
         <div className={styles["mygallery-main-container-nav"]}>
-          <Input style={"search"} placeholder={"검색"} />
+          <Input style={"search"} placeholder={"검색"} option={"search"} />
           <div className={styles["mygallery-main-container-dropdowns"]}>
             <Dropdown placeholder={"등급"} style={"default"} options={grades} />
             <Dropdown placeholder={"장르"} style={"default"} options={genres} />
@@ -69,7 +72,9 @@ export default function mygallery() {
       </div>
       <div className={styles["mygallery-main-card-grid"]}>
         {Array.from({ length: 18 }).map((_, index) => (
-          <Card key={index} />
+          <Link href="/mygallery/detail">
+            <Card key={index} />
+          </Link>
         ))}
       </div>
     </>

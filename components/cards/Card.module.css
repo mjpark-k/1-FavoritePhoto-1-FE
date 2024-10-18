@@ -6,6 +6,7 @@
   cursor: pointer;
   border: 1px solid #ffffff1a;
   position: relative;
+  color: var(--white);
 }
 
 .card-image {

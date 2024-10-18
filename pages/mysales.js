@@ -57,7 +57,7 @@ export default function mygallery() {
           </div>
         </div>
         <div className={styles["mygallery-main-container-nav"]}>
-          <Input style={"search"} placeholder={"검색"} />
+          <Input style={"search"} option={"search"} placeholder={"검색"} />
           <div className={styles["mygallery-main-container-dropdowns"]}>
             <Dropdown placeholder={"등급"} style={"default"} options={grades} />
             <Dropdown placeholder={"장르"} style={"default"} options={genres} />
