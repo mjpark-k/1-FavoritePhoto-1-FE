@@ -21,13 +21,14 @@
   font-weight: 400;
   line-height: 23.17px;
   position: absolute;
+  z-index: 1;
+  padding: 0 20px;
 }
 
 .dropdown-menu-item-default,
 .dropdown-menu-item-180,
 .dropdown-menu-item-520,
 .dropdown-menu-item-440 {
-  margin-left: 20px;
   display: flex;
   align-items: center;
   font-weight: 400;
@@ -43,7 +44,6 @@
 }
 .dropdown-menu-item-default {
   height: 42px;
-  margin-right: 20px;
 }
 
 .dropdown-container-180 {
@@ -84,7 +84,7 @@
   justify-content: space-between;
   width: 440px;
   height: 60px;
-  font-weight: 300;
+  font-weight: 400;
   border: 1px solid var(--gray-200);
   padding: 0 20px;
   border-radius: 2px;
