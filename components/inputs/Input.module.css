@@ -132,7 +132,8 @@
 
 .search::placeholder,
 .password::placeholder,
-.textarea::placeholder {
+.textarea::placeholder,
+.default::placeholder {
   color: var(--gray-200);
   font-weight: 300;
 }

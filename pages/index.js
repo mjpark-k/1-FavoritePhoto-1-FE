@@ -22,7 +22,7 @@ export default function Home() {
       <div className={styles["home-main-container"]}>
         <div className={styles["home-main-container-nav-wrapper"]}>
           <div className={styles["home-main-container-nav"]}>
-            <Input style={"search"} placeholder={"검색"} />
+            <Input style={"search"} option={"search"} placeholder={"검색"} />
             <div className={styles["home-main-container-dropdowns"]}>
               <Dropdown
                 placeholder={"등급"}
