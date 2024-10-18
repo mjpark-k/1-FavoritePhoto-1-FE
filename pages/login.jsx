@@ -55,6 +55,9 @@ export default function Login() {
               onClick={visibilityToggle}
               visibility={visibility}
             />
+            <div className={styles['error']}>
+              {errors.password && errors.password.message}
+            </div>
           </div>
         </div>
         <Button style={'thin-main-520px'} children={'로그인'} />
