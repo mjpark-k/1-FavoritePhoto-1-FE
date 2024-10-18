@@ -5,7 +5,7 @@ export default function CardInfo() {
   return (
     <div className={styles["info-container"]}>
       <div className={styles["title"]}>
-        <GradeCategory style="medium"/>
+        <GradeCategory style="medium" />
         <span className={styles["nickname"]}>nickname</span>
       </div>
       <div className={styles["content"]}>content about photo</div>
