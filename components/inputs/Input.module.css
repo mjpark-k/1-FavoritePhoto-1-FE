@@ -41,6 +41,7 @@
   height: 60px;
   position: relative;
   line-height: 23.17px;
+  background-color: var(--black);
 }
 
 .password {
@@ -54,13 +55,17 @@
   border-radius: 2px;
 }
 
+.password:-webkit-autofill {
+  background-color: var(--black);
+}
+
 .container-price {
   width: 245px;
   height: 50px;
   border-radius: 2px;
   font-weight: 700;
   color: var(--white);
-  background-color: var(--black);
+  background-color: var(--gray-500);
   font-size: 1.125rem;
   padding: 0px 20px 0px 20px;
   border: 1px solid var(--gray-200);
@@ -71,7 +76,7 @@
 
 .price {
   width: 100%;
-  background-color: var(--black);
+  background-color: var(--gray-500);
   font-weight: 400;
   color: var(--white);
   border: 0;
@@ -101,6 +106,18 @@
   resize: none;
 }
 
+.textarea-920px {
+  width: 920px;
+  height: 120px;
+  border-radius: 2px;
+  padding: 18px 20px 18px 20px;
+  background-color: var(--gray-500);
+  border: 1px solid var(--gray-200);
+  color: var(--white);
+  font-weight: 400;
+  resize: none;
+}
+
 .textarea::-webkit-scrollbar {
   display: none;
 }
@@ -113,11 +130,6 @@
 .default.error,
 .password.error {
   border: 1px solid var(--red);
-}
-
-.default.error:focus,
-.password.error:focus {
-  outline: 1px solid var(--red);
 }
 
 .visibility-off,

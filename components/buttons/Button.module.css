@@ -64,7 +64,7 @@
   height: 60px;
   border-radius: 2px;
   background-color: var(--main);
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: var(--black);
   border: 0;
@@ -298,6 +298,18 @@
   height: 60px;
   border-radius: 2px;
   background-color: var(--black);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--white);
+  border: 1px solid var(--gray-100);
+}
+
+/* 440px - 60px gray 버튼 추가 */
+.thin-gray-440px-60px {
+  width: 440px;
+  height: 60px;
+  border-radius: 2px;
+  background-color: var(--gray-500);
   font-size: 1.125rem;
   font-weight: 700;
   color: var(--white);
