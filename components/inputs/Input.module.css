@@ -41,6 +41,7 @@
   height: 60px;
   position: relative;
   line-height: 23.17px;
+  background-color: var(--black);
 }
 
 .password {
@@ -52,6 +53,10 @@
   padding-left: 20px;
   font-weight: 400;
   border-radius: 2px;
+}
+
+.password:-webkit-autofill {
+  background-color: var(--black);
 }
 
 .container-price {
@@ -115,11 +120,6 @@
   border: 1px solid var(--red);
 }
 
-.default.error:focus,
-.password.error:focus {
-  outline: 1px solid var(--red);
-}
-
 .visibility-off,
 .visibility-on {
   position: absolute;
@@ -132,7 +132,8 @@
 
 .search::placeholder,
 .password::placeholder,
-.textarea::placeholder {
+.textarea::placeholder,
+.default::placeholder {
   color: var(--gray-200);
   font-weight: 300;
 }
