@@ -89,7 +89,7 @@ export default function ButtonCard({ style }) {
               </Button>
             </>
           ) : (
-            <Button style={'thin-gray-360px'} children={'취소하기'} />
+            <Button style={'thin-gray-360px'} text={'취소하기'} />
           )}
         </div>
       </div>

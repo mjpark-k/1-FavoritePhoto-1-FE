@@ -25,7 +25,7 @@ export default function DefaultContent({
       <div className={styles['title']}>{title}</div>
       <div className={styles['content']}>{content}</div>
       <div className={styles['button']}>
-        <Button children={buttonContent} style={'thin-main-170px'} />
+        <Button text={buttonContent} style={'thin-main-170px'} />
       </div>
     </div>
   );

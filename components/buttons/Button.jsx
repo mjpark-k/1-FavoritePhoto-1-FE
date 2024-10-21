@@ -2,7 +2,7 @@ import styles from '@/components/buttons/Button.module.css';
 import classNames from 'classnames';
 
 /**
- * @param children - button text
+ * @param text - button text
  * @param count - option : count
  * @param style - thick-color-width-(option : height)
  * 1. thick(main) : thick-main-width(343px 345px 440px)
@@ -11,7 +11,7 @@ import classNames from 'classnames';
  * 4. thin(black) : thin-black-width(72px 141px 170px 210px 345px [**440px(height : 60px,80px)**] 520px)
  * 5. thin(gray) : thin-gray-width(170px 360px)
  */
-export default function Button({ children, style, count, ...props }) {
+export default function Button({ text, style, count, ...props }) {
   const buttonClass = classNames({
     [styles[style]]: style,
     [styles['disabled']]: props.disabled,
@@ -19,7 +19,7 @@ export default function Button({ children, style, count, ...props }) {
   return (
     <>
       <button className={buttonClass} {...props}>
-        {count ? `${count}개 포토보기` : children}
+        {count ? `${count}개 포토보기` : text}
       </button>
     </>
   );

@@ -76,7 +76,7 @@ export default function Index() {
               </div>
             </div>
             <Button
-              children={'포토카드 구매하기'}
+              text={'포토카드 구매하기'}
               style={'thick-main-440px'}
               onClick={purchaseModalClick}
             />
@@ -86,7 +86,7 @@ export default function Index() {
         <div className={styles['title']}>
           교환 희망 정보
           <Button
-            children={'포토카드 교환하기'}
+            text={'포토카드 교환하기'}
             style={'thin-main-440px-60px'}
             onClick={exchangeModalClick}
           />

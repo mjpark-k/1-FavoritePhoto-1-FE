@@ -23,10 +23,10 @@ export default function CardExchange({ onClick }) {
             <div className={styles['button-container']}>
               <Button
                 style={'thin-black-210px'}
-                children={'취소하기'}
+                text={'취소하기'}
                 onClick={onClick}
               />
-              <Button style={'thin-main-210px'} children={'교환하기'} />
+              <Button style={'thin-main-210px'} text={'교환하기'} />
             </div>
           </div>
         </div>

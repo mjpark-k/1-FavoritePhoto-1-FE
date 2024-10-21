@@ -52,7 +52,7 @@ export default function Detail() {
               </div>
               <div className={styles['detail-btn']}>
                 <Button
-                  children={'포토카드 판매하기'}
+                  text={'포토카드 판매하기'}
                   style={'thick-main-440px'}
                   onClick={myGalleryModalClick}
                 />
