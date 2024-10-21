@@ -2,6 +2,7 @@ import Button from '@/components/buttons/Button';
 import Input from '@/components/inputs/Input';
 import { useLoginValidation } from '@/hooks/useValidation/useLoginValidation';
 import { useSignupValidation } from '@/hooks/useValidation/useSignupValidation';
+import { usePostSignup } from '@/lib/reactQuery/useAuth';
 import styles from '@/styles/Login.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,11 +26,22 @@ export default function Signup() {
     isValid,
   } = useSignupValidation();
 
+  const usePostSignupMutation = usePostSignup();
+
   const visibilityToggle = (target) => {
     setVisibility((visibility) => ({
       ...visibility,
       [target]: !visibility[target],
     }));
+  };
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+    usePostSignupMutation.mutate({
+      email: emailValue,
+      password: passwordValue,
+      nickname: nicknameValue,
+    });
   };
 
   return (
@@ -105,7 +117,11 @@ export default function Signup() {
             </div>
           </div>
         </div>
-        <Button style={'thin-main-520px'} children={'로그인'} />
+        <Button
+          style={'thin-main-520px'}
+          children={'로그인'}
+          onClick={handleSignup}
+        />
         <div className={styles['signup-text']}>
           <div>이미 최애의 포토 회원이신가요?</div>
           <Link href={'/login'} className={styles['signup-link']}>
@@ -116,3 +132,5 @@ export default function Signup() {
     </>
   );
 }
+
+Signup.hideNav = true;
