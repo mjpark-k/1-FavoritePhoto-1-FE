@@ -44,6 +44,12 @@ export default function Dropdown({ options, placeholder, style }) {
   const menuClass = `${styles[`dropdown-menu-${style}`]}`;
   const itemClass = `${styles[`dropdown-menu-item-${style}`]}`;
 
+  const handleFontWeight = () => {
+    if (!selectedOption && placeholder.includes("선택")) {
+      return 300;
+    }
+  };
+
   return (
     <div className={styles["dropdown"]} ref={dropdownRef}>
       <div className={containerClass} onClick={toggleDropdown}>
@@ -51,8 +57,9 @@ export default function Dropdown({ options, placeholder, style }) {
           style={{
             color:
               !selectedOption && placeholder.includes("선택")
-                ? "#DDDDDD"
-                : "#ffffff",
+                ? "var(--gray-200)"
+                : "var(--white)",
+            fontWeight: handleFontWeight(),
           }}
         >
           {selectedOption ? selectedOption : placeholder}
