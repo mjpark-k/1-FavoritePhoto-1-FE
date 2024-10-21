@@ -9,7 +9,7 @@ export default function CardList({ title, onClick }) {
         <div className={styles['market-place']}>마이갤러리</div>
         <div className={styles['title']}>{title}</div>
         <div className={styles['search-sort-container']}>
-          <Input style={'search'} placeholder={'검색'} />
+          <Input style={'search'} option={'search'} placeholder={'검색'} />
         </div>
         <div className={styles['card-list']}>
           <Card onClick={onClick} />
