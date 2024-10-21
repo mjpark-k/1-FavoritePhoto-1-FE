@@ -97,35 +97,28 @@ export default function Index() {
         </div>
       </div>
       {purchaseModal && (
-        <ModalContainer
-          onClick={purchaseModalClick}
-          children={
-            <DefaultContent
-              style={'default'}
-              title={'포토카드 구매'}
-              content={'구매하시겠습니까?'}
-              buttonContent={'구매하기'}
-              buttonStyle={'thin-main-170px'}
-            />
-          }
-        />
+        <ModalContainer onClick={purchaseModalClick}>
+          <DefaultContent
+            style={'default'}
+            title={'포토카드 구매'}
+            content={'구매하시겠습니까?'}
+            buttonContent={'구매하기'}
+            buttonStyle={'thin-main-170px'}
+          />
+        </ModalContainer>
       )}
       {exchangeModal && (
-        <ModalContainer
-          onClick={exchangeModalClick}
-          children={
-            <CardList
-              title={'포토카드 교환하기'}
-              onClick={exchangeDetailModalClick}
-            />
-          }
-        />
+        <ModalContainer onClick={exchangeModalClick}>
+          <CardList
+            title={'포토카드 교환하기'}
+            onClick={exchangeDetailModalClick}
+          />
+        </ModalContainer>
       )}
       {exchangeDetailModal && (
-        <ModalContainer
-          onClick={exchangeDetailModalClick}
-          children={<CardExchange onClick={exchangeModalClick} />}
-        />
+        <ModalContainer onClick={exchangeDetailModalClick}>
+          <CardExchange onClick={exchangeModalClick} />
+        </ModalContainer>
       )}
     </>
   );
