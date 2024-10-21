@@ -8,11 +8,15 @@ import DefaultContent from '@/components/modal/contents/DefaultContent';
 import CardList from '@/components/modal/contents/CardList';
 import CardExchange from '@/components/modal/contents/CardExchange';
 import QuantityButton from '@/components/buttons/QuantityButton';
+import { useUserMyCardsQuery } from '@/lib/reactQuery/useUser';
 
 export default function Index() {
   const [purchaseModal, setPurchaseModal] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
   const [exchangeDetailModal, setExchangeDetailModal] = useState(false);
+  const { data, isLoading, error } = useUserMyCardsQuery({ initialData: [] });
+
+  console.log(data);
 
   const purchaseModalClick = () => {
     setExchangeDetailModal(false);
