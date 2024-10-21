@@ -7,15 +7,26 @@ import ModalContainer from "@/components/modal/ModalContainer";
 import CardList from "@/components/modal/contents/CardList";
 import { useState } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
+import { useShopCards } from "@/lib/reactQuery/useShop";
 
 export default function Home() {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
   const genres = ["풍경", "여행", "인물", "사물"];
   const sales = ["판매 중", "판매 완료"];
   const soltOptions = ["최신 순", "오래된 순", "높은 가격순", "낮은 가격순"];
-
   const [showMyGallery, setShowMyGallery] = useState(false);
   const [sellMyCard, setSellMyCard] = useState(false);
+  const [params, setParams] = useState({
+    sort: "recent",
+    genre: "",
+    sellout: "",
+    grade: "",
+    pageNum: 1,
+    pageSize: 9,
+    keyword: "",
+  });
+
+  const { data, isLoading, error } = useShopCards(params);
 
   const myGalleryModalClick = () => {
     setShowMyGallery(!showMyGallery);
@@ -26,6 +37,11 @@ export default function Home() {
     setShowMyGallery(false);
     setSellMyCard(!sellMyCard);
   };
+
+  console.log(data);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
@@ -66,8 +82,8 @@ export default function Home() {
           />
         </div>
         <div className={styles["home-main-card-grid"]}>
-          {Array.from({ length: 18 }).map((_, index) => (
-            <Card key={index} />
+          {data.shops.map((item, index) => (
+            <Card key={index} item={item} />
           ))}
         </div>
       </div>
