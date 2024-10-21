@@ -3,12 +3,29 @@ import Card from "@/components/cards/Card.js";
 import Button from "@/components/buttons/Button";
 import Input from "@/components/inputs/Input.jsx";
 import Dropdown from "@/components/dropdowns/Dropdown";
+import ModalContainer from "@/components/modal/ModalContainer";
+import CardList from "@/components/modal/contents/CardList";
+import { useState } from "react";
+import CardSell from "@/components/modal/contents/CardSell";
 
 export default function Home() {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
   const genres = ["풍경", "여행", "인물", "사물"];
   const sales = ["판매 중", "판매 완료"];
   const soltOptions = ["최신 순", "오래된 순", "높은 가격순", "낮은 가격순"];
+
+  const [showMyGallery, setShowMyGallery] = useState(false);
+  const [sellMyCard, setSellMyCard] = useState(false);
+
+  const myGalleryModalClick = () => {
+    setShowMyGallery(!showMyGallery);
+    setSellMyCard(false);
+  };
+
+  const sellModalClick = () => {
+    setShowMyGallery(false);
+    setSellMyCard(!sellMyCard);
+  };
 
   return (
     <>
@@ -17,6 +34,7 @@ export default function Home() {
         <Button
           children={"나의 포토카드 판매하기"}
           style={"thin-main-440px-60px"}
+          onClick={myGalleryModalClick}
         />
       </div>
       <div className={styles["home-main-container"]}>
@@ -53,6 +71,23 @@ export default function Home() {
           ))}
         </div>
       </div>
+      {showMyGallery && (
+        <ModalContainer
+          onClick={myGalleryModalClick}
+          children={
+            <CardList
+              title={"나의 포토카드 판매하기"}
+              onClick={sellModalClick}
+            />
+          }
+        />
+      )}
+      {sellMyCard && (
+        <ModalContainer
+          onClick={sellModalClick}
+          children={<CardSell myGalleryModalClick={myGalleryModalClick} />}
+        />
+      )}
     </>
   );
 }
