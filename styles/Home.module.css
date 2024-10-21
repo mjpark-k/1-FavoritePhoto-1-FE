@@ -19,3 +19,26 @@
   width: 1480px;
   margin: 20px auto 0;
 }
+
+.home-main-container-nav {
+  display: flex;
+}
+
+.home-main-container-dropdowns {
+  display: flex;
+  gap: 45px;
+  margin-left: 60px;
+  align-items: center;
+}
+
+.home-main-container-nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-main-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 80px;
+  margin-top: 60px;
+}

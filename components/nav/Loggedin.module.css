@@ -16,11 +16,22 @@
   height: 24px;
 }
 
+.nickname-container {
+  position: relative;
+}
+
 .nickname {
   font-family: "baskinRobbins";
   font-size: 18px;
   line-height: 18.43px;
   cursor: pointer;
+}
+
+.user-drop {
+  position: absolute; /* nickname 아래에 위치 */
+  top: 100%; /* nickname 바로 아래에 배치 */
+  right: 0;
+  margin-top: 5px;
 }
 
 .line {
@@ -58,5 +69,12 @@
 
   .logout {
     display: none;
+  }
+  .user-drop {
+    margin-top: 0;
+    position: fixed; /* 고정 위치 */
+    left: 0;
+    top: 0;
+    width: 100%;
   }
 }
