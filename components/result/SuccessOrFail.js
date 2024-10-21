@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import Button from "../buttons/Button";
-import styles from "./SuccessOrFail.module.css";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import classNames from 'classnames';
+import Button from '../buttons/Button';
+import styles from './SuccessOrFail.module.css';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 /**
  * 
@@ -42,10 +42,10 @@ export default function SuccessOrFail({
       setIsMobile(window.innerWidth <= 743); // 모바일 뷰 기준 너비 743px 이하일 때 true
     };
     handleResize(); // 컴포넌트가 마운트될 때 한 번 실행
-    window.addEventListener("resize", handleResize); // 창 크기 변경시 실행
+    window.addEventListener('resize', handleResize); // 창 크기 변경시 실행
 
     return () => {
-      window.removeEventListener("resize", handleResize); // 이벤트 리스너 해제
+      window.removeEventListener('resize', handleResize); // 이벤트 리스너 해제
     };
   }, []);
 
@@ -53,39 +53,39 @@ export default function SuccessOrFail({
     [styles[style]]: style,
   });
 
-  const resultKorean = style === "success" ? "성공" : "실패";
+  const resultKorean = style === 'success' ? '성공' : '실패';
 
-  const resultSetence = style === "success" ? "했습니다!" : "했습니다.";
+  const resultSetence = style === 'success' ? '했습니다!' : '했습니다.';
 
   const toPath = () => {
-    if (button === "나의 판매 포토카드에서 확인하기") {
-      return "/mysales";
-    } else if (button === "마켓플레이스로 돌아가기") {
-      return "/market";
+    if (button === '나의 판매 포토카드에서 확인하기') {
+      return '/mysales';
+    } else if (button === '마켓플레이스로 돌아가기') {
+      return '/market';
     } else if (
-      button === "마이갤러리에서 확인하기" ||
-      button === "마이갤러리로 돌아가기"
+      button === '마이갤러리에서 확인하기' ||
+      button === '마이갤러리로 돌아가기'
     ) {
-      return "/mygallery";
+      return '/mygallery';
     } else {
-      return "/";
+      return '/';
     }
   };
 
   return (
-    <div className={styles["center"]}>
-      <div className={styles["container"]}>
-        <div className={styles["title"]}>
+    <div className={styles['center']}>
+      <div className={styles['container']}>
+        <div className={styles['title']}>
           {task} <span className={resultClass}>{resultKorean}</span>
         </div>
-        <div className={styles["content"]}>
-          {grade && `[${grade} | ${name}]`} {quantity && `${quantity}장`}{" "}
+        <div className={styles['content']}>
+          {grade && `[${grade} | ${name}]`} {quantity && `${quantity}장`}{' '}
           {isMobile && <br />}
           {task}에 {resultKorean}
           {resultSetence}
         </div>
         <Link href={toPath()}>
-          <Button children={button} style={"thin-black-440px-60px"} />
+          <Button text={button} style={'thin-black-440px-60px'} />
         </Link>
       </div>
     </div>
