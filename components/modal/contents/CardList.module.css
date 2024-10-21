@@ -8,7 +8,7 @@
 }
 
 .market-place {
-  font-family: 'baskinRobbins';
+  font-family: "baskinRobbins";
   font-size: 1.5rem;
   font-weight: 400;
   color: var(--gray-300);
@@ -16,7 +16,7 @@
 }
 
 .title {
-  font-family: 'baskinRobbins';
+  font-family: "baskinRobbins";
   height: 78px;
   font-size: 2.875rem;
   font-weight: 400;
@@ -25,9 +25,17 @@
   margin-top: 40px;
 }
 
-.search-sort-container {
+.search-dropdown-container {
+  display: flex;
   width: 920px;
   margin-top: 20px;
+}
+
+.dropdown-container {
+  display: flex;
+  gap: 45px;
+  margin-left: 60px;
+  align-items: center;
 }
 
 .card-list {
