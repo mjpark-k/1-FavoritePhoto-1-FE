@@ -46,7 +46,7 @@ export default function Home() {
       <div className={styles["home-nav"]}>
         <div className={styles["home-title"]}>마켓플레이스</div>
         <Button
-          children={"나의 포토카드 판매하기"}
+          text={"나의 포토카드 판매하기"}
           style={"thin-main-440px-60px"}
           onClick={myGalleryModalClick}
         />
@@ -88,7 +88,7 @@ export default function Home() {
       {showMyGallery && (
         <ModalContainer
           onClick={myGalleryModalClick}
-          children={
+          text={
             <CardList
               title={"나의 포토카드 판매하기"}
               onClick={sellModalClick}
