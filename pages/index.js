@@ -97,10 +97,9 @@ export default function Home() {
         />
       )}
       {sellMyCard && (
-        <ModalContainer
-          onClick={sellModalClick}
-          children={<CardSell myGalleryModalClick={myGalleryModalClick} />}
-        />
+        <ModalContainer onClick={sellModalClick}>
+          <CardSell myGalleryModalClick={myGalleryModalClick} />
+        </ModalContainer>
       )}
     </>
   );

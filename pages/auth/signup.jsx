@@ -48,7 +48,9 @@ export default function Signup() {
     <>
       <form className={styles['form']}>
         <div className={styles['logo']}>
-          <Image src={'/logo.svg'} fill />
+          <Link href={'/'}>
+            <Image src={'/logo.svg'} fill alt="logo" />
+          </Link>
         </div>
         <div className={styles['email-password-container']}>
           <div>
@@ -119,12 +121,12 @@ export default function Signup() {
         </div>
         <Button
           style={'thin-main-520px'}
-          children={'로그인'}
+          text={'로그인'}
           onClick={handleSignup}
         />
         <div className={styles['signup-text']}>
           <div>이미 최애의 포토 회원이신가요?</div>
-          <Link href={'/login'} className={styles['signup-link']}>
+          <Link href={'/auth/login'} className={styles['signup-link']}>
             로그인하기
           </Link>
         </div>

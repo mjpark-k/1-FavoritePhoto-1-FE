@@ -16,10 +16,7 @@ export default function mygallery() {
         <div className={styles["mygallery-nav"]}>
           <div className={styles["mygallery-title"]}>마이갤러리</div>
           <Link href="/mygallery/createcard">
-            <Button
-              children={"포토카드 생성하기"}
-              style={"thin-main-440px-60px"}
-            />
+            <Button text={"포토카드 생성하기"} style={"thin-main-440px-60px"} />
           </Link>
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
@@ -71,11 +68,9 @@ export default function mygallery() {
         </div>
       </div>
       <div className={styles["mygallery-main-card-grid"]}>
-        {Array.from({ length: 18 }).map((_, index) => (
-          <Link href="/mygallery/detail">
-            <Card key={index} />
-          </Link>
-        ))}
+        <Link href="/mygallery/detail">
+          <Card />
+        </Link>
       </div>
     </>
   );

@@ -35,7 +35,9 @@ export default function Signin() {
   return (
     <form className={styles['form']}>
       <div className={styles['logo']}>
-        <Image src={'/logo.svg'} fill />
+        <Link href={'/'}>
+          <Image src={'/logo.svg'} fill alt="logo" />
+        </Link>
       </div>
       <div className={styles['email-password-container']}>
         <div>
@@ -72,12 +74,12 @@ export default function Signin() {
       </div>
       <Button
         style={'thin-main-520px'}
-        children={'로그인'}
+        text={'로그인'}
         onClick={handleSignin}
       />
       <div className={styles['signup-text']}>
         <div>최애의 포토가 처음이신가요?</div>
-        <Link href={'/signup'} className={styles['signup-link']}>
+        <Link href={'/auth/signup'} className={styles['signup-link']}>
           회원가입하기
         </Link>
       </div>
