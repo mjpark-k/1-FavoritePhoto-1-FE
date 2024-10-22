@@ -3,7 +3,7 @@ import styles from "@/components/cards/Card.module.css";
 import Image from "next/image";
 import GradeCategory from "./info/GradeCategory";
 
-export default function Card({ onClick, item }) {
+export default function Card({ onClick, card }) {
   const router = useRouter();
   const { pathname } = router;
 
@@ -22,22 +22,22 @@ export default function Card({ onClick, item }) {
           <div className={styles["card-state"]}>판매 중</div>
         )}
         <div className={styles["card-information"]}>
-          <p className={styles["card-title"]}>{item.name}</p>
+          <p className={styles["card-title"]}>{card.name}</p>
           <div className={styles["card-information-wrapper"]}>
             <GradeCategory style={"small"} />
-            <p className={styles["card-nickname"]}>{item.creatorNickname}</p>
+            <p className={styles["card-nickname"]}>{card.creatorNickname}</p>
           </div>
         </div>
         <div className={styles["card-price-wrapper"]}>
           <p className={styles["card-price-tag"]}>가격</p>
-          <p className={styles["card-price"]}>{item.price} P</p>
+          <p className={styles["card-price"]}>{card.price} P</p>
         </div>
         <div className={styles["card-stock-wrapper"]}>
           <p className={styles["card-stock-tag"]}>잔여</p>
           <p className={styles["card-stock"]}>
-            {item.remainingQuantity}
+            {card.remainingQuantity}
             <span className={styles["card-stock-denominator"]}>
-              / {item.totalQuantity}
+              / {card.totalQuantity}
             </span>
           </p>
         </div>

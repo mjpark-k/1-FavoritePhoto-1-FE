@@ -38,8 +38,6 @@ export default function Home() {
     setSellMyCard(!sellMyCard);
   };
 
-  console.log(data);
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -82,8 +80,8 @@ export default function Home() {
           />
         </div>
         <div className={styles["home-main-card-grid"]}>
-          {data.shops.map((item, index) => (
-            <Card key={index} item={item} />
+          {data.shops.map((card, index) => (
+            <Card key={index} card={card} />
           ))}
         </div>
       </div>
