@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useUsersShop } from "@/lib/reactQuery/useUsersShop";
 import styles from "@/styles/Mygallery.module.css";
 import Dropdown from "@/components/dropdowns/Dropdown";
 import Input from "@/components/inputs/Input";
@@ -75,8 +77,8 @@ export default function mygallery() {
         </div>
       </div>
       <div className={styles["mygallery-main-card-grid"]}>
-        {Array.from({ length: 18 }).map((_, index) => (
-          <Card key={index} />
+        {cardData.map((card, index) => (
+          <Card key={index} card={card} />
         ))}
       </div>
     </>

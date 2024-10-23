@@ -12,20 +12,16 @@ export default function mygallery() {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
   const genres = ["풍경", "여행", "인물", "사물"];
   const [params, setParams] = useState({
-    genre: "1",
-    grade: "",
+    genre: "",
+    grade: "2",
     pageNum: 1,
     pageSize: 9,
-    keyWord: "붉은",
+    keyword: "붉은",
   });
 
   const { data, isLoading, error } = useUsersMyCardsQuery(params);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-
-  const cardData = data.data.cards;
-
-  console.log(data);
 
   return (
     <>
@@ -103,7 +99,7 @@ export default function mygallery() {
         href="/mygallery/detail"
         className={styles["mygallery-main-card-grid"]}
       >
-        {cardData.map((card, index) => (
+        {data.data.cards.map((card, index) => (
           <Card key={index} card={card} />
         ))}
       </Link>
