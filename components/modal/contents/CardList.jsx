@@ -3,7 +3,13 @@ import Dropdown from '@/components/dropdowns/Dropdown';
 import Input from '@/components/inputs/Input';
 import styles from '@/components/modal/contents/CardList.module.css';
 
-export default function CardList({ title, onClick }) {
+/**
+ * - const { data, isLoading, error } = useUsersMyCardsQuery({ id }); *id = userId 현재접속중인유저 zustand관리
+ * @param data
+ * @param isLoading
+ * @param error
+ */
+export default function CardList({ data, isLoading, error, title, onClick }) {
   const grades = ['COMMON', 'RARE', 'SUPER RARE', 'LEGENDARY'];
   const genres = ['풍경', '여행', '인물', '사물'];
 
