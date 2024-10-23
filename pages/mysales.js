@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUsersShop } from "@/lib/reactQuery/useUsersShop";
+import { getUsersShop } from "@/lib/api/users.js";
 import styles from "@/styles/Mygallery.module.css";
 import Dropdown from "@/components/dropdowns/Dropdown";
 import Input from "@/components/inputs/Input";
@@ -12,6 +12,22 @@ export default function mygallery() {
   const saleMethods = ["판매 중", "교환 제시 대기 중"];
   const sales = ["판매 중", "판매 완료"];
 
+  const [params, setParams] = useState({
+    sort: "recent",
+    genre: "",
+    sellout: false,
+    grade: "",
+    ownerId: "",
+    pageNum: 1,
+    pageSize: 9,
+    keyword: "",
+  });
+
+  const { data, isLoading, error } = getUsersShop(params);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  console.log(data);
   return (
     <>
       <div className={styles["mygallery-nav-wrapper"]}>
@@ -76,11 +92,7 @@ export default function mygallery() {
           </div>
         </div>
       </div>
-      <div className={styles["mygallery-main-card-grid"]}>
-        {cardData.map((card, index) => (
-          <Card key={index} card={card} />
-        ))}
-      </div>
+      <div className={styles["mygallery-main-card-grid"]}></div>
     </>
   );
 }

@@ -4,10 +4,28 @@
   gap: 15px;
 }
 
-.medium > .grade {
+.medium > .common {
+  font-size: 1.5rem;
+  font-weight: 700px;
+  color: var(--main);
+}
+
+.medium > .rare {
   font-size: 1.5rem;
   font-weight: 700px;
   color: var(--blue);
+}
+
+.medium > .super-rare {
+  font-size: 1.5rem;
+  font-weight: 700px;
+  color: var(--purple);
+}
+
+.medium > .legendary {
+  font-size: 1.5rem;
+  font-weight: 700px;
+  color: var(--pink);
 }
 
 .medium > .bar {
@@ -22,10 +40,28 @@
   color: var(--gray-300);
 }
 
-.small > .grade {
+.small > .common {
+  font-size: 1rem;
+  font-weight: 400px;
+  color: var(--main);
+}
+
+.small > .rare {
   font-size: 1rem;
   font-weight: 400px;
   color: var(--blue);
+}
+
+.small > .super-rare {
+  font-size: 1rem;
+  font-weight: 400px;
+  color: var(--purple);
+}
+
+.small > .legendary {
+  font-size: 1rem;
+  font-weight: 400px;
+  color: var(--pink);
 }
 
 .small > .bar {
