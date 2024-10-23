@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useUsersMyCardsQuery } from "@/lib/reactQuery/useUsers";
 import styles from "@/styles/Mygallery.module.css";
 import Button from "@/components/buttons/Button";
 import Dropdown from "@/components/dropdowns/Dropdown";
@@ -9,6 +11,21 @@ import Link from "next/link";
 export default function mygallery() {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
   const genres = ["풍경", "여행", "인물", "사물"];
+  const [params, setParams] = useState({
+    genre: "1",
+    grade: "",
+    pageNum: 1,
+    pageSize: 9,
+    keyWord: "붉은",
+  });
+
+  const { data, isLoading, error } = useUsersMyCardsQuery(params);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  const cardData = data.data.cards;
+
+  console.log(data);
 
   return (
     <>
@@ -22,7 +39,9 @@ export default function mygallery() {
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
             유디님이 보유한 포토카드
-            <span className={styles["mygallery-grade-box-count"]}>(40장)</span>
+            <span className={styles["mygallery-grade-box-count"]}>
+              ({data.data.totalCount})
+            </span>
           </p>
           <div className={styles["mygallery-grade-box-container"]}>
             <div
@@ -31,7 +50,10 @@ export default function mygallery() {
                 styles["common"]
               )}
             >
-              COMMON<span>20장</span>
+              COMMON
+              <span className={styles["mygallery-grade-box-text"]}>
+                {data.data.countsGroupByGrade[0]}장
+              </span>
             </div>
             <div
               className={classNames(
@@ -39,7 +61,10 @@ export default function mygallery() {
                 styles["rare"]
               )}
             >
-              RARE<span>20장</span>
+              RARE
+              <span className={styles["mygallery-grade-box-text"]}>
+                {data.data.countsGroupByGrade[1]}장
+              </span>
             </div>
             <div
               className={classNames(
@@ -47,7 +72,10 @@ export default function mygallery() {
                 styles["super-rare"]
               )}
             >
-              SUPER RARE<span>20장</span>
+              SUPER RARE
+              <span className={styles["mygallery-grade-box-text"]}>
+                {data.data.countsGroupByGrade[2]}장
+              </span>
             </div>
             <div
               className={classNames(
@@ -55,7 +83,10 @@ export default function mygallery() {
                 styles["legendary"]
               )}
             >
-              LEGENDARY<span>20장</span>
+              LEGENDARY
+              <span className={styles["mygallery-grade-box-text"]}>
+                {data.data.countsGroupByGrade[3]}장
+              </span>
             </div>
           </div>
         </div>
@@ -67,11 +98,15 @@ export default function mygallery() {
           </div>
         </div>
       </div>
-      <div className={styles["mygallery-main-card-grid"]}>
-        <Link href="/mygallery/detail">
-          <Card />
-        </Link>
-      </div>
+
+      <Link
+        href="/mygallery/detail"
+        className={styles["mygallery-main-card-grid"]}
+      >
+        {cardData.map((card, index) => (
+          <Card key={index} card={card} />
+        ))}
+      </Link>
     </>
   );
 }

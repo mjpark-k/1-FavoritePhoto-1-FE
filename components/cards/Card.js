@@ -7,11 +7,13 @@ export default function Card({ onClick, card }) {
   const router = useRouter();
   const { pathname } = router;
 
+  const isInMyGallery = window.location.pathname.includes("/mygallery");
+
   return (
     <>
       <div className={styles["card-container"]} onClick={onClick}>
         <Image
-          src="/card-default-img.svg"
+          src={card.image}
           className={styles["card-image"]}
           width={360}
           height={270}
@@ -24,7 +26,7 @@ export default function Card({ onClick, card }) {
         <div className={styles["card-information"]}>
           <p className={styles["card-title"]}>{card.name}</p>
           <div className={styles["card-information-wrapper"]}>
-            <GradeCategory style={"small"} />
+            <GradeCategory style={"small"} card={card} />
             <p className={styles["card-nickname"]}>{card.creatorNickname}</p>
           </div>
         </div>
@@ -35,10 +37,12 @@ export default function Card({ onClick, card }) {
         <div className={styles["card-stock-wrapper"]}>
           <p className={styles["card-stock-tag"]}>잔여</p>
           <p className={styles["card-stock"]}>
-            {card.remainingQuantity}
-            <span className={styles["card-stock-denominator"]}>
-              / {card.totalQuantity}
-            </span>
+            {isInMyGallery ? card.quantity : card.remainingQuantity}
+            {!isInMyGallery && (
+              <span className={styles["card-stock-denominator"]}>
+                / {card.totalQuantity}
+              </span>
+            )}
           </p>
         </div>
         <Image
