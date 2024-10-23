@@ -1,9 +1,9 @@
-import classNames from "classnames";
-import Image from "next/image";
-import styles from "./QuantityButton.module.css";
-import plus from "@/public/plus-icon.svg";
-import minus from "@/public/minus-icon.svg";
-import { useState } from "react";
+import classNames from 'classnames';
+import Image from 'next/image';
+import styles from './QuantityButton.module.css';
+import plus from '@/public/plus-icon.svg';
+import minus from '@/public/minus-icon.svg';
+import { useState } from 'react';
 
 /**
  * @param style
@@ -13,11 +13,10 @@ import { useState } from "react";
  * ex) <QuantityButton style={"width-176px"}/>
  */
 
-export default function QuantityButton({ style }) {
+export default function QuantityButton({ style, setNum, num }) {
   const QuantityWidth = classNames({
     [styles[style]]: style,
   });
-  const [num, setNum] = useState(1);
 
   const handlePlus = () => {
     setNum(num + 1);
@@ -33,14 +32,14 @@ export default function QuantityButton({ style }) {
     <div className={QuantityWidth}>
       <Image
         src={minus}
-        className={styles["sign"]}
+        className={styles['sign']}
         onClick={handleMinus}
         alt="minus"
       />
       <span>{num}</span>
       <Image
         src={plus}
-        className={styles["sign"]}
+        className={styles['sign']}
         onClick={handlePlus}
         alt="plus"
       />

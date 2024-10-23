@@ -15,6 +15,7 @@ export default function DefaultContent({
   title,
   content,
   buttonContent,
+  onClick,
 }) {
   const contentClass = classNames({
     [styles[style]]: style,
@@ -25,7 +26,11 @@ export default function DefaultContent({
       <div className={styles['title']}>{title}</div>
       <div className={styles['content']}>{content}</div>
       <div className={styles['button']}>
-        <Button text={buttonContent} style={'thin-main-170px'} />
+        <Button
+          text={buttonContent}
+          style={'thin-main-170px'}
+          onClick={onClick}
+        />
       </div>
     </div>
   );
