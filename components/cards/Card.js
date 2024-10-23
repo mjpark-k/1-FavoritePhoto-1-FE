@@ -26,7 +26,12 @@ export default function Card({ onClick, card }) {
         <div className={styles["card-information"]}>
           <p className={styles["card-title"]}>{card.name}</p>
           <div className={styles["card-information-wrapper"]}>
-            <GradeCategory style={"small"} card={card} />
+            <GradeCategory
+              style={"small"}
+              card={card}
+              grade={card.grade}
+              genre={card.genre}
+            />
             <p className={styles["card-nickname"]}>{card.creatorNickname}</p>
           </div>
         </div>

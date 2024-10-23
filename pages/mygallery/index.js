@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUsersMyCardsQuery } from "@/lib/reactQuery/useUsers";
+import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
 import styles from "@/styles/Mygallery.module.css";
 import Button from "@/components/buttons/Button";
 import Dropdown from "@/components/dropdowns/Dropdown";
@@ -13,13 +13,13 @@ export default function mygallery() {
   const genres = ["풍경", "여행", "인물", "사물"];
   const [params, setParams] = useState({
     genre: "",
-    grade: "2",
+    grade: "",
     pageNum: 1,
     pageSize: 9,
-    keyword: "붉은",
+    keyword: "",
   });
 
-  const { data, isLoading, error } = useUsersMyCardsQuery(params);
+  const { data, isLoading, error } = useUsersMyCardListQuery(params);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -48,7 +48,10 @@ export default function mygallery() {
             >
               COMMON
               <span className={styles["mygallery-grade-box-text"]}>
-                {data.data.countsGroupByGrade[0]}장
+                {!data.data.countsGroupByGrade[0]
+                  ? 0
+                  : data.data.countsGroupByGrade[0]}
+                장
               </span>
             </div>
             <div
@@ -59,7 +62,10 @@ export default function mygallery() {
             >
               RARE
               <span className={styles["mygallery-grade-box-text"]}>
-                {data.data.countsGroupByGrade[1]}장
+                {!data.data.countsGroupByGrade[1]
+                  ? 0
+                  : data.data.countsGroupByGrade[1]}
+                장
               </span>
             </div>
             <div
@@ -70,7 +76,10 @@ export default function mygallery() {
             >
               SUPER RARE
               <span className={styles["mygallery-grade-box-text"]}>
-                {data.data.countsGroupByGrade[2]}장
+                {!data.data.countsGroupByGrade[2]
+                  ? 0
+                  : data.data.countsGroupByGrade[2]}
+                장
               </span>
             </div>
             <div
@@ -81,7 +90,10 @@ export default function mygallery() {
             >
               LEGENDARY
               <span className={styles["mygallery-grade-box-text"]}>
-                {data.data.countsGroupByGrade[3]}장
+                {!data.data.countsGroupByGrade[3]
+                  ? 0
+                  : data.data.countsGroupByGrade[3]}
+                장
               </span>
             </div>
           </div>
