@@ -2,7 +2,7 @@ import Link from "next/link";
 import styles from "./UserDrop.module.css";
 import { useEffect, useRef } from "react";
 
-export default function UserDrop({ nickname, point, setUserDrop }) {
+export default function UserDrop({ nickname, point, setUserDrop, logout }) {
   const outRef = useRef(null);
 
   useEffect(() => {
@@ -13,11 +13,11 @@ export default function UserDrop({ nickname, point, setUserDrop }) {
       }
     };
 
-    document.addEventListener("click", handleClickOutside, true);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside, true);
+      document.removeEventListener("click", handleClickOutside);
     };
-  });
+  }, [setUserDrop]);
 
   return (
     <div className={styles["user-drop"]}>
@@ -38,7 +38,9 @@ export default function UserDrop({ nickname, point, setUserDrop }) {
               <span>나의 판매 포토카드</span>
             </Link>
           </div>
-          <span className={styles["logout"]}>로그아웃</span>
+          <span className={styles["logout"]} onClick={logout}>
+            로그아웃
+          </span>
         </div>
       </div>
     </div>
