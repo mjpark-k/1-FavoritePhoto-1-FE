@@ -121,7 +121,7 @@ export default function Signup() {
         </div>
         <Button
           style={'thin-main-520px'}
-          text={'로그인'}
+          text={'가입하기'}
           onClick={handleSignup}
         />
         <div className={styles['signup-text']}>
