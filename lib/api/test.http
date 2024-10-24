@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ###
 
-GET https://one-favoritephoto-1-be.onrender.com/users/my-cards?grade=-1
+GET https://one-favoritephoto-1-be.onrender.com/users/my-cards/c618558f-f82a-456e-bb98-62084afc7954%7D
 Content-Type: application/json
 
 ###

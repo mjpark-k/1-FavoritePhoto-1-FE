@@ -28,7 +28,6 @@ export default function Card({ onClick, card }) {
           <div className={styles["card-information-wrapper"]}>
             <GradeCategory
               style={"small"}
-              card={card}
               grade={card.grade}
               genre={card.genre}
             />

@@ -215,15 +215,17 @@ export default function mygallery() {
           </div>
         </div>
       </div>
-
-      <Link
-        href="/mygallery/detail"
-        className={styles["mygallery-main-card-grid"]}
-      >
-        {data.data.cards.map((card, index) => (
-          <Card key={index} card={card} />
+      <div className={styles["mygallery-main-card-grid"]}>
+        {data.data.cards.map((card) => (
+          <Link
+            key={card.id}
+            href={`/mygallery/${card.id}`}
+            className={styles["mygallery-main-card-grid-item"]}
+          >
+            <Card card={card} />
+          </Link>
         ))}
-      </Link>
+      </div>
     </>
   );
 }
