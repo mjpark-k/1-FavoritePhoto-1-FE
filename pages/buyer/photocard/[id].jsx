@@ -8,36 +8,16 @@ import DefaultContent from "@/components/modal/contents/DefaultContent";
 import CardList from "@/components/modal/contents/CardList";
 import CardExchange from "@/components/modal/contents/CardExchange";
 import QuantityButton from "@/components/buttons/QuantityButton";
-import { getShopCard } from "@/lib/api/shop";
+import { getSSRShopCard } from "@/lib/api/shop";
 import ButtonCard from "@/components/cards/ButtonCard";
 import { useUsersMyCardsQuery } from "@/lib/reactQuery/useUsers";
 
-import axios from "axios";
-
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  // const shopCard = await getShopCard(id);
 
-  // return {
-  //   props: {
-  //     card: shopCard.shopInfo,
-  //     exchangeInfo: shopCard.exchangeInfo,
-  //     exchangeList: shopCard.exchangeList,
-  //   },
-  // };
   console.log("getServerSideProps-context.req.headers : ", context.req.headers);
   const cookies = context.req.headers.cookie || "";
-
-  const response = await axios.get(`/shop/${id}`, {
-    baseURL: "http://localhost:3000/api",
-    headers: {
-      "Content-Type": "application/json",
-      Cookie: cookies,
-    },
-    withCredentials: true,
-  });
-
-  const shopCard = response.data;
+  const shopCard = await getSSRShopCard({ shopId: id, cookies });
 
   return {
     props: {
@@ -54,7 +34,7 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
   const [exchangeDetailModal, setExchangeDetailModal] = useState(false);
   const [num, setNum] = useState(1);
 
-  // const { data, isLoading, error } = useUsersMyCardsQuery({ id });
+  // 임시 주석 처리 const { data, isLoading, error } = useUsersMyCardsQuery({ id });
 
   const purchaseModalClick = () => {
     setExchangeDetailModal(false);
@@ -155,7 +135,7 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
             <div className={styles["title"]}>내가 제시한 교환 목록</div>
             <div className={styles["my-suggest-card-container"]}>
               {exchangeList.map((card) => (
-                <ButtonCard style={"cancel"} card={card} />
+                <ButtonCard style={"cancel"} card={card} key={card.id} />
               ))}
             </div>
           </div>
