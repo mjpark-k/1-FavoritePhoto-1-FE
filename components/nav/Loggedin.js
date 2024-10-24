@@ -3,21 +3,36 @@ import styles from "./Loggedin.module.css";
 import alarm from "@/public/alarm-icon.svg";
 import UserDrop from "./UserDrop";
 
-export default function Loggedin({ logout, onClick, userDrop, setUserDrop }) {
+export default function Loggedin({
+  logout,
+  onClick,
+  userDrop,
+  setUserDrop,
+  nickname,
+  point,
+}) {
+  const handleNicknameClick = (e) => {
+    e.stopPropagation();
+    onClick();
+  };
+
   return (
     <div className={styles["container"]}>
-      <span className={styles["points"]}>points</span>
+      <span className={styles["points"]}>
+        {point.toLocaleString("ko-KR")} P
+      </span>
       <Image src={alarm} className={styles["alarm"]} alt="alarm" />
       <div className={styles["nickname-container"]}>
-        <span className={styles["nickname"]} onClick={onClick}>
-          유디
+        <span className={styles["nickname"]} onClick={handleNicknameClick}>
+          {nickname}
         </span>
         <div className={styles["user-drop"]}>
           {userDrop && (
             <UserDrop
-              nickname={"유디"}
-              point={1052}
+              nickname={nickname}
+              point={point}
               setUserDrop={setUserDrop}
+              logout={logout}
             />
           )}
         </div>
