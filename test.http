@@ -1,0 +1,56 @@
+### sign-up 회원가입 테스트
+POST https://one-favoritephoto-1-be.onrender.com/auth/sign-up
+Content-Type: application/json
+
+{
+  "email" : "asdasd@naver.com",
+  "nickname" : "asdasdasd",
+  "password" : "asdasdasd"
+}
+
+### sign-in 로그인 테스트
+POST https://one-favoritephoto-1-be.onrender.com/auth/sign-in
+Content-Type: application/json
+
+{
+  "email" : "asdasd@naver.com",
+  "password" : "asdasdasd"
+}
+
+### sign-in 로그인 상점 주인
+POST https://one-favoritephoto-1-be.onrender.com/auth/sign-in
+Content-Type: application/json
+
+{
+    "email" : "codeit05@codeit.com",
+    "password" : "!codeit05"
+}
+### sign-in 로그인 교환 신청자 1 정보
+POST https://one-favoritephoto-1-be.onrender.com/auth/sign-in
+Content-Type: application/json
+
+{
+    "email" : "codeit03@codeit.com",
+    "password" : "!codeit03"
+}
+### sign-in 로그인 교환 신청자 1 정보
+POST https://one-favoritephoto-1-be.onrender.com/auth/sign-in
+Content-Type: application/json
+{
+    "email" : "codeit04@codeit.com",
+    "password" : "!codeit04"
+}
+
+### sign-out 로그아웃 테스트
+POST https://one-favoritephoto-1-be.onrender.com/auth/sign-out
+
+### shop 테스트
+GET https://one-favoritephoto-1-be.onrender.com/shop
+
+### shop 테스트
+GET https://one-favoritephoto-1-be.onrender.com/shop/8d444419-89d6-46b7-987c-89fc12f231aa
+
+### 상점 조회 API
+GET https://one-favoritephoto-1-be.onrender.com/shop/3860b272-c816-4f52-bf09-1e0227f639ee
+Content-Type : application/json
+Cookie: connect.sid=YOUR_SESSION_COOKIE_HERE

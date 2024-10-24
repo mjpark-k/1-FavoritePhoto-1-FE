@@ -31,7 +31,7 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
   const [exchangeDetailModal, setExchangeDetailModal] = useState(false);
   const [num, setNum] = useState(1);
 
-  const { data, isLoading, error } = useUsersMyCardsQuery({ id });
+  // const { data, isLoading, error } = useUsersMyCardsQuery({ id });
 
   const purchaseModalClick = () => {
     setExchangeDetailModal(false);
