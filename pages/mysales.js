@@ -1,15 +1,34 @@
+import { useState } from "react";
+import { useUsersShopQuery } from "@/lib/reactQuery/useUsers.js";
 import styles from "@/styles/Mygallery.module.css";
 import Dropdown from "@/components/dropdowns/Dropdown";
 import Input from "@/components/inputs/Input";
 import Card from "@/components/cards/Card";
 import classNames from "classnames";
+import useAuthStore from "@/store/useAuthStore";
 
-export default function mygallery() {
+export default function mysales() {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
   const genres = ["풍경", "여행", "인물", "사물"];
   const saleMethods = ["판매 중", "교환 제시 대기 중"];
   const sales = ["판매 중", "판매 완료"];
+  const { user } = useAuthStore();
 
+  const [params, setParams] = useState({
+    sort: "recent",
+    genre: "",
+    sellout: false,
+    grade: "",
+    pageNum: 1,
+    pageSize: 9,
+    keyword: "",
+  });
+
+  const { data, isLoading, error } = useUsersShopQuery(params);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  console.log(data.data);
   return (
     <>
       <div className={styles["mygallery-nav-wrapper"]}>
@@ -18,8 +37,10 @@ export default function mygallery() {
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
-            유디님이 보유한 포토카드
-            <span className={styles["mygallery-grade-box-count"]}>(40장)</span>
+            {user.data.nickname}님이 보유한 포토카드
+            <span className={styles["mygallery-grade-box-count"]}>
+              ({data.data.totalCount})
+            </span>
           </p>
           <div className={styles["mygallery-grade-box-container"]}>
             <div
@@ -28,7 +49,13 @@ export default function mygallery() {
                 styles["common"]
               )}
             >
-              COMMON<span>20장</span>
+              COMMON
+              <span className={styles["mygallery-grade-box-text"]}>
+                {!data.data.countsGroupByGrade[0]
+                  ? 0
+                  : data.data.countsGroupByGrade[0]}
+                장
+              </span>
             </div>
             <div
               className={classNames(
@@ -36,7 +63,13 @@ export default function mygallery() {
                 styles["rare"]
               )}
             >
-              RARE<span>20장</span>
+              RARE
+              <span className={styles["mygallery-grade-box-text"]}>
+                {!data.data.countsGroupByGrade[1]
+                  ? 0
+                  : data.data.countsGroupByGrade[1]}
+                장
+              </span>
             </div>
             <div
               className={classNames(
@@ -44,7 +77,13 @@ export default function mygallery() {
                 styles["super-rare"]
               )}
             >
-              SUPER RARE<span>20장</span>
+              SUPER RARE
+              <span className={styles["mygallery-grade-box-text"]}>
+                {!data.data.countsGroupByGrade[2]
+                  ? 0
+                  : data.data.countsGroupByGrade[2]}
+                장
+              </span>
             </div>
             <div
               className={classNames(
@@ -52,7 +91,13 @@ export default function mygallery() {
                 styles["legendary"]
               )}
             >
-              LEGENDARY<span>20장</span>
+              LEGENDARY
+              <span className={styles["mygallery-grade-box-text"]}>
+                {!data.data.countsGroupByGrade[3]
+                  ? 0
+                  : data.data.countsGroupByGrade[3]}
+                장
+              </span>
             </div>
           </div>
         </div>
@@ -75,8 +120,9 @@ export default function mygallery() {
         </div>
       </div>
       <div className={styles["mygallery-main-card-grid"]}>
-        {Array.from({ length: 18 }).map((_, index) => (
-          <Card key={index} />
+        {" "}
+        {data.data.shops.map((card, index) => (
+          <Card key={index} card={card} />
         ))}
       </div>
     </>
