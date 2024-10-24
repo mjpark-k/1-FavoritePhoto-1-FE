@@ -73,6 +73,10 @@
   line-height: 23.17px;
 }
 
+.mygallery-grade-box-text {
+  margin-left: 5px;
+}
+
 .common {
   color: var(--main);
   border: 1px solid var(--main);
