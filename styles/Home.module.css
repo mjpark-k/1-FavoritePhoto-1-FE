@@ -1,8 +1,12 @@
+.home-container {
+  width: 1480px;
+  margin: 0 auto;
+}
+
 .home-nav {
   display: flex;
   justify-content: space-between;
-  margin: 60px auto 0;
-  width: 1480px;
+  margin-top: 60px;
   border-bottom: 2px solid var(--gray-200);
   padding-bottom: 20px;
 }

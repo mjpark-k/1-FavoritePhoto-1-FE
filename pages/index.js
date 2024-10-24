@@ -16,6 +16,7 @@ export default function Home() {
   const soltOptions = ["최신 순", "오래된 순", "높은 가격순", "낮은 가격순"];
   const [showMyGallery, setShowMyGallery] = useState(false);
   const [sellMyCard, setSellMyCard] = useState(false);
+  const [inputValue, setInputValue] = useState("");
   const [params, setParams] = useState({
     sort: "recent",
     genre: "",
@@ -23,8 +24,28 @@ export default function Home() {
     grade: "",
     pageNum: 1,
     pageSize: 9,
-    keyword: "",
+    keyword: inputValue,
   });
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      setParams(() => ({
+        keyword: inputValue,
+        pageNum: 1,
+      }));
+    }
+  };
+
+  const handleClick = (e) => {
+    setParams(() => ({
+      keyword: inputValue,
+      pageNum: 1,
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
   const { data, isLoading, error } = useShopCards(params);
 
@@ -38,11 +59,58 @@ export default function Home() {
     setSellMyCard(!sellMyCard);
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className={styles["home-container"]}>
+        <div className={styles["home-nav"]}>
+          <div className={styles["home-title"]}>마켓플레이스</div>
+          <Button
+            text={"나의 포토카드 판매하기"}
+            style={"thin-main-440px-60px"}
+            onClick={myGalleryModalClick}
+          />
+        </div>
+        <div className={styles["home-main-container"]}>
+          <div className={styles["home-main-container-nav-wrapper"]}>
+            <div className={styles["home-main-container-nav"]}>
+              <Input
+                style={"search"}
+                option={"search"}
+                placeholder={"검색"}
+                onKeyPress={handleKeyPress}
+              />
+              <div className={styles["home-main-container-dropdowns"]}>
+                <Dropdown
+                  placeholder={"등급"}
+                  style={"default"}
+                  options={grades}
+                />
+                <Dropdown
+                  placeholder={"장르"}
+                  style={"default"}
+                  options={genres}
+                />
+                <Dropdown
+                  placeholder={"매진여부"}
+                  style={"default"}
+                  options={sales}
+                />
+              </div>
+            </div>
+            <Dropdown
+              placeholder={"낮은 가격순"}
+              style={"180"}
+              options={soltOptions}
+            />
+          </div>
+          loading
+        </div>
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <>
+    <div className={styles["home-container"]}>
       <div className={styles["home-nav"]}>
         <div className={styles["home-title"]}>마켓플레이스</div>
         <Button
@@ -54,7 +122,14 @@ export default function Home() {
       <div className={styles["home-main-container"]}>
         <div className={styles["home-main-container-nav-wrapper"]}>
           <div className={styles["home-main-container-nav"]}>
-            <Input style={"search"} option={"search"} placeholder={"검색"} />
+            <Input
+              style={"search"}
+              option={"search"}
+              placeholder={"검색"}
+              onKeyPress={handleKeyPress}
+              onClick={handleClick}
+              onChange={handleInputChange}
+            />
             <div className={styles["home-main-container-dropdowns"]}>
               <Dropdown
                 placeholder={"등급"}
@@ -79,11 +154,11 @@ export default function Home() {
             options={soltOptions}
           />
         </div>
-        <div className={styles["home-main-card-grid"]}>
-          {data.shops.map((card, index) => (
-            <Card key={index} card={card} />
-          ))}
-        </div>
+      </div>
+      <div className={styles["home-main-card-grid"]}>
+        {data.shops.map((card, index) => (
+          <Card key={index} card={card} />
+        ))}
       </div>
       {showMyGallery && (
         <ModalContainer
@@ -101,6 +176,6 @@ export default function Home() {
           <CardSell myGalleryModalClick={myGalleryModalClick} />
         </ModalContainer>
       )}
-    </>
+    </div>
   );
 }
