@@ -7,10 +7,12 @@ import Input from "@/components/inputs/Input";
 import Card from "@/components/cards/Card";
 import classNames from "classnames";
 import Link from "next/link";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function mygallery() {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
   const genres = ["풍경", "여행", "인물", "사물"];
+  const { user } = useAuthStore();
   const [params, setParams] = useState({
     genre: "",
     grade: "",
@@ -34,7 +36,7 @@ export default function mygallery() {
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
-            유디님이 보유한 포토카드
+            {user.data.nickname}님이 보유한 포토카드
             <span className={styles["mygallery-grade-box-count"]}>
               ({data.data.totalCount})
             </span>
