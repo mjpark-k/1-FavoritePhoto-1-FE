@@ -10,10 +10,6 @@ import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
 
 export default function Home() {
-  const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
-  const genres = ["풍경", "여행", "인물", "사물"];
-  const sales = ["판매 중", "판매 완료"];
-  const soltOptions = ["최신 순", "오래된 순", "높은 가격순", "낮은 가격순"];
   const [showMyGallery, setShowMyGallery] = useState(false);
   const [sellMyCard, setSellMyCard] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -78,32 +74,36 @@ export default function Home() {
                 option={"search"}
                 placeholder={"검색"}
                 onKeyPress={handleKeyPress}
+                onClick={handleClick}
+                onChange={handleInputChange}
               />
               <div className={styles["home-main-container-dropdowns"]}>
                 <Dropdown
                   placeholder={"등급"}
                   style={"default"}
-                  options={grades}
+                  options={"grades"}
+                  setParams={setParams}
                 />
                 <Dropdown
                   placeholder={"장르"}
                   style={"default"}
-                  options={genres}
+                  options={"genres"}
+                  setParams={setParams}
                 />
                 <Dropdown
                   placeholder={"매진여부"}
                   style={"default"}
-                  options={sales}
+                  options={"sales"}
+                  setParams={setParams}
                 />
               </div>
             </div>
             <Dropdown
               placeholder={"낮은 가격순"}
               style={"180"}
-              options={soltOptions}
+              options={"sortOptions"}
             />
           </div>
-          loading
         </div>
       </div>
     );
@@ -134,24 +134,28 @@ export default function Home() {
               <Dropdown
                 placeholder={"등급"}
                 style={"default"}
-                options={grades}
+                options={"grades"}
+                setParams={setParams}
               />
               <Dropdown
                 placeholder={"장르"}
                 style={"default"}
-                options={genres}
+                options={"genres"}
+                setParams={setParams}
               />
               <Dropdown
                 placeholder={"매진여부"}
                 style={"default"}
-                options={sales}
+                options={"sales"}
+                setParams={setParams}
               />
             </div>
           </div>
           <Dropdown
             placeholder={"낮은 가격순"}
             style={"180"}
-            options={soltOptions}
+            options={"sortOptions"}
+            setParams={setParams}
           />
         </div>
       </div>
