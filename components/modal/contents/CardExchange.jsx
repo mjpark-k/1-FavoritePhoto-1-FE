@@ -2,15 +2,17 @@ import Button from '@/components/buttons/Button';
 import Card from '@/components/cards/Card';
 import Input from '@/components/inputs/Input';
 import styles from '@/components/modal/contents/CardExchange.module.css';
+import useSelectedStore from '@/store/useSelectedStore';
 
-export default function CardExchange({ onClick }) {
+export default function CardExchange({ onClick, exchangeClick }) {
+  const { selectedCard } = useSelectedStore();
   return (
     <>
       <div className={styles['container']}>
         <div className={styles['card-exchange']}>포토카드 교환하기</div>
-        <div className={styles['title']}>데이터 제목</div>
+        <div className={styles['title']}>{selectedCard.name}</div>
         <div className={styles['exchange-container']}>
-          <Card />
+          <Card card={selectedCard} />
           <div className={styles['exchange-description']}>
             <div className={styles['exchange-description-title']}>
               교환 제시 내용
@@ -26,7 +28,11 @@ export default function CardExchange({ onClick }) {
                 text={'취소하기'}
                 onClick={onClick}
               />
-              <Button style={'thin-main-210px'} text={'교환하기'} />
+              <Button
+                style={'thin-main-210px'}
+                text={'교환하기'}
+                onClick={exchangeClick}
+              />
             </div>
           </div>
         </div>
