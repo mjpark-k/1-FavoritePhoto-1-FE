@@ -2,14 +2,14 @@ import Card from '@/components/cards/Card';
 import Dropdown from '@/components/dropdowns/Dropdown';
 import Input from '@/components/inputs/Input';
 import styles from '@/components/modal/contents/CardList.module.css';
+import { useUsersMyCardListQuery } from '@/lib/reactQuery/useUsers';
 
 /**
- * - const { data, isLoading, error } = useUsersMyCardsQuery({ id }); *id = userId 현재접속중인유저 zustand관리
  * @param data
- * @param isLoading
- * @param error
+ * @param title
+ * @param onClick
  */
-export default function CardList({ data, isLoading, error, title, onClick }) {
+export default function CardList({ data, title, onClick }) {
   const grades = ['COMMON', 'RARE', 'SUPER RARE', 'LEGENDARY'];
   const genres = ['풍경', '여행', '인물', '사물'];
 
@@ -26,7 +26,10 @@ export default function CardList({ data, isLoading, error, title, onClick }) {
           </div>
         </div>
         <div className={styles['card-list']}>
-          <Card onClick={onClick} />
+          {data &&
+            data.map((card) => (
+              <Card key={card.id} onClick={() => onClick(card)} card={card} />
+            ))}
         </div>
       </div>
     </>
