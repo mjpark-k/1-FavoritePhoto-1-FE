@@ -14,49 +14,45 @@ import Image from "next/image";
  * 2. "180" : 홈페이지 pc (낮은 가격순)
  * 3. "440" : 나의 포토카드 판매하기 pc (등급 장르)
  * 4. "520" : 포토카드 생성 pc (등급 장르)
- * @param setParams - setParams : requset params
+ * @param setParams - setParams : requset params (optional)
  */
+
+const optionArray = {
+  grades: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
+  genres: ["풍경", "인물", "동물", "정물", "추상", "기타"],
+  sales: ["판매 중", "판매 완료"],
+  sortOptions: ["최신 순", "오래된 순", "높은 가격순", "낮은 가격순"],
+};
+
+const getParamsByOption = (option, optionsType) => {
+  const selectedIndex = optionArray[optionsType]?.indexOf(option);
+
+  if (optionsType === "grades") return { grade: selectedIndex };
+  if (optionsType === "genres") return { genre: selectedIndex };
+  if (optionsType === "sales")
+    return { sellout: selectedIndex === 0 ? false : true };
+  if (optionsType === "sortOptions") {
+    const sortMap = ["recent", "oldest", "highest", "cheapest"];
+    return { sort: sortMap[selectedIndex] };
+  }
+  return {};
+};
 
 export default function Dropdown({ options, placeholder, style, setParams }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const dropdownRef = useRef(null);
 
-  const optionArray = {
-    grades: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
-    genres: ["풍경", "인물", "동물", "정물", "추상", "기타"],
-    sales: ["판매 중", "판매 완료"],
-    sortOptions: ["최신 순", "오래된 순", "높은 가격순", "낮은 가격순"],
-  };
-
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
 
-    if (optionArray[options]) {
-      const selectedIndex = optionArray[options].indexOf(option);
+    if (setParams) {
+      const updatedParams = getParamsByOption(option, options);
       setParams((prevParams) => ({
         ...prevParams,
-        grade: options === "grades" ? selectedIndex : prevParams.grade,
-        genre: options === "genres" ? selectedIndex : prevParams.genre,
-        sellout:
-          options === "sales"
-            ? selectedIndex === 0
-              ? false
-              : true
-            : prevParams.sellout,
-        sort:
-          options === "sortOptions" && selectedIndex === 0
-            ? "recent"
-            : options === "sortOptions" && selectedIndex === 1
-            ? "oldest"
-            : options === "sortOptions" && selectedIndex === 2
-            ? "highest"
-            : options === "sortOptions" && selectedIndex === 3
-            ? "cheapest"
-            : "recent",
+        ...updatedParams,
       }));
-      console.log(options);
     }
   };
 
