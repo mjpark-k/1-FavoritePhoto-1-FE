@@ -21,14 +21,20 @@ export default function Card({ onClick, card }) {
           priority
         />
         {pathname === "/mysales" && (
-          <div className={styles["card-state"]}>판매 중</div>
+          <div
+            className={styles["card-state"]}
+            style={{
+              color: card.hasExchangeRequest ? "var(--main)" : "inherit",
+            }}
+          >
+            {card.hasExchangeRequest ? "교환 제시 대기 중" : "판매 중"}
+          </div>
         )}
         <div className={styles["card-information"]}>
           <p className={styles["card-title"]}>{card.name}</p>
           <div className={styles["card-information-wrapper"]}>
             <GradeCategory
               style={"small"}
-              card={card}
               grade={card.grade}
               genre={card.genre}
             />
