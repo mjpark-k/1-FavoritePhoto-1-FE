@@ -180,7 +180,7 @@ export default function Home() {
               onClick={sellModalClick}
             />
           }
-        />
+        ></ModalContainer>
       )}
       {sellMyCard && (
         <ModalContainer onClick={sellModalClick}>
