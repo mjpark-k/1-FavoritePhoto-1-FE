@@ -8,6 +8,7 @@ import CardList from "@/components/modal/contents/CardList";
 import { useState } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
+import Loading from "@/components/loading/Loading";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -105,6 +106,9 @@ export default function Home() {
             />
           </div>
         </div>
+        <div className={styles["loading-container"]}>
+          <Loading />
+        </div>
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
@@ -163,6 +167,9 @@ export default function Home() {
         {data.shops.map((card, index) => (
           <Card key={index} card={card} />
         ))}
+      </div>
+      <div className={styles["scroll-loading-container"]}>
+        <Loading />
       </div>
       {showMyGallery && (
         <ModalContainer

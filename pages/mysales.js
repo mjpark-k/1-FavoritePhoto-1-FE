@@ -19,6 +19,7 @@ export default function mysales() {
     pageNum: 1,
     pageSize: 9,
     keyword: "",
+    hasExchangeRequest: "",
   });
 
   const { data, isLoading, error } = useUsersShopQuery(params);

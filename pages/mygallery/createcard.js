@@ -3,24 +3,67 @@ import Input from "@/components/inputs/Input";
 import Dropdown from "@/components/dropdowns/Dropdown";
 import Button from "@/components/buttons/Button";
 import { useState } from "react";
+import { getParamsByOption } from "@/hooks/useGetIndex/useGetIndex";
+import { getImageUrl } from "@/lib/api/image";
+import { usePostUsersMyCardsMutation } from "@/lib/reactQuery/useUsers";
+import { useRouter } from "next/router";
 
 export default function Createcard() {
+  const router = useRouter();
+  const [fileName, setFileName] = useState("");
   const [value, setValue] = useState({
     name: "",
+    description: "",
+    image: "",
     grade: "",
     genre: "",
     price: "",
     quantity: "",
-    image: "",
-    description: "",
   });
 
-  const handleChange = (field, newValue) => {
+  const handleDropdownChange = (option, optionsType) => {
     setValue((prev) => ({
       ...prev,
-      [field]: newValue,
+      ...getParamsByOption(option, optionsType),
     }));
   };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        const uploadResponse = await getImageUrl(file);
+        const imageUrl = uploadResponse.url;
+        setValue((prev) => ({
+          ...prev,
+          image: imageUrl,
+        }));
+        setFileName(file.name);
+      } catch (error) {
+        console.error("이미지 업로드 중 오류 발생:", error);
+      }
+    }
+  };
+
+  const handleButtonClick = () => {
+    document.getElementById("fileInput").click();
+  };
+
+  const { mutate } = usePostUsersMyCardsMutation();
+
+  const handleSubmit = () => {
+    const hasEmptyValue = Object.values(value).some((val) => val === "");
+    if (hasEmptyValue) {
+      alert("모든 필드를 채워주세요.");
+      return;
+    }
+    mutate(value, {
+      onSuccess: () => {
+        router.push("/mygallery");
+      },
+    });
+  };
+
   console.log(value);
 
   return (
@@ -34,7 +77,7 @@ export default function Createcard() {
             option={"default"}
             placeholder={"포토카드 이름을 입력해 주세요"}
             value={value.name}
-            onChange={(e) => handleChange("name", e.target.value)}
+            onChange={(e) => setValue({ ...value, name: e.target.value })}
           />
         </div>
         <div className={styles["create-card-input-wrapper"]}>
@@ -43,7 +86,7 @@ export default function Createcard() {
             placeholder={"등급을 선택해 주세요"}
             style={520}
             options={"grades"}
-            setParams={(newParams) => handleChange("grade", newParams)}
+            onChange={(option) => handleDropdownChange(option, "grades")}
           />
         </div>
         <div className={styles["create-card-input-wrapper"]}>
@@ -52,7 +95,7 @@ export default function Createcard() {
             placeholder={"장르를 선택해 주세요"}
             style={520}
             options={"genres"}
-            setParams={(newParams) => handleChange("genre", newParams.genre)}
+            onChange={(option) => handleDropdownChange(option, "genres")}
           />
         </div>
         <div className={styles["create-card-input-wrapper"]}>
@@ -62,7 +105,12 @@ export default function Createcard() {
             option={"default"}
             placeholder={"가격을 입력해 주세요"}
             value={value.price}
-            onChange={(e) => handleChange("price", e.target.value)}
+            onChange={(e) => {
+              const input = e.target.value;
+              if (/^\d*$/.test(input)) {
+                setValue({ ...value, price: parseInt(input) || 0 });
+              }
+            }}
           />
         </div>
         <div className={styles["create-card-input-wrapper"]}>
@@ -72,18 +120,38 @@ export default function Createcard() {
             option={"default"}
             placeholder={"총 발행량을 입력해 주세요"}
             value={value.quantity}
-            onChange={(e) => handleChange("quantity", e.target.value)}
+            onChange={(e) => {
+              const input = e.target.value;
+              if (/^\d*$/.test(input)) {
+                setValue({ ...value, quantity: parseInt(input) || 0 });
+              }
+            }}
           />
         </div>
         <div className={styles["create-card-input-wrapper"]}>
           <label className={styles["create-card-label"]}>사진 업로드</label>
           <div className={styles["create-card-input-upload-wrapper"]}>
             <input
-              placeholder={"사진 업로드"}
-              className={styles["create-card-input-upload"]}
-              onChange={(e) => handleChange("image", e.target.value)}
+              id="fileInput"
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
             />
-            <Button text={"파일 선택"} style={"thin-black-120px"} />
+
+            <div className={styles["create-card-input-upload"]}>
+              {fileName ? (
+                <span style={{ color: "white", fontWeight: "400" }}>
+                  {fileName}
+                </span>
+              ) : (
+                "사진 업로드"
+              )}
+            </div>
+            <Button
+              text={"파일 선택"}
+              style={"thin-black-120px"}
+              onClick={handleButtonClick}
+            />
           </div>
         </div>
         <div className={styles["create-card-input-wrapper"]}>
@@ -93,11 +161,17 @@ export default function Createcard() {
             option={"textarea"}
             placeholder={"카드 설명을 입력해 주세요"}
             value={value.description}
-            onChange={(e) => handleChange("description", e.target.value)}
+            onChange={(e) =>
+              setValue({ ...value, description: e.target.value })
+            }
           />
         </div>
         <div className={styles["create-card-btn"]}>
-          <Button style={"thin-main-520px"} text={"생성하기"} />
+          <Button
+            style={"thin-main-520px"}
+            text={"생성하기"}
+            onClick={handleSubmit}
+          />
         </div>
       </div>
     </div>

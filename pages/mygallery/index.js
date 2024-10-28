@@ -8,6 +8,7 @@ import Card from "@/components/cards/Card";
 import classNames from "classnames";
 import Link from "next/link";
 import useAuthStore from "@/store/useAuthStore";
+import Loading from "@/components/loading/Loading";
 
 export default function mygallery() {
   const { user } = useAuthStore();
@@ -16,7 +17,7 @@ export default function mygallery() {
     genre: "",
     grade: "",
     pageNum: 1,
-    pageSize: 9,
+    pageSize: 18,
     keyword: "",
   });
 
@@ -32,7 +33,8 @@ export default function mygallery() {
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
-            님이 보유한 포토카드
+            <span className={styles["loading-skeleton"]}></span>님이 보유한
+            포토카드
             <span className={styles["mygallery-grade-box-count"]}></span>
           </p>
           <div className={styles["mygallery-grade-box-container"]}>
@@ -91,6 +93,7 @@ export default function mygallery() {
             />
           </div>
         </div>
+        <Loading />
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
@@ -215,15 +218,17 @@ export default function mygallery() {
           </div>
         </div>
       </div>
-
-      <Link
-        href="/mygallery/detail"
-        className={styles["mygallery-main-card-grid"]}
-      >
-        {data.data.cards.map((card, index) => (
-          <Card key={index} card={card} />
+      <div className={styles["mygallery-main-card-grid"]}>
+        {data.data.cards.map((card) => (
+          <Link
+            key={card.id}
+            href={`/mygallery/${card.id}`}
+            className={styles["mygallery-main-card-grid-item"]}
+          >
+            <Card card={card} />
+          </Link>
         ))}
-      </Link>
+      </div>
     </>
   );
 }
