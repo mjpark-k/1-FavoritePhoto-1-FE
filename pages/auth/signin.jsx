@@ -6,11 +6,9 @@ import useAuthStore from '@/store/useAuthStore';
 import styles from '@/styles/signin.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export default function Signin() {
-  const router = useRouter();
   const { login } = useAuthStore();
   const [visibility, setVisibility] = useState(false);
   const {
@@ -30,23 +28,10 @@ export default function Signin() {
 
   const handleSignin = (e) => {
     e.preventDefault();
-    usePostSigninMutation.mutate(
-      {
-        email: emailValue,
-        password: passwordValue,
-      },
-      {
-        // 로그인 성공 시 홈페이지로 리다이렉트 및 사용자 데이터 저장
-        onSuccess: (data) => {
-          console.log('로그인 성공:', data);
-          login(data);
-          router.push('/'); // 성공 시 홈페이지로 이동
-        },
-        onError: (error) => {
-          alert(error.response.data.message);
-        },
-      }
-    );
+    usePostSigninMutation.mutate({
+      email: emailValue,
+      password: passwordValue,
+    });
   };
 
   return (
