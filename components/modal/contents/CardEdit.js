@@ -44,33 +44,33 @@ export default function CardEdit({ editModalClick, card, exchangeInfo }) {
   };
   console.log(updateData);
 
-  // const handleDropdownChange = (option, optionsType) => {
-  //   if (optionsType === "grades") {
-  //     setGrade((prev) => ({
-  //       ...prev,
-  //       ...getParamsByOption(option, optionsType),
-  //     }));
-  //   } else if (optionsType === "genres") {
-  //     setGenre((prev) => ({
-  //       ...prev,
-  //       ...getParamsByOption(option, optionsType),
-  //     }));
-  //   }
+  const handleDropdownChange = (option, optionsType) => {
+    if (optionsType === "grades") {
+      setGrade((prev) => ({
+        ...prev,
+        ...getParamsByOption(option, optionsType),
+      }));
+    } else if (optionsType === "genres") {
+      setGenre((prev) => ({
+        ...prev,
+        ...getParamsByOption(option, optionsType),
+      }));
+    }
+  };
+
+  // const handleGradeChange = (option, optionsType) => {
+  //   setGrade((prev) => ({
+  //     ...prev,
+  //     ...getParamsByOption(option, optionsType),
+  //   }));
   // };
 
-  const handleGradeChange = (option, optionsType) => {
-    setGrade((prev) => ({
-      ...prev,
-      ...getParamsByOption(option, optionsType),
-    }));
-  };
-
-  const handleGenreChange = (option, optionsType) => {
-    setGenre((prev) => ({
-      ...prev,
-      ...getParamsByOption(option, optionsType),
-    }));
-  };
+  // const handleGenreChange = (option, optionsType) => {
+  //   setGenre((prev) => ({
+  //     ...prev,
+  //     ...getParamsByOption(option, optionsType),
+  //   }));
+  // };
 
   // console.log(shop);
   // console.log(card);
@@ -141,7 +141,7 @@ export default function CardEdit({ editModalClick, card, exchangeInfo }) {
             placeholder={"등급"}
             style={"440"}
             options={"grades"}
-            onChange={(option) => handleGradeChange(option, "grades")}
+            onChange={(option) => handleDropdownChange(option, "grades")}
           />
         </div>
         <div className={styles["modal-position"]}>
@@ -150,7 +150,7 @@ export default function CardEdit({ editModalClick, card, exchangeInfo }) {
             placeholder={"장르"}
             style={"440"}
             options={"genres"}
-            onChange={(option) => handleGenreChange(option, "genres")}
+            onChange={(option) => handleDropdownChange(option, "genres")}
           />
         </div>
       </div>

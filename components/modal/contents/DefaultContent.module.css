@@ -24,6 +24,9 @@
   font-weight: 400;
   margin-top: 40px;
   color: var(--gray-300);
+  white-space: pre-line;
+  text-align: center;
+  line-height: 23.17px;
 }
 
 .button {

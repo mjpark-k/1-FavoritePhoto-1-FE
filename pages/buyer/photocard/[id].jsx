@@ -13,11 +13,16 @@ import ButtonCard from '@/components/cards/ButtonCard';
 import { useUsersMyCardListQuery } from '@/lib/reactQuery/useUsers';
 import useAuthStore from '@/store/useAuthStore';
 import useSelectedStore from '@/store/useSelectedStore';
-import { useCreateExchangeRequest } from '@/lib/reactQuery/useShop';
+import {
+  useCreateExchangeRequest,
+  usePurchaseShopCard,
+} from '@/lib/reactQuery/useShop';
+import { useDeleteExchange } from '@/lib/reactQuery/useExchange';
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const shopCard = await getShopCard({ shopId: id });
+  const cookies = context.req.headers.cookie || '';
+  const shopCard = await getShopCard({ shopId: id, cookies });
 
   return {
     props: {
@@ -32,11 +37,16 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
   const [purchaseModal, setPurchaseModal] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
   const [exchangeDetailModal, setExchangeDetailModal] = useState(false);
+  const [description, setDescription] = useState('');
   const [num, setNum] = useState(1);
 
   const { user } = useAuthStore();
   const { selectedCard, setSelectedCard, clearSelectedCard } =
     useSelectedStore();
+
+  const exchangeMutation = useCreateExchangeRequest();
+  const exchangeCancelMutation = useDeleteExchange();
+  const purchaseCardMuatation = usePurchaseShopCard();
 
   const { data, isLoading, error } = useUsersMyCardListQuery({
     sort: 'recent',
@@ -69,11 +79,24 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
   };
 
   const exchangeClick = () => {
-    useCreateExchangeRequest.mutate({
+    exchangeMutation.mutate({
       shopId: card.id,
       cardId: selectedCard.id,
-      description: '교환제시합니다.',
+      description: description,
     });
+  };
+
+  const exchangeOnChange = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const exchangeCancelClick = (card) => {
+    exchangeCancelMutation.mutate({ exchangedId: card.id });
+  };
+
+  const purchaseCardClick = () => {
+    purchaseCardMuatation.mutate({ shopId: card.id, purchaseQuantity: num });
+    setPurchaseModal(false);
   };
 
   return (
@@ -157,7 +180,12 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
             <div className={styles['title']}>내가 제시한 교환 목록</div>
             <div className={styles['my-suggest-card-container']}>
               {exchangeList.map((card) => (
-                <ButtonCard style={'cancel'} card={card} />
+                <ButtonCard
+                  key={card.id}
+                  style={'cancel'}
+                  card={card}
+                  onClick={() => exchangeCancelClick(card)}
+                />
               ))}
             </div>
           </div>
@@ -171,6 +199,7 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
             content={'구매하시겠습니까?'}
             buttonContent={'구매하기'}
             buttonStyle={'thin-main-170px'}
+            onClick={purchaseCardClick}
           />
         </ModalContainer>
       )}
@@ -194,6 +223,7 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
           <CardExchange
             onClick={exchangeModalClick}
             exchangeClick={exchangeClick}
+            onChange={exchangeOnChange}
           />
         </ModalContainer>
       )}
