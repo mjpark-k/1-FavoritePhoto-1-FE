@@ -1,8 +1,12 @@
+.home-container {
+  width: 1480px;
+  margin: 0 auto;
+}
+
 .home-nav {
   display: flex;
   justify-content: space-between;
-  margin: 60px auto 0;
-  width: 1480px;
+  margin-top: 60px;
   border-bottom: 2px solid var(--gray-200);
   padding-bottom: 20px;
 }
@@ -41,4 +45,14 @@
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 80px;
   margin-top: 60px;
+}
+
+.loading-container {
+  width: fit-content;
+  margin: 50% auto;
+}
+
+.scroll-loading-container {
+  width: fit-content;
+  margin: 60px auto;
 }

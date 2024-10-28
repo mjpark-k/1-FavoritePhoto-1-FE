@@ -1,5 +1,5 @@
-import styles from '@/components/cards/info/GradeCategory.module.css';
-import classNames from 'classnames';
+import styles from "@/components/cards/info/GradeCategory.module.css";
+import classNames from "classnames";
 
 /**
  * @param style
@@ -17,35 +17,35 @@ export default function GradeCategory({ style, grade, genre }) {
 
   const gradeText =
     grade === 0
-      ? 'COMMON'
+      ? "COMMON"
       : grade === 1
-      ? 'RARE'
+      ? "RARE"
       : grade === 2
-      ? 'SUPER RARE'
+      ? "SUPER RARE"
       : grade === 3
-      ? 'LEGENDARY'
-      : '등급정보없음';
+      ? "LEGENDARY"
+      : "등급정보없음";
 
   const genreText =
     genre === 0
-      ? '풍경'
+      ? "풍경"
       : genre === 1
-      ? '인물'
+      ? "인물"
       : genre === 2
-      ? '동물'
+      ? "동물"
       : genre === 3
-      ? '정물'
+      ? "정물"
       : genre === 4
-      ? '추상'
-      : '기타';
+      ? "추상"
+      : "기타";
 
   return (
     <div className={textStyle}>
-      <div className={styles[gradeText.replace(/\s+/g, '-').toLowerCase()]}>
+      <div className={styles[gradeText.replace(/\s+/g, "-").toLowerCase()]}>
         {gradeText}
       </div>
-      <div className={styles['bar']}>|</div>
-      <div className={styles['category']}>{genreText}</div>
+      <div className={styles["bar"]}>|</div>
+      <div className={styles["category"]}>{genreText}</div>
     </div>
   );
 }
