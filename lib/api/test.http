@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ###
 
-GET https://one-favoritephoto-1-be.onrender.com/users/my-cards
+GET https://one-favoritephoto-1-be.onrender.com/users/notifications
 
 ###
 

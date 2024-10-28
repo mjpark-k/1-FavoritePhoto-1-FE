@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./Loggedin.module.css";
 import alarm from "@/public/alarm-icon.svg";
 import UserDrop from "./UserDrop";
+import Notification from "../notification/Notification";
 
 export default function Loggedin({
   logout,
@@ -22,6 +23,7 @@ export default function Loggedin({
         {point.toLocaleString("ko-KR")} P
       </span>
       <Image src={alarm} className={styles["alarm"]} alt="alarm" />
+
       <div className={styles["nickname-container"]}>
         <span className={styles["nickname"]} onClick={handleNicknameClick}>
           {nickname}

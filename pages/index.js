@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
+import Notification from "@/components/notification/Notification";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -59,8 +60,6 @@ export default function Home() {
       if (observerTarget.current) observer.unobserve(observerTarget.current);
     };
   }, [loadMoreCards]);
-
-  console.log(data);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -153,6 +152,7 @@ export default function Home() {
 
   return (
     <div className={styles["home-container"]}>
+      <Notification />
       <div className={styles["home-nav"]}>
         <div className={styles["home-title"]}>마켓플레이스</div>
         <Button
