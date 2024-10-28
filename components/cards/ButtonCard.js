@@ -18,7 +18,7 @@ import ExchangeAuth from "../modal/contents/ExchangeAuth";
  *
  */
 
-export default function ButtonCard({ style, card }) {
+export default function ButtonCard({ style, card, onClick }) {
   const [isMobile, setIsMobile] = useState(false); // 모바일 뷰 감지 상태
   const [exchangeAuth, setExchangeAuth] = useState(null);
 
