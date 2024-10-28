@@ -11,7 +11,7 @@ import NonLogin from "./NonLogin";
 import useAuthStore from "@/store/useAuthStore";
 import { usePostSignout } from "@/lib/reactQuery/useAuth";
 
-export default function Nav() {
+export default function Nav({ handlePointModal }) {
   const router = useRouter();
   const { user, logout } = useAuthStore();
   const [userDrop, setUserDrop] = useState(false);
@@ -60,14 +60,17 @@ export default function Nav() {
             <Image src={mainLogo} className={styles["logo"]} alt="logo" />
           </Link>
           {user ? (
-            <Loggedin
-              nickname={user.data.nickname}
-              point={user.data.point}
-              onClick={handleUserDrop}
-              logout={handleSignout}
-              userDrop={userDrop}
-              setUserDrop={setUserDrop}
-            />
+            <>
+              <div onClick={handlePointModal}>🎁</div>
+              <Loggedin
+                nickname={user.data.nickname}
+                point={user.data.point}
+                onClick={handleUserDrop}
+                logout={handleSignout}
+                userDrop={userDrop}
+                setUserDrop={setUserDrop}
+              />
+            </>
           ) : (
             <NonLogin />
           )}
