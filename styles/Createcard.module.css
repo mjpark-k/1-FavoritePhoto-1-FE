@@ -29,13 +29,16 @@
 }
 
 .create-card-input-upload {
+  padding: 18px 0;
   background-color: var(--black);
   border: 1px solid var(--gray-200);
   width: 390px;
   height: 60px;
   padding-left: 20px;
   border-radius: 2px;
-  color: var(--white);
+  color: var(--gray-200);
+  font-weight: 300;
+  line-height: 23.17px;
 }
 
 .create-card-input-upload::placeholder {

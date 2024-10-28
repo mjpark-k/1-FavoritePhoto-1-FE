@@ -8,9 +8,34 @@ Content-Type: application/json
 
 ###
 
-GET https://one-favoritephoto-1-be.onrender.com/users/my-cards/c618558f-f82a-456e-bb98-62084afc7954%7D
+GET https://one-favoritephoto-1-be.onrender.com/shop
 Content-Type: application/json
 
 ###
 
-GET https://one-favoritephoto-1-be.onrender.com/shop?sort=cheapest
+POST https://one-favoritephoto-1-be.onrender.com/images/upload
+Content-Type: multipart/form-data; boundary=image-boundary
+
+--image-boundary
+Content-Disposition: form-data; name="image"; filename="test.png"
+Content-Type: image/jpeg
+
+< C:\Users\wx111\Desktop\test.png
+--image-boundary--
+
+###
+POST https://one-favoritephoto-1-be.onrender.com/users/my-cards
+Content-Type: application/json
+
+{
+    "name": "푸른눈 고양이",
+    "description": "고양이 입니다.",
+    "image": "https://storage.googleapis.com/image-unload-codeit-test/1730007215438.jpg",
+    "grade": 0,
+    "genre": 2,
+    "price": 3,
+    "quantity": 4
+}
+
+###
+DELETE https://one-favoritephoto-1-be.onrender.com/users/my-cards/2739ec3d-fadd-416a-99df-278f3902af1f
