@@ -5,7 +5,7 @@ import Input from "@/components/inputs/Input.jsx";
 import Dropdown from "@/components/dropdowns/Dropdown";
 import ModalContainer from "@/components/modal/ModalContainer";
 import CardList from "@/components/modal/contents/CardList";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
@@ -23,6 +23,44 @@ export default function Home() {
     pageSize: 9,
     keyword: inputValue,
   });
+  const [cards, setCards] = useState("");
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const observerTarget = useRef(null);
+
+  const { data, isLoading, error } = useShopCards(params);
+
+  useEffect(() => {
+    if (data) {
+      setCards(data.shops);
+      setHasNextPage(data.shops.length < data.totalCount);
+    }
+  }, [data]);
+
+  const loadMoreCards = () => {
+    if (!isLoading && hasNextPage) {
+      setParams((prevParams) => ({
+        ...prevParams,
+        pageSize: prevParams.pageSize + 6,
+      }));
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreCards();
+        }
+      },
+      { threshold: 1.0 }
+    );
+    if (observerTarget.current) observer.observe(observerTarget.current);
+    return () => {
+      if (observerTarget.current) observer.unobserve(observerTarget.current);
+    };
+  }, [loadMoreCards]);
+
+  console.log(data);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -44,8 +82,6 @@ export default function Home() {
     setInputValue(e.target.value);
   };
 
-  const { data, isLoading, error } = useShopCards(params);
-
   const myGalleryModalClick = () => {
     setShowMyGallery(!showMyGallery);
     setSellMyCard(false);
@@ -56,7 +92,7 @@ export default function Home() {
     setSellMyCard(!sellMyCard);
   };
 
-  if (isLoading)
+  if (isLoading && !cards)
     return (
       <div className={styles["home-container"]}>
         <div className={styles["home-nav"]}>
@@ -106,9 +142,11 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className={styles["loading-container"]}>
-          <Loading />
-        </div>
+        {!data && (
+          <div className={styles["loading-container"]}>
+            <Loading />
+          </div>
+        )}
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
@@ -163,13 +201,15 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className={styles["home-main-card-grid"]}>
-        {data.shops.map((card, index) => (
-          <Card key={index} card={card} />
-        ))}
-      </div>
-      <div className={styles["scroll-loading-container"]}>
-        <Loading />
+      {cards && (
+        <div className={styles["home-main-card-grid"]}>
+          {cards.map((card, index) => (
+            <Card key={index} card={card} />
+          ))}
+        </div>
+      )}
+      <div ref={observerTarget} className={styles["scroll-loading-container"]}>
+        {hasNextPage && <Loading />}
       </div>
       {showMyGallery && (
         <ModalContainer

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
 import styles from "@/styles/Mygallery.module.css";
 import Button from "@/components/buttons/Button";
@@ -17,12 +17,47 @@ export default function mygallery() {
     genre: "",
     grade: "",
     pageNum: 1,
-    pageSize: 18,
+    pageSize: 9,
     keyword: "",
   });
+  const [cards, setCards] = useState("");
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const observerTarget = useRef(null);
 
   const { data, isLoading, error } = useUsersMyCardListQuery(params);
-  if (isLoading)
+
+  useEffect(() => {
+    if (data) {
+      setCards(data.data.cards);
+      setHasNextPage(data.data.cards.length >= params.pageSize);
+    }
+  }, [data]);
+
+  const loadMoreCards = () => {
+    if (!isLoading && hasNextPage) {
+      setParams((prevParams) => ({
+        ...prevParams,
+        pageSize: prevParams.pageSize + 6,
+      }));
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreCards();
+        }
+      },
+      { threshold: 1.0 }
+    );
+    if (observerTarget.current) observer.observe(observerTarget.current);
+    return () => {
+      if (observerTarget.current) observer.unobserve(observerTarget.current);
+    };
+  }, [loadMoreCards]);
+
+  if (isLoading && !cards)
     return (
       <div className={styles["mygallery-nav-wrapper"]}>
         <div className={styles["mygallery-nav"]}>
@@ -93,7 +128,11 @@ export default function mygallery() {
             />
           </div>
         </div>
-        <Loading />
+        {!cards && (
+          <div className={styles["loading-container"]}>
+            <Loading />
+          </div>
+        )}
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
@@ -130,9 +169,11 @@ export default function mygallery() {
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
             {user.data.nickname}님이 보유한 포토카드
-            <span className={styles["mygallery-grade-box-count"]}>
-              ({data.data.totalCount})
-            </span>
+            {data && (
+              <span className={styles["mygallery-grade-box-count"]}>
+                ({data.data.totalCount})
+              </span>
+            )}
           </p>
           <div className={styles["mygallery-grade-box-container"]}>
             <div
@@ -142,12 +183,14 @@ export default function mygallery() {
               )}
             >
               COMMON
-              <span className={styles["mygallery-grade-box-text"]}>
-                {!data.data.countsGroupByGrade[0]
-                  ? 0
-                  : data.data.countsGroupByGrade[0]}
-                장
-              </span>
+              {data && (
+                <span className={styles["mygallery-grade-box-text"]}>
+                  {!data.data.countsGroupByGrade[0]
+                    ? 0
+                    : data.data.countsGroupByGrade[0]}
+                  장
+                </span>
+              )}
             </div>
             <div
               className={classNames(
@@ -156,12 +199,14 @@ export default function mygallery() {
               )}
             >
               RARE
-              <span className={styles["mygallery-grade-box-text"]}>
-                {!data.data.countsGroupByGrade[1]
-                  ? 0
-                  : data.data.countsGroupByGrade[1]}
-                장
-              </span>
+              {data && (
+                <span className={styles["mygallery-grade-box-text"]}>
+                  {!data.data.countsGroupByGrade[1]
+                    ? 0
+                    : data.data.countsGroupByGrade[1]}
+                  장
+                </span>
+              )}
             </div>
             <div
               className={classNames(
@@ -170,12 +215,14 @@ export default function mygallery() {
               )}
             >
               SUPER RARE
-              <span className={styles["mygallery-grade-box-text"]}>
-                {!data.data.countsGroupByGrade[2]
-                  ? 0
-                  : data.data.countsGroupByGrade[2]}
-                장
-              </span>
+              {data && (
+                <span className={styles["mygallery-grade-box-text"]}>
+                  {!data.data.countsGroupByGrade[2]
+                    ? 0
+                    : data.data.countsGroupByGrade[2]}
+                  장
+                </span>
+              )}
             </div>
             <div
               className={classNames(
@@ -184,12 +231,14 @@ export default function mygallery() {
               )}
             >
               LEGENDARY
-              <span className={styles["mygallery-grade-box-text"]}>
-                {!data.data.countsGroupByGrade[3]
-                  ? 0
-                  : data.data.countsGroupByGrade[3]}
-                장
-              </span>
+              {data && (
+                <span className={styles["mygallery-grade-box-text"]}>
+                  {!data.data.countsGroupByGrade[3]
+                    ? 0
+                    : data.data.countsGroupByGrade[3]}
+                  장
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -218,17 +267,27 @@ export default function mygallery() {
           </div>
         </div>
       </div>
-      <div className={styles["mygallery-main-card-grid"]}>
-        {data.data.cards.map((card) => (
-          <Link
-            key={card.id}
-            href={`/mygallery/${card.id}`}
-            className={styles["mygallery-main-card-grid-item"]}
-          >
-            <Card card={card} />
-          </Link>
-        ))}
-      </div>
+      {cards && (
+        <div className={styles["mygallery-main-card-grid"]}>
+          {cards.map((card) => (
+            <Link
+              key={card.id}
+              href={`/mygallery/${card.id}`}
+              className={styles["mygallery-main-card-grid-item"]}
+            >
+              <Card card={card} />
+            </Link>
+          ))}
+        </div>
+      )}
+      {hasNextPage && (
+        <div
+          ref={observerTarget}
+          className={styles["scroll-loading-container"]}
+        >
+          <Loading />
+        </div>
+      )}
     </>
   );
 }
