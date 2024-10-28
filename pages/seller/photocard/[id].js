@@ -16,7 +16,9 @@ import { getShopCard } from "@/lib/api/shop";
 export async function getServerSideProps(context) {
   const { id } = context.params;
 
-  const shopCard = await getShopCard(id);
+  const cookies = context.req.headers.cookie || "";
+
+  const shopCard = await getShopCard({ shopId: id, cookies });
 
   return {
     props: {
@@ -28,7 +30,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Index({ shop, card, exchangeInfo, exchangeList }) {
+export default function Index({ shop, card, exchangeInfo, exchangeList, c }) {
   const [editModal, setEditModal] = useState(false);
 
   // const asd = async () => {
@@ -46,7 +48,6 @@ export default function Index({ shop, card, exchangeInfo, exchangeList }) {
 
   return (
     <>
-      {/* <button onClick={asd}>asd</button> */}
       <div className={styles["container"]}>
         <div className={styles["market-place"]}>마켓플레이스</div>
         <div className={styles["title"]}>{card.name}</div>
@@ -67,13 +68,24 @@ export default function Index({ shop, card, exchangeInfo, exchangeList }) {
           </div>
         </div>
         <div className={styles["title"]}>교환 제시 목록</div>
-        <div className={styles["exchange-container"]}>
-          <ButtonCard style={"refuse-approval"} />
-        </div>
+        {exchangeList.length > 0 ? (
+          <div className={styles["exchange-container"]}>
+            {exchangeList.map((card) => (
+              <ButtonCard key={card.id} style={"refuse-approval"} card={card} />
+            ))}
+          </div>
+        ) : (
+          <div>교환 제시 목록이 텅 비었습니다.</div>
+          // <ButtonCard style={"refuse-approval"} card={card} />
+        )}
       </div>
       {editModal && (
         <ModalContainer onClick={editModalClick}>
-          <CardEdit editModalClick={editModalClick} exchangeInfo={exchangeInfo} card={card} />
+          <CardEdit
+            editModalClick={editModalClick}
+            exchangeInfo={exchangeInfo}
+            card={card}
+          />
         </ModalContainer>
       )}
     </>

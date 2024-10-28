@@ -8,6 +8,7 @@ import Dropdown from "@/components/dropdowns/Dropdown";
 import Button from "@/components/buttons/Button";
 import { useState } from "react";
 import { useUpdateShopCard } from "@/lib/reactQuery/useShop";
+import { getParamsByOption } from "@/hooks/useGetIndex/useGetIndex";
 
 export default function CardEdit({ editModalClick, card, exchangeInfo }) {
   const [num, setNum] = useState(card.totalQuantity);
@@ -16,21 +17,18 @@ export default function CardEdit({ editModalClick, card, exchangeInfo }) {
   const [genre, setGenre] = useState(card.genre);
   const [exchangeDesc, setExchangeDesc] = useState("");
 
-  const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
-  const genres = ["풍경", "여행", "인물", "사물"];
-
   // useUpdateShopCard 훅을 사용하여 API 호출
   const useUpdateShopCardMutation = useUpdateShopCard();
 
+  const updateData = {
+    salesQuantity: num,
+    price: Number(price),
+    exchangeGrade: grade.grade,
+    exchangeGenre: genre.genre,
+    exchangeDescription: exchangeDesc,
+  };
   // 수정하기 버튼 클릭 시 호출될 함수
   const handleSubmit = () => {
-    const updateData = {
-      salesQuantity: num,
-      price: Number(price),
-      exchangeGrade: grade,
-      exchangeGenre: genre,
-      exchangeDescription: exchangeDesc,
-    };
     useUpdateShopCardMutation.mutate(
       { shopId: card.id, updateData },
       {
@@ -44,8 +42,37 @@ export default function CardEdit({ editModalClick, card, exchangeInfo }) {
       }
     );
   };
+  console.log(updateData);
 
-  console.log(shop);
+  // const handleDropdownChange = (option, optionsType) => {
+  //   if (optionsType === "grades") {
+  //     setGrade((prev) => ({
+  //       ...prev,
+  //       ...getParamsByOption(option, optionsType),
+  //     }));
+  //   } else if (optionsType === "genres") {
+  //     setGenre((prev) => ({
+  //       ...prev,
+  //       ...getParamsByOption(option, optionsType),
+  //     }));
+  //   }
+  // };
+
+  const handleGradeChange = (option, optionsType) => {
+    setGrade((prev) => ({
+      ...prev,
+      ...getParamsByOption(option, optionsType),
+    }));
+  };
+
+  const handleGenreChange = (option, optionsType) => {
+    setGenre((prev) => ({
+      ...prev,
+      ...getParamsByOption(option, optionsType),
+    }));
+  };
+
+  // console.log(shop);
   // console.log(card);
   // console.log(num);
   // console.log("price 값은 :", price);
@@ -113,9 +140,8 @@ export default function CardEdit({ editModalClick, card, exchangeInfo }) {
           <Dropdown
             placeholder={"등급"}
             style={"440"}
-            options={grades}
-            value={grade}
-            onChange={(grade) => setGrade(grade)}
+            options={"grades"}
+            onChange={(option) => handleGradeChange(option, "grades")}
           />
         </div>
         <div className={styles["modal-position"]}>
@@ -123,9 +149,8 @@ export default function CardEdit({ editModalClick, card, exchangeInfo }) {
           <Dropdown
             placeholder={"장르"}
             style={"440"}
-            options={genres}
-            value={genre}
-            onClick={(e) => setGenre(e.target.value)}
+            options={"genres"}
+            onChange={(option) => handleGenreChange(option, "genres")}
           />
         </div>
       </div>

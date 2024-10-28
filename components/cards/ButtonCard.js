@@ -18,7 +18,7 @@ import ExchangeAuth from "../modal/contents/ExchangeAuth";
  *
  */
 
-export default function ButtonCard({ style }) {
+export default function ButtonCard({ style, card }) {
   const [isMobile, setIsMobile] = useState(false); // 모바일 뷰 감지 상태
   const [exchangeAuth, setExchangeAuth] = useState(null);
 
@@ -60,7 +60,7 @@ export default function ButtonCard({ style }) {
       <div className={styles["card-container"]}>
         <div className={styles["card-info-container"]}>
           <Image
-            src="/card-default-img.svg"
+            src={card.image}
             className={styles["card-image"]}
             width={360}
             height={270}
@@ -68,14 +68,18 @@ export default function ButtonCard({ style }) {
             priority
           />
           <div className={styles["card-information"]}>
-            <p className={styles["card-title"]}>title</p>
+            <p className={styles["card-title"]}>{card.name}</p>
             <div className={styles["card-information-wrapper"]}>
-              <GradeCategory style={"small"} />
-              <p className={styles["card-nickname"]}>nickname</p>
+              <GradeCategory
+                style={"small"}
+                grade={card.grade}
+                genre={card.genre}
+              />
+              <p className={styles["card-nickname"]}>{card.creatorNickname}</p>
             </div>
           </div>
           <div className={styles["card-content-container"]}>
-            <div>content about photo</div>
+            <div>{card.description}</div>
           </div>
         </div>
         <div className={buttonContainerClass}>
@@ -93,13 +97,21 @@ export default function ButtonCard({ style }) {
               />
             </>
           ) : (
-            <Button style={"thin-gray-360px"} text={"취소하기"} />
+            <Button
+              style={"thin-gray-360px"}
+              text={"취소하기"}
+              onClick={onClick}
+            />
           )}
         </div>
       </div>
       {exchangeAuth && (
         <ModalContainer onClick={isModalClose}>
-          <ExchangeAuth exchangeAuth={exchangeAuth} />
+          <ExchangeAuth
+            exchangeAuth={exchangeAuth}
+            card={card}
+            isModalClose={isModalClose}
+          />
         </ModalContainer>
       )}
     </>
