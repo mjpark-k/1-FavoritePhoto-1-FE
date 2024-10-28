@@ -3,20 +3,58 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 /**
- * @param options - options array
- * @param placeholder - dropdown default text
+ * @param options
+ * 1. "grades" : ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"]
+ * 2. "genres" : ["풍경", "인물", "동물", "정물", "추상", "기타"]
+ * 3. "sales" : ["판매 중", "판매 완료"]
+ * 4. "sortOptions" : ["최신 순", "오래된 순", "높은 가격순", "낮은 가격순"]
+ * @param placeholder - "placeholder" : default text
  * @param style
- * 1. 홈페이지 pc (등급 장르 매진여부) - default
- * 2. 홈페이지 pc (낮은 가격순) - 180
- * 3. 나의 포토카드 판매하기 pc (등급 장르) - 440
- * 4. 포토카드 생성 pc (등급 장르) - 520
- * 사용예시는 index참고
+ * 1. "default" : 홈페이지 pc (등급 장르 매진여부)
+ * 2. "180" : 홈페이지 pc (낮은 가격순)
+ * 3. "440" : 나의 포토카드 판매하기 pc (등급 장르)
+ * 4. "520" : 포토카드 생성 pc (등급 장르)
+ * @param setParams - setParams : requset params (optional)
  */
 
-export default function Dropdown({ options, placeholder, style }) {
+const optionArray = {
+  grades: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
+  genres: ["풍경", "인물", "동물", "정물", "추상", "기타"],
+  sales: ["판매 중", "판매 완료"],
+  sortOptions: ["최신 순", "오래된 순", "높은 가격순", "낮은 가격순"],
+};
+
+const getParamsByOption = (option, optionsType) => {
+  const selectedIndex = optionArray[optionsType]?.indexOf(option);
+
+  if (optionsType === "grades") return { grade: selectedIndex };
+  if (optionsType === "genres") return { genre: selectedIndex };
+  if (optionsType === "sales")
+    return { sellout: selectedIndex === 0 ? false : true };
+  if (optionsType === "sortOptions") {
+    const sortMap = ["recent", "oldest", "highest", "cheapest"];
+    return { sort: sortMap[selectedIndex] };
+  }
+  return {};
+};
+
+export default function Dropdown({ options, placeholder, style, setParams }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const dropdownRef = useRef(null);
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+
+    if (setParams) {
+      const updatedParams = getParamsByOption(option, options);
+      setParams((prevParams) => ({
+        ...prevParams,
+        ...updatedParams,
+      }));
+    }
+  };
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -33,11 +71,6 @@ export default function Dropdown({ options, placeholder, style }) {
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-  };
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    setIsOpen(false);
   };
 
   const containerClass = `${styles[`dropdown-container-${style}`]}`;
@@ -74,11 +107,11 @@ export default function Dropdown({ options, placeholder, style }) {
       </div>
       {isOpen && (
         <div className={menuClass}>
-          {options.map((option, index) => (
+          {optionArray[options].map((option, index) => (
             <div
               key={index}
               className={itemClass}
-              onClick={() => handleOptionClick(option)}
+              onClick={() => handleOptionSelect(option)}
             >
               {option}
             </div>
