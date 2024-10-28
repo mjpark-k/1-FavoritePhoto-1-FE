@@ -10,17 +10,20 @@ import CardExchange from '@/components/modal/contents/CardExchange';
 import QuantityButton from '@/components/buttons/QuantityButton';
 import { getShopCard } from '@/lib/api/shop';
 import ButtonCard from '@/components/cards/ButtonCard';
-import { useUsersMyCardsQuery } from '@/lib/reactQuery/useUsers';
+import { useUsersMyCardListQuery } from '@/lib/reactQuery/useUsers';
+import useAuthStore from '@/store/useAuthStore';
+import useSelectedStore from '@/store/useSelectedStore';
+import { useCreateExchangeRequest } from '@/lib/reactQuery/useShop';
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const shopCard = await getShopCard(id);
+  const shopCard = await getShopCard({ shopId: id });
 
   return {
     props: {
-      card: shopCard.shopInfo,
-      exchangeInfo: shopCard.exchangeInfo,
-      exchangeList: shopCard.exchangeList,
+      card: shopCard.shopInfo ?? null,
+      exchangeInfo: shopCard.exchangeInfo ?? null,
+      exchangeList: shopCard.exchangeList ?? null,
     },
   };
 }
@@ -31,7 +34,13 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
   const [exchangeDetailModal, setExchangeDetailModal] = useState(false);
   const [num, setNum] = useState(1);
 
-  const { data, isLoading, error } = useUsersMyCardsQuery({ id });
+  const { user } = useAuthStore();
+  const { selectedCard, setSelectedCard, clearSelectedCard } =
+    useSelectedStore();
+
+  const { data, isLoading, error } = useUsersMyCardListQuery({
+    sort: 'recent',
+  });
 
   const purchaseModalClick = () => {
     setExchangeDetailModal(false);
@@ -43,6 +52,9 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
     setExchangeDetailModal(false);
     setPurchaseModal(false);
     setExchangeModal(!exchangeModal);
+    if (exchangeModal === false) {
+      setSelectedCard(null);
+    }
   };
 
   const exchangeDetailModalClick = () => {
@@ -51,42 +63,53 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
     setPurchaseModal(false);
   };
 
-  console.log(card);
-  console.log(exchangeList);
-  console.log(exchangeInfo);
+  const selectClick = (card) => {
+    setSelectedCard(card);
+    exchangeDetailModalClick();
+  };
+
+  const exchangeClick = () => {
+    useCreateExchangeRequest.mutate({
+      shopId: card.id,
+      cardId: selectedCard.id,
+      description: '교환제시합니다.',
+    });
+  };
 
   return (
     <>
       <div className={styles['container']}>
         <div className={styles['market-place']}>마켓플레이스</div>
-        <div className={styles['title']}>{card.name}</div>
+        <div className={styles['title']}>{card?.name}</div>
         <div className={styles['card-container']}>
           <div className={styles['photocard-image']}>
-            <Image src={card.image} fill alt="photocard-image" />
+            <Image src={card?.image} fill alt="photocard-image" />
           </div>
           <div className={styles['card-info-container']}>
             <div className={styles['card-header']}>
               <GradeCategory
                 style={'medium'}
-                grade={card.grade}
-                genre={card.genre}
+                grade={card?.grade}
+                genre={card?.genre}
               />
-              {card.creatorNickname}
+              {card?.creatorNickname}
             </div>
             <div className={styles['bar']} />
-            <div className={styles['card-description']}>{card.description}</div>
+            <div className={styles['card-description']}>
+              {card?.description}
+            </div>
             <div className={styles['bar']} />
             <div className={styles['price-container']}>
               <div className={styles['price']}>가격</div>
-              <div className={styles['point']}>{card.price}P</div>
+              <div className={styles['point']}>{card?.price}P</div>
             </div>
             <div className={styles['remain-container']}>
               <div className={styles['remain']}>잔여</div>
               <div className={styles['quantity']}>
-                {card.remainingQuantity}
+                {card?.remainingQuantity}
                 <div
                   className={styles['total']}
-                >{`/${card.totalQuantity}`}</div>
+                >{`/${card?.totalQuantity}`}</div>
               </div>
             </div>
             <div className={styles['bar']} />
@@ -97,7 +120,9 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
             <div className={styles['total-price-container']}>
               <div className={styles['total-price']}>총 가격</div>
               <div className={styles['total-point-card-container']}>
-                <div className={styles['total-point']}>{num * card.price}P</div>
+                <div className={styles['total-point']}>
+                  {num * card?.price}P
+                </div>
                 <div className={styles['total-card']}>{`(${num}장)`}</div>
               </div>
             </div>
@@ -119,15 +144,15 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
         </div>
         <div className={styles['exchange-container']}>
           <div className={styles['exchange-content']}>
-            {exchangeInfo.description}
+            {exchangeInfo?.description}
           </div>
           <GradeCategory
             style={'medium'}
-            grade={exchangeInfo.grade}
-            genre={exchangeInfo.genre}
+            grade={exchangeInfo?.grade}
+            genre={exchangeInfo?.genre}
           />
         </div>
-        {exchangeList.length > 0 && (
+        {exchangeList?.length > 0 && (
           <div className={styles['my-suggest-container']}>
             <div className={styles['title']}>내가 제시한 교환 목록</div>
             <div className={styles['my-suggest-card-container']}>
@@ -151,15 +176,25 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
       )}
       {exchangeModal && (
         <ModalContainer onClick={exchangeModalClick}>
-          <CardList
-            title={'포토카드 교환하기'}
-            onClick={exchangeDetailModalClick}
-          />
+          {isLoading ? (
+            <div>카드를 불러오는 중입니다.</div>
+          ) : error ? (
+            <div>카드를 불러오지 못했습니다. 다시 시도해주세요.</div>
+          ) : (
+            <CardList
+              title={'포토카드 교환하기'}
+              onClick={selectClick}
+              data={data.data.cards}
+            />
+          )}
         </ModalContainer>
       )}
       {exchangeDetailModal && (
         <ModalContainer onClick={exchangeDetailModalClick}>
-          <CardExchange onClick={exchangeModalClick} />
+          <CardExchange
+            onClick={exchangeModalClick}
+            exchangeClick={exchangeClick}
+          />
         </ModalContainer>
       )}
     </>

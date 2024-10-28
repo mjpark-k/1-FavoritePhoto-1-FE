@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 const useAuthStore = create(
   persist(
@@ -9,7 +9,7 @@ const useAuthStore = create(
       logout: () => set({ user: null }), // 로그아웃 시 실행
     }),
     {
-      name: "userData",
+      name: 'userData',
       storage: createJSONStorage(() => sessionStorage),
     }
   )
