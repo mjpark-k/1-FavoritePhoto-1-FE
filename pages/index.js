@@ -9,6 +9,8 @@ import { useState } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
+import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
+import useSelectedStore from "@/store/useSelectedStore";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -23,6 +25,9 @@ export default function Home() {
     pageSize: 9,
     keyword: inputValue,
   });
+
+  const { selectedCard, setSelectedCard, clearSelectedCard } =
+    useSelectedStore();
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -46,12 +51,15 @@ export default function Home() {
 
   const { data, isLoading, error } = useShopCards(params);
 
+  const { data: myCards } = useUsersMyCardListQuery(params);
+
   const myGalleryModalClick = () => {
     setShowMyGallery(!showMyGallery);
     setSellMyCard(false);
   };
 
-  const sellModalClick = () => {
+  const sellModalClick = (card) => {
+    setSelectedCard(card);
     setShowMyGallery(false);
     setSellMyCard(!sellMyCard);
   };
@@ -172,19 +180,22 @@ export default function Home() {
         <Loading />
       </div>
       {showMyGallery && (
-        <ModalContainer
-          onClick={myGalleryModalClick}
-          text={
-            <CardList
-              title={"나의 포토카드 판매하기"}
-              onClick={sellModalClick}
-            />
-          }
-        ></ModalContainer>
+        <ModalContainer onClick={myGalleryModalClick}>
+          <CardList
+            title={"나의 포토카드 판매하기"}
+            onClick={sellModalClick}
+            data={myCards.data.cards}
+          />
+        </ModalContainer>
       )}
       {sellMyCard && (
         <ModalContainer onClick={sellModalClick}>
-          <CardSell myGalleryModalClick={myGalleryModalClick} />
+          {selectedCard && (
+            <CardSell
+              myGalleryModalClick={myGalleryModalClick}
+              sellModalClick={sellModalClick}
+            />
+          )}
         </ModalContainer>
       )}
     </div>
