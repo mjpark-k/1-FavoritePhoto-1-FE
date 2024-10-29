@@ -7,6 +7,12 @@
   color: var(--gray-200);
 }
 
+.random-point {
+  font-size: 18px;
+  line-height: 18.43px;
+  cursor: pointer;
+}
+
 .points {
   font-weight: 700;
 }
@@ -14,6 +20,7 @@
 .alarm {
   width: 24px;
   height: 24px;
+  cursor: pointer;
 }
 
 .nickname-container {
@@ -50,6 +57,10 @@
 
 /* Mobile view */
 @media (max-width: 743px) {
+  .random-point {
+    display: none;
+  }
+  
   .points {
     display: none;
   }

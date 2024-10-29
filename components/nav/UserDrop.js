@@ -3,7 +3,13 @@ import styles from "./UserDrop.module.css";
 import { useEffect, useRef } from "react";
 import useAuthStore from "@/store/useAuthStore";
 
-export default function UserDrop({ nickname, point, setUserDrop, logout }) {
+export default function UserDrop({
+  nickname,
+  point,
+  setUserDrop,
+  logout,
+  handlePointModal,
+}) {
   const outRef = useRef(null);
 
   const { user } = useAuthStore();
@@ -38,12 +44,18 @@ export default function UserDrop({ nickname, point, setUserDrop, logout }) {
             </div>
             <div className={styles["mobile-table"]}>
               <div className={styles["table"]}>
-                <Link href={"/mygallery"}>
+                <Link href={"/mygallery"} onClick={() => setUserDrop(false)}>
                   <span>마이갤러리</span>
                 </Link>
-                <Link href={"/mysales"}>
+                <Link href={"/mysales"} onClick={() => setUserDrop(false)}>
                   <span>나의 판매 포토카드</span>
                 </Link>
+                <span
+                  className={styles["random-point"]}
+                  onClick={handlePointModal}
+                >
+                  🎁 랜덤 포인트 확인하기
+                </span>
               </div>
               <span className={styles["logout"]} onClick={logout}>
                 로그아웃

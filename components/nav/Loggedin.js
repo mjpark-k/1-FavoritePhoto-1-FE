@@ -21,7 +21,7 @@ export default function Loggedin({
 
   return (
     <div className={styles["container"]}>
-      <div onClick={handlePointModal}>🎁</div>
+      <div className={styles["random-point"]} onClick={handlePointModal}>🎁</div>
       <span className={styles["points"]}>
         {point.toLocaleString("ko-KR")} P
       </span>
@@ -37,6 +37,7 @@ export default function Loggedin({
               point={point}
               setUserDrop={setUserDrop}
               logout={logout}
+              handlePointModal={handlePointModal}
             />
           )}
         </div>
