@@ -9,10 +9,13 @@ import { useState } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
+import { useAcceptExchange } from "@/lib/reactQuery/useExchange";
+import MobileFilter from "@/components/modal/contents/MobileFilter";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
   const [sellMyCard, setSellMyCard] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [params, setParams] = useState({
     sort: "recent",
@@ -47,17 +50,29 @@ export default function Home() {
   const { data, isLoading, error } = useShopCards(params);
 
   const myGalleryModalClick = () => {
+    setShowFilter(false);
     setShowMyGallery(!showMyGallery);
     setSellMyCard(false);
   };
 
   const sellModalClick = () => {
+    setShowFilter(false);
     setShowMyGallery(false);
     setSellMyCard(!sellMyCard);
   };
 
   const handleFilterClick = () => {
-    // need filter modal
+    setShowMyGallery(false);
+    setSellMyCard(false);
+    setShowFilter(!showFilter);
+  };
+
+  const handleMobileFilter = ({ grade, genre, sellout }) => {
+    setParams(() => ({
+      grade,
+      genre,
+      sellout,
+    }));
   };
 
   if (isLoading)
@@ -112,6 +127,13 @@ export default function Home() {
         </div>
         <div className={styles["loading-container"]}>
           <Loading />
+        </div>
+        <div className={styles["home-sell-container"]}>
+          <Button
+            text={"나의 포토카드 판매하기"}
+            style={"thin-main-440px-60px"}
+            onClick={myGalleryModalClick}
+          />
         </div>
       </div>
     );
@@ -202,6 +224,15 @@ export default function Home() {
           onClick={myGalleryModalClick}
         />
       </div>
+      {showFilter && (
+        <ModalContainer
+          onClick={handleFilterClick}
+          mobileBottom={true}
+          searchWithParams={handleMobileFilter}
+        >
+          <MobileFilter />
+        </ModalContainer>
+      )}
     </div>
   );
 }

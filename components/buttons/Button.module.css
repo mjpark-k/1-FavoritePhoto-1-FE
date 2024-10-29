@@ -352,6 +352,15 @@
   background-position: center;
 }
 
+.mobile-refresh {
+  width: 54px;
+  height: 55px;
+  background-color: var(--black);
+  background-image: url("../../public/refresh-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /* Tablet view */
 @media (min-width: 744px) and (max-width: 1199px) {
   .thin-main-440px-60px {

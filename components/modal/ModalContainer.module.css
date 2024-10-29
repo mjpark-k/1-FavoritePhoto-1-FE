@@ -27,3 +27,15 @@
   top: 30px;
   cursor: pointer;
 }
+
+.container-mobile-bottom {
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  width: 375px;
+  height: 480px;
+  background-color: var(--gray-500);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}

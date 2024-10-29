@@ -73,7 +73,6 @@
     width: 704px;
   }
 
-  /* nav height 다름. 일단 넘어감 */
   .home-nav {
     display: flex;
     align-items: center;
@@ -91,10 +90,6 @@
 
   .home-main-container {
     width: 704px;
-  }
-
-  .home-main-container-nav-wrapper {
-    /*일단 보류*/
   }
 
   .home-main-container-nav {
@@ -129,13 +124,11 @@
   }
 
   .home-main-container-nav-wrapper {
-    /*대공사 필요*/
     height: 110px;
     flex-wrap: wrap;
   }
 
   .home-main-container-nav {
-    /*대공사 필요*/
     width: 345px;
     height: 45px;
   }
