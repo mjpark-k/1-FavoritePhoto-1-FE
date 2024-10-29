@@ -47,19 +47,24 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
   const [exchangeModal, setExchangeModal] = useState(false);
   const [exchangeDetailModal, setExchangeDetailModal] = useState(false);
   const [description, setDescription] = useState("");
+  const [modalSearch, setModalSearch] = useState("");
   const [num, setNum] = useState(1);
+  const [params, setParams] = useState({
+    sort: "recent",
+    genre: "",
+    grade: "",
+    pageNum: 1,
+    pageSize: 9,
+    keyword: modalSearch,
+  });
 
-  const { user } = useAuthStore();
-  const { selectedCard, setSelectedCard, clearSelectedCard } =
-    useSelectedStore();
+  const { selectedCard, setSelectedCard } = useSelectedStore();
 
   const exchangeMutation = useCreateExchangeRequest();
   const exchangeCancelMutation = useDeleteExchange();
   const purchaseCardMuatation = usePurchaseShopCard();
 
-  const { data, isLoading, error } = useUsersMyCardListQuery({
-    sort: "recent",
-  });
+  const { data, isLoading, error } = useUsersMyCardListQuery(params);
 
   const purchaseModalClick = () => {
     setExchangeDetailModal(false);
@@ -223,6 +228,8 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
               title={"포토카드 교환하기"}
               onClick={selectClick}
               data={data.data.cards}
+              onChange={setModalSearch}
+              setParams={setParams}
             />
           )}
         </ModalContainer>
