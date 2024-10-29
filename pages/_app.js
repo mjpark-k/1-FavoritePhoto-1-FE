@@ -1,7 +1,9 @@
 import DefaultContent from '@/components/modal/contents/DefaultContent';
 import ModalContainer from '@/components/modal/ModalContainer';
+import RandomPoint from "@/components/modal/contents/RandomPoint";
 import Nav from '@/components/nav/Nav';
 import { useErrorStore } from '@/store/useErrorStore';
+import useTimerStore from "@/store/useTimerStore";
 import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -19,6 +21,8 @@ export default function App({ Component, pageProps }) {
     redirectPath,
   } = useErrorStore();
   const router = useRouter();
+  
+  const { pointModal, handlePointModal } = useTimerStore();
 
   const handleClick = () => {
     setSigninError(null);
@@ -30,10 +34,16 @@ export default function App({ Component, pageProps }) {
     setError(null);
     setSuccess(null);
   };
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Nav />
+      <Nav handlePointModal={handlePointModal} />
       <Component {...pageProps} />
+      {pointModal && (
+        <ModalContainer onClick={handlePointModal}>
+          <RandomPoint handlePointModal={handlePointModal} />
+        </ModalContainer>
+      )}
       {(error || success) && (
         <ModalContainer onClick={handleClick}>
           <DefaultContent

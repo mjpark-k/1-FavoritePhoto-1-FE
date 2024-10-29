@@ -18,6 +18,8 @@ export default function Nav() {
 
   const usePostSignoutMutation = usePostSignout();
 
+  console.log(user);
+
   const handleUserDrop = () => {
     setUserDrop((prevState) => !prevState); // 이전 상태에 따라 토글
   };
@@ -51,14 +53,16 @@ export default function Nav() {
             <Image src={mainLogo} className={styles['logo']} alt="logo" />
           </Link>
           {user ? (
-            <Loggedin
-              nickname={user.data.nickname}
-              point={user.data.point}
-              onClick={handleUserDrop}
-              logout={handleSignout}
-              userDrop={userDrop}
-              setUserDrop={setUserDrop}
-            />
+            <>
+              <Loggedin
+                nickname={user.data.nickname}
+                point={user.data.point}
+                onClick={handleUserDrop}
+                logout={handleSignout}
+                userDrop={userDrop}
+                setUserDrop={setUserDrop}
+              />
+            </>
           ) : (
             <NonLogin />
           )}

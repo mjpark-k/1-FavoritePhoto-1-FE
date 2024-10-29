@@ -1,11 +1,11 @@
-import styles from './ButtonCard.module.css';
-import Image from 'next/image';
-import GradeCategory from './info/GradeCategory';
-import Button from '../buttons/Button';
-import classNames from 'classnames';
-import { useEffect, useState } from 'react';
-import ModalContainer from '../modal/ModalContainer';
-import ExchangeAuth from '../modal/contents/ExchangeAuth';
+import styles from "./ButtonCard.module.css";
+import Image from "next/image";
+import GradeCategory from "./info/GradeCategory";
+import Button from "../buttons/Button";
+import classNames from "classnames";
+import { useEffect, useState } from "react";
+import ModalContainer from "../modal/ModalContainer";
+import ExchangeAuth from "../modal/contents/ExchangeAuth";
 
 /**
  *
@@ -18,7 +18,7 @@ import ExchangeAuth from '../modal/contents/ExchangeAuth';
  *
  */
 
-export default function ButtonCard({ style }) {
+export default function ButtonCard({ style, card, onClick }) {
   const [isMobile, setIsMobile] = useState(false); // 모바일 뷰 감지 상태
   const [exchangeAuth, setExchangeAuth] = useState(null);
 
@@ -29,19 +29,19 @@ export default function ButtonCard({ style }) {
     };
 
     // 컴포넌트가 마운트되면 실행
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize(); // 초기 실행 시 호출
 
     // 컴포넌트가 언마운트될 때 이벤트 제거
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const isDecline = () => {
-    setExchangeAuth('거절');
+    setExchangeAuth("거절");
   };
 
   const isApproval = () => {
-    setExchangeAuth('승인');
+    setExchangeAuth("승인");
   };
 
   const isModalClose = () => {
@@ -53,49 +53,65 @@ export default function ButtonCard({ style }) {
   });
 
   // true일 때 '거절하기'와 '승인하기' , false일 때 '취소하기 버튼
-  const buttonChoice = style === 'refuse-approval';
+  const buttonChoice = style === "refuse-approval";
 
   return (
     <>
-      <div className={styles['card-container']}>
-        <div className={styles['card-info-container']}>
+      <div className={styles["card-container"]}>
+        <div className={styles["card-info-container"]}>
           <Image
-            src="/card-default-img.svg"
-            className={styles['card-image']}
+            src={card.image}
+            className={styles["card-image"]}
             width={360}
             height={270}
             alt="card-image"
             priority
           />
-          <div className={styles['card-information']}>
-            <p className={styles['card-title']}>title</p>
-            <div className={styles['card-information-wrapper']}>
-              <GradeCategory style={'small'} />
-              <p className={styles['card-nickname']}>nickname</p>
+          <div className={styles["card-information"]}>
+            <p className={styles["card-title"]}>{card.name}</p>
+            <div className={styles["card-information-wrapper"]}>
+              <GradeCategory
+                style={"small"}
+                grade={card.grade}
+                genre={card.genre}
+              />
+              <p className={styles["card-nickname"]}>{card.creatorNickname}</p>
             </div>
           </div>
-          <div className={styles['card-content-container']}>
-            <div>content about photo</div>
+          <div className={styles["card-content-container"]}>
+            <div>{card.description}</div>
           </div>
         </div>
         <div className={buttonContainerClass}>
           {buttonChoice ? (
             <>
-              <Button style={'thin-gray-170px'} onClick={isDecline}>
-                {isMobile ? '거절' : '거절하기'}
-              </Button>
-              <Button style={'thin-main-170px'} onClick={isApproval}>
-                {isMobile ? '승인' : '승인하기'}
-              </Button>
+              <Button
+                style={"thin-gray-170px"}
+                text={isMobile ? "거절" : "거절하기"}
+                onClick={isDecline}
+              />
+              <Button
+                style={"thin-main-170px"}
+                text={isMobile ? "승인" : "승인하기"}
+                onClick={isApproval}
+              />
             </>
           ) : (
-            <Button style={'thin-gray-360px'} text={'취소하기'} />
+            <Button
+              style={"thin-gray-360px"}
+              text={"취소하기"}
+              onClick={onClick}
+            />
           )}
         </div>
       </div>
       {exchangeAuth && (
         <ModalContainer onClick={isModalClose}>
-          <ExchangeAuth exchangeAuth={exchangeAuth} />
+          <ExchangeAuth
+            exchangeAuth={exchangeAuth}
+            card={card}
+            isModalClose={isModalClose}
+          />
         </ModalContainer>
       )}
     </>

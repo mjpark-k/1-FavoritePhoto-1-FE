@@ -37,9 +37,9 @@
 
 .exchange-container {
   width: 1480px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 80px;
   margin-bottom: 180px;
 }
 

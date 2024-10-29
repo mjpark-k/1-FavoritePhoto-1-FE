@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import Image from 'next/image';
-import styles from './QuantityButton.module.css';
-import plus from '@/public/plus-icon.svg';
-import minus from '@/public/minus-icon.svg';
-import { useState } from 'react';
+import classNames from "classnames";
+import Image from "next/image";
+import styles from "./QuantityButton.module.css";
+import plus from "@/public/plus-icon.svg";
+import minus from "@/public/minus-icon.svg";
+import { useState } from "react";
 
 /**
  * @param style
@@ -13,13 +13,17 @@ import { useState } from 'react';
  * ex) <QuantityButton style={"width-176px"}/>
  */
 
-export default function QuantityButton({ style, setNum, num }) {
+export default function QuantityButton({ style, setNum, num, maxQuantity }) {
   const QuantityWidth = classNames({
     [styles[style]]: style,
   });
 
   const handlePlus = () => {
-    setNum(num + 1);
+    if (num < maxQuantity) {
+      setNum(num + 1);
+    } else if (!maxQuantity) {
+      setNum(num + 1);
+    }
   };
 
   const handleMinus = () => {
@@ -32,14 +36,14 @@ export default function QuantityButton({ style, setNum, num }) {
     <div className={QuantityWidth}>
       <Image
         src={minus}
-        className={styles['sign']}
+        className={styles["sign"]}
         onClick={handleMinus}
         alt="minus"
       />
       <span>{num}</span>
       <Image
         src={plus}
-        className={styles['sign']}
+        className={styles["sign"]}
         onClick={handlePlus}
         alt="plus"
       />
