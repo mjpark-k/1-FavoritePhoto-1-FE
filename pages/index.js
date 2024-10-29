@@ -9,7 +9,8 @@ import { useState, useEffect, useRef } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
-import Notification from "@/components/notification/Notification";
+import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
+import useSelectedStore from "@/store/useSelectedStore";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -61,6 +62,9 @@ export default function Home() {
     };
   }, [loadMoreCards]);
 
+  const { selectedCard, setSelectedCard, clearSelectedCard } =
+    useSelectedStore();
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       setParams(() => ({
@@ -86,7 +90,8 @@ export default function Home() {
     setSellMyCard(false);
   };
 
-  const sellModalClick = () => {
+  const sellModalClick = (card) => {
+    setSelectedCard(card);
     setShowMyGallery(false);
     setSellMyCard(!sellMyCard);
   };
@@ -211,19 +216,22 @@ export default function Home() {
         {hasNextPage && <Loading />}
       </div>
       {showMyGallery && (
-        <ModalContainer
-          onClick={myGalleryModalClick}
-          text={
-            <CardList
-              title={"나의 포토카드 판매하기"}
-              onClick={sellModalClick}
-            />
-          }
-        ></ModalContainer>
+        <ModalContainer onClick={myGalleryModalClick}>
+          <CardList
+            title={"나의 포토카드 판매하기"}
+            onClick={sellModalClick}
+            data={myCards.data.cards}
+          />
+        </ModalContainer>
       )}
       {sellMyCard && (
         <ModalContainer onClick={sellModalClick}>
-          <CardSell myGalleryModalClick={myGalleryModalClick} />
+          {selectedCard && (
+            <CardSell
+              myGalleryModalClick={myGalleryModalClick}
+              sellModalClick={sellModalClick}
+            />
+          )}
         </ModalContainer>
       )}
     </div>

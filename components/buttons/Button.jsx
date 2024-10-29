@@ -4,7 +4,7 @@ import classNames from 'classnames';
 /**
  * @param text - button text
  * @param count - option : count
- * @param style - thick-color-width-(option : height)
+ * @param style - thick-color-width-(option : height)-(컴포넌트별 스타일링: sell-modal)
  * 1. thick(main) : thick-main-width(343px 345px 440px)
  * 2. thin(main) : thin-main-width(72px 141px 165px 170px 210px 272px 345px [**440px(height : 55px,60px)**] 520px)
  * 3. thick(black) : thick-black-width(343px 345px 440px)

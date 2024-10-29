@@ -9,14 +9,16 @@
   border-radius: 2px;
 }
 
-.container-search {
+.container-search,
+.container-search-modal {
   width: 320px;
   height: 50px;
   position: relative;
   line-height: 23.17px;
 }
 
-.search {
+.search,
+.search-modal {
   width: 100%;
   height: 100%;
   background-color: var(--black);
@@ -151,7 +153,126 @@
 }
 
 @media (min-width: 744px) and (max-width: 1199px) {
+  .default {
+    width: 440px;
+    height: 55px;
+    font-size: 0.875rem;
+  }
+
+  .container-password {
+    width: 440px;
+    height: 55px;
+    font-size: 0.875rem;
+  }
+
+  .container-price {
+    width: 202px;
+    height: 45px;
+    font-size: 0.875rem;
+  }
+
+  .search,
+  .search-modal {
+    font-size: 0.875rem;
+  }
+
+  .container-search,
+  .container-search-modal {
+    width: 200px;
+    height: 45px;
+    font-size: 0.875rem;
+  }
+
+  .textarea-920px {
+    width: 704px;
+  }
+
+  .textarea {
+    width: 440px;
+    height: 140px;
+    padding: 12px 20px 12px 20px;
+    font-size: 0.875rem;
+  }
+
+  .vector {
+    position: absolute;
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    top: 11.5px;
+    right: 11.5px;
+  }
+
+  .textarea-440px {
+    width: 342px;
+    height: 120px;
+    border-radius: 2px;
+    padding: 12px 20px 12px 20px;
+    font-size: 0.875rem;
+  }
 }
 
 @media (min-width: 375px) and (max-width: 743px) {
+  .default {
+    width: 345px;
+    height: 55px;
+    font-size: 0.875rem;
+  }
+
+  .container-password {
+    width: 345px;
+    height: 55px;
+    font-size: 0.875rem;
+  }
+
+  .container-price {
+    width: 202px;
+    height: 45px;
+    font-size: 0.875rem;
+  }
+
+  .search,
+  .search-modal {
+    font-size: 0.875rem;
+  }
+
+  .container-search {
+    width: 345px;
+    height: 45px;
+    font-size: 0.875rem;
+  }
+
+  .container-search-modal {
+    width: 290px;
+    height: 45px;
+    font-size: 0.875rem;
+  }
+
+  .textarea-920px {
+    width: 345px;
+  }
+
+  .textarea {
+    width: 345px;
+    height: 140px;
+    padding: 12px 20px 12px 20px;
+    font-size: 0.875rem;
+  }
+
+  .textarea-440px {
+    width: 345px;
+    height: 140px;
+    border-radius: 2px;
+    padding: 12px 20px 12px 20px;
+    font-size: 0.875rem;
+  }
+
+  .vector {
+    position: absolute;
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    top: 11.5px;
+    right: 11.5px;
+  }
 }

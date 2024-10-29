@@ -2,10 +2,18 @@ import { useRouter } from "next/router";
 import styles from "@/components/cards/Card.module.css";
 import Image from "next/image";
 import GradeCategory from "./info/GradeCategory";
+import { useEffect, useState } from "react";
 
 export default function Card({ onClick, card }) {
+  const [isSelling, setIsSelling] = useState("card-sellout-no");
   const router = useRouter();
   const { pathname } = router;
+
+  useEffect(() => {
+    if (card.sellout) {
+      setIsSelling("card-sellout");
+    }
+  }, []);
 
   const isInMyGallery = window.location.pathname.includes("/mygallery");
 
@@ -20,6 +28,16 @@ export default function Card({ onClick, card }) {
           alt="card-image"
           priority
         />
+        {!isInMyGallery && (
+          <div className={styles[isSelling]}>
+            <Image
+              src="/sellout-icon.svg"
+              width={230}
+              height={230}
+              alt="sellout-img"
+            />
+          </div>
+        )}
         {pathname === "/mysales" && (
           <div
             className={styles["card-state"]}
