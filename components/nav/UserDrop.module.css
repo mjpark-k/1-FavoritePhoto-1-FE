@@ -42,6 +42,12 @@
   color: var(--white);
 }
 
+.random-point {
+  display: none;
+  color: var(--white);
+  cursor: pointer;
+}
+
 .logout {
   display: none;
 }
@@ -70,6 +76,10 @@
 
   .table {
     padding: 0;
+  }
+  
+  .random-point {
+    display: block;
   }
 
   .logout {
