@@ -9,7 +9,6 @@ import { useState, useEffect, useRef } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
-import Notification from "@/components/notification/Notification";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -70,7 +69,7 @@ export default function Home() {
     }
   };
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     setParams(() => ({
       keyword: inputValue,
       pageNum: 1,
