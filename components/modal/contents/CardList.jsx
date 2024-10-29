@@ -8,10 +8,14 @@ import styles from "@/components/modal/contents/CardList.module.css";
  * @param title
  * @param onClick
  */
-export default function CardList({ data, title, onClick }) {
-  const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
-  const genres = ["풍경", "여행", "인물", "사물"];
-
+export default function CardList({
+  data,
+  title,
+  onClick,
+  onChange,
+  setParams,
+}) {
+  console.log(data);
   return (
     <>
       <div className={styles["container"]}>
@@ -22,10 +26,21 @@ export default function CardList({ data, title, onClick }) {
             style={"search-modal"}
             option={"search"}
             placeholder={"검색"}
+            onChange={onChange}
           />
           <div className={styles["dropdown-container"]}>
-            <Dropdown placeholder={"등급"} style={"default"} options={grades} />
-            <Dropdown placeholder={"장르"} style={"default"} options={genres} />
+            <Dropdown
+              placeholder={"등급"}
+              style={"default"}
+              options={"grades"}
+              setParams={setParams}
+            />
+            <Dropdown
+              placeholder={"장르"}
+              style={"default"}
+              options={"genres"}
+              setParams={setParams}
+            />
           </div>
         </div>
         <div className={styles["card-list"]}>
