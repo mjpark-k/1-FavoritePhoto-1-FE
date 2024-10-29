@@ -12,6 +12,8 @@
 }
 
 .container {
+  width: 560px;
+  height: 375px;
   position: relative;
   background-color: var(--gray-500);
   border-radius: 2px;

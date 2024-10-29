@@ -4,19 +4,22 @@
 }
 
 .home-nav {
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   margin-top: 60px;
   border-bottom: 2px solid var(--gray-200);
-  padding-bottom: 20px;
+  padding-bottom: 18px;
 }
 
 .home-title {
+  width: 320px;
+  height: 63px;
   font-family: "baskinRobbins";
   font-size: 62px;
   line-height: 63.49px;
   letter-spacing: -0.03em;
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .home-main-container {
@@ -26,6 +29,10 @@
 
 .home-main-container-nav {
   display: flex;
+}
+
+.home-main-container-nav-mobile-divider {
+  display: none;
 }
 
 .home-main-container-dropdowns {
@@ -55,4 +62,108 @@
 .scroll-loading-container {
   width: fit-content;
   margin: 60px auto;
+}
+
+.home-sell-container {
+  display: none;
+}
+
+@media (min-width: 744px) and (max-width: 1199px) {
+  .home-container {
+    width: 704px;
+  }
+
+  /* nav height 다름. 일단 넘어감 */
+  .home-nav {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .home-title {
+    width: 248px;
+    height: 49px;
+    font-size: 48px;
+    line-height: 49.15px;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+  }
+
+  .home-main-container {
+    width: 704px;
+  }
+
+  .home-main-container-nav-wrapper {
+    /*일단 보류*/
+  }
+
+  .home-main-container-nav {
+    width: 480px;
+    height: 45px;
+    justify-content: space-between;
+  }
+
+  .home-main-container-dropdowns {
+    gap: 25px;
+    margin-left: 0px;
+  }
+
+  .home-main-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    margin-top: 40px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 743px) {
+  .home-container {
+    width: 345px;
+  }
+
+  .home-nav {
+    display: none;
+  }
+
+  .home-main-container {
+    width: 345px;
+  }
+
+  .home-main-container-nav-wrapper {
+    /*대공사 필요*/
+    height: 110px;
+    flex-wrap: wrap;
+  }
+
+  .home-main-container-nav {
+    /*대공사 필요*/
+    width: 345px;
+    height: 45px;
+  }
+
+  .home-main-container-nav-mobile-divider {
+    display: block;
+    box-sizing: border-box;
+    width: 345px;
+    height: 2px;
+    border: 1px solid var(--gray-400);
+    margin: 14px 0;
+  }
+
+  .home-main-container-dropdowns {
+    display: none;
+  }
+
+  .home-main-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin-top: 20px;
+  }
+
+  .home-sell-container {
+    position: sticky;
+    bottom: 15px;
+    z-index: 9;
+    margin: 0 auto;
+    display: block;
+  }
 }

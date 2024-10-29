@@ -151,7 +151,25 @@
 }
 
 @media (min-width: 744px) and (max-width: 1199px) {
+  .container-search {
+    width: 200px;
+    height: 45px;
+  }
+
+  .vector {
+    width: 17.42px;
+    height: 17.42px;
+  }
 }
 
 @media (min-width: 375px) and (max-width: 743px) {
+  .container-search {
+    width: 345px;
+    height: 45px;
+  }
+
+  .vector {
+    width: 22px;
+    height: 22px;
+  }
 }

@@ -1,9 +1,17 @@
-.nav {
+.header {
   position: sticky;
   top: 0;
   z-index: 10;
-  width: 100%;
   height: 80px;
+  width: 100%;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
   background-color: var(--black);
 }
 
@@ -15,8 +23,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 27px auto;
+  width: 100%;
+  max-width: 1480px;
+  margin: auto;
 }
 
 .list {
@@ -25,6 +34,10 @@
 
 /* Tablet view */
 @media (min-width: 744px) and (max-width: 1199px) {
+  .header {
+    height: 70px;
+  }
+
   .container {
     max-width: 664px;
   }
@@ -37,6 +50,10 @@
 
 /* Mobile view */
 @media (max-width: 743px) {
+  .header {
+    height: 60px;
+  }
+
   .container {
     max-width: 375px;
   }
