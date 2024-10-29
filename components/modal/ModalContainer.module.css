@@ -12,6 +12,8 @@
 }
 
 .container {
+  width: 560px;
+  height: 375px;
   position: relative;
   background-color: var(--gray-500);
   border-radius: 2px;
@@ -24,4 +26,17 @@
   right: 30px;
   top: 30px;
   cursor: pointer;
+}
+
+@media (min-width: 744px) and (max-width: 1199px) {
+  .container {
+    width: 400px;
+    height: 291px;
+  }
+}
+@media (min-width: 375px) and (max-width: 743px) {
+  .container {
+    width: 345px;
+    height: 291px;
+  }
 }

@@ -56,6 +56,10 @@ export default function Home() {
     setSellMyCard(!sellMyCard);
   };
 
+  const handleFilterClick = () => {
+    // need filter modal
+  };
+
   if (isLoading)
     return (
       <div className={styles["home-container"]}>
@@ -155,6 +159,10 @@ export default function Home() {
               />
             </div>
           </div>
+          <div
+            className={styles["home-main-container-nav-mobile-divider"]}
+          ></div>
+          <Button style={"mobile-filter"} onClick={handleFilterClick} />
           <Dropdown
             placeholder={"낮은 가격순"}
             style={"180"}
