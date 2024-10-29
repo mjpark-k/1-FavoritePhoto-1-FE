@@ -64,6 +64,10 @@
   margin: 60px auto;
 }
 
+.home-sell-container {
+  display: none;
+}
+
 @media (min-width: 744px) and (max-width: 1199px) {
   .home-container {
     width: 704px;
@@ -153,5 +157,13 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 5px;
     margin-top: 20px;
+  }
+
+  .home-sell-container {
+    position: sticky;
+    bottom: 15px;
+    z-index: 9;
+    margin: 0 auto;
+    display: block;
   }
 }

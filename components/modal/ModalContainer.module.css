@@ -27,16 +27,3 @@
   top: 30px;
   cursor: pointer;
 }
-
-@media (min-width: 744px) and (max-width: 1199px) {
-  .container {
-    width: 400px;
-    height: 291px;
-  }
-}
-@media (min-width: 375px) and (max-width: 743px) {
-  .container {
-    width: 345px;
-    height: 291px;
-  }
-}

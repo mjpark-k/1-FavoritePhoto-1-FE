@@ -388,6 +388,11 @@
 
 /* Mobile view */
 @media (max-width: 743px) {
+  .thin-main-440px-60px {
+    width: 345px;
+    height: 55px;
+  }
+
   .thin-black-440px-60px {
     width: 277px;
     height: 55px;

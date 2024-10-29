@@ -195,6 +195,13 @@ export default function Home() {
           <CardSell myGalleryModalClick={myGalleryModalClick} />
         </ModalContainer>
       )}
+      <div className={styles["home-sell-container"]}>
+        <Button
+          text={"나의 포토카드 판매하기"}
+          style={"thin-main-440px-60px"}
+          onClick={myGalleryModalClick}
+        />
+      </div>
     </div>
   );
 }
