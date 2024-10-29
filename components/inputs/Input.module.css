@@ -17,7 +17,8 @@
   line-height: 23.17px;
 }
 
-.search {
+.search,
+.search-modal {
   width: 100%;
   height: 100%;
   background-color: var(--black);
@@ -170,7 +171,8 @@
     font-size: 0.875rem;
   }
 
-  .search {
+  .search,
+  .search-modal {
     font-size: 0.875rem;
   }
 
@@ -229,7 +231,8 @@
     font-size: 0.875rem;
   }
 
-  .search {
+  .search,
+  .search-modal {
     font-size: 0.875rem;
   }
 
