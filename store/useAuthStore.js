@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 const useAuthStore = create(
   persist(
@@ -19,7 +19,7 @@ const useAuthStore = create(
         })), // 포인트 업데이트 시 실행
     }),
     {
-      name: "userData",
+      name: 'userData',
       storage: createJSONStorage(() => sessionStorage),
     }
   )
