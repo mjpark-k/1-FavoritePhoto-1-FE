@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useUsersShopQuery } from "@/lib/reactQuery/useUsers.js";
 import styles from "@/styles/Mygallery.module.css";
 import Dropdown from "@/components/dropdowns/Dropdown";
@@ -6,11 +6,11 @@ import Input from "@/components/inputs/Input";
 import Card from "@/components/cards/Card";
 import classNames from "classnames";
 import useAuthStore from "@/store/useAuthStore";
+import Loading from "@/components/loading/Loading";
 
 export default function mysales() {
   const { user } = useAuthStore();
   const [inputValue, setInputValue] = useState();
-
   const [params, setParams] = useState({
     sort: "recent",
     genre: "",
@@ -21,10 +21,44 @@ export default function mysales() {
     keyword: "",
     hasExchangeRequest: "",
   });
+  const [cards, setCards] = useState("");
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const observerTarget = useRef(null);
 
   const { data, isLoading, error } = useUsersShopQuery(params);
 
-  if (isLoading)
+  useEffect(() => {
+    if (data) {
+      setCards(data.data.shops);
+      setHasNextPage(data.data.shops.length >= params.pageSize);
+    }
+  }, [data]);
+
+  const loadMoreCards = () => {
+    if (!isLoading && hasNextPage) {
+      setParams((prevParams) => ({
+        ...prevParams,
+        pageSize: prevParams.pageSize + 6,
+      }));
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreCards();
+        }
+      },
+      { threshold: 1.0 }
+    );
+    if (observerTarget.current) observer.observe(observerTarget.current);
+    return () => {
+      if (observerTarget.current) observer.unobserve(observerTarget.current);
+    };
+  }, [loadMoreCards]);
+
+  if (isLoading && !cards)
     return (
       <div className={styles["mygallery-nav-wrapper"]}>
         <div className={styles["mygallery-nav"]}>
@@ -103,6 +137,11 @@ export default function mysales() {
             />
           </div>
         </div>
+        {!cards && (
+          <div className={styles["loading-container"]}>
+            <Loading />
+          </div>
+        )}
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
@@ -136,9 +175,11 @@ export default function mysales() {
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
             {user.data.nickname}님이 보유한 포토카드
-            <span className={styles["mygallery-grade-box-count"]}>
-              ({data.data.totalCount})
-            </span>
+            {data && (
+              <span className={styles["mygallery-grade-box-count"]}>
+                ({data.data.totalCount})
+              </span>
+            )}
           </p>
           <div className={styles["mygallery-grade-box-container"]}>
             <div
@@ -148,12 +189,14 @@ export default function mysales() {
               )}
             >
               COMMON
-              <span className={styles["mygallery-grade-box-text"]}>
-                {!data.data.countsGroupByGrade[0]
-                  ? 0
-                  : data.data.countsGroupByGrade[0]}
-                장
-              </span>
+              {data && (
+                <span className={styles["mygallery-grade-box-text"]}>
+                  {!data.data.countsGroupByGrade[0]
+                    ? 0
+                    : data.data.countsGroupByGrade[0]}
+                  장
+                </span>
+              )}
             </div>
             <div
               className={classNames(
@@ -162,12 +205,14 @@ export default function mysales() {
               )}
             >
               RARE
-              <span className={styles["mygallery-grade-box-text"]}>
-                {!data.data.countsGroupByGrade[1]
-                  ? 0
-                  : data.data.countsGroupByGrade[1]}
-                장
-              </span>
+              {data && (
+                <span className={styles["mygallery-grade-box-text"]}>
+                  {!data.data.countsGroupByGrade[1]
+                    ? 0
+                    : data.data.countsGroupByGrade[1]}
+                  장
+                </span>
+              )}
             </div>
             <div
               className={classNames(
@@ -176,12 +221,14 @@ export default function mysales() {
               )}
             >
               SUPER RARE
-              <span className={styles["mygallery-grade-box-text"]}>
-                {!data.data.countsGroupByGrade[2]
-                  ? 0
-                  : data.data.countsGroupByGrade[2]}
-                장
-              </span>
+              {data && (
+                <span className={styles["mygallery-grade-box-text"]}>
+                  {!data.data.countsGroupByGrade[2]
+                    ? 0
+                    : data.data.countsGroupByGrade[2]}
+                  장
+                </span>
+              )}
             </div>
             <div
               className={classNames(
@@ -190,12 +237,14 @@ export default function mysales() {
               )}
             >
               LEGENDARY
-              <span className={styles["mygallery-grade-box-text"]}>
-                {!data.data.countsGroupByGrade[3]
-                  ? 0
-                  : data.data.countsGroupByGrade[3]}
-                장
-              </span>
+              {data && (
+                <span className={styles["mygallery-grade-box-text"]}>
+                  {!data.data.countsGroupByGrade[3]
+                    ? 0
+                    : data.data.countsGroupByGrade[3]}
+                  장
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -236,12 +285,21 @@ export default function mysales() {
           </div>
         </div>
       </div>
-      <div className={styles["mygallery-main-card-grid"]}>
-        {" "}
-        {data.data.shops.map((card, index) => (
-          <Card key={index} card={card} />
-        ))}
-      </div>
+      {cards && (
+        <div className={styles["mygallery-main-card-grid"]}>
+          {cards.map((card, index) => (
+            <Card key={index} card={card} />
+          ))}
+        </div>
+      )}
+      {hasNextPage && (
+        <div
+          ref={observerTarget}
+          className={styles["scroll-loading-container"]}
+        >
+          <Loading />
+        </div>
+      )}
     </>
   );
 }

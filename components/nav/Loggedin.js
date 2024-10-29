@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./Loggedin.module.css";
 import alarm from "@/public/alarm-icon.svg";
 import UserDrop from "./UserDrop";
+import Notification from "../notification/Notification";
 import useTimerStore from "@/store/useTimerStore";
 
 export default function Loggedin({
@@ -25,7 +26,7 @@ export default function Loggedin({
       <span className={styles["points"]}>
         {point.toLocaleString("ko-KR")} P
       </span>
-      <Image src={alarm} className={styles["alarm"]} alt="alarm" />
+      <Notification />
       <div className={styles["nickname-container"]}>
         <span className={styles["nickname"]} onClick={handleNicknameClick}>
           {nickname}
