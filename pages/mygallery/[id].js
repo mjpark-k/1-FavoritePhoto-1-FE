@@ -14,9 +14,11 @@ export default function Detail() {
   const [sellMyCard, setSellMyCard] = useState(false);
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
 
-  const { data, isLoading, error } = useUsersMyCardsQuery({ id });
+  const { data, isLoading, error } = useUsersMyCardsQuery({
+    id,
+    enabled: !!id,
+  });
 
   if (isLoading) return <>loading</>;
   if (error) return <div>Error: {error.message}</div>;
@@ -36,10 +38,10 @@ export default function Detail() {
   return (
     <>
       <div className={styles["detail-container"]}>
-        <div className={styles["detail-title"]}>{data.data.name}</div>
+        <div className={styles["detail-title"]}>{data?.data.name}</div>
         <div className={styles["detail-main-container"]}>
           <Image
-            src={data.data.image}
+            src={data?.data.image}
             width={960}
             height={720}
             alt="card-image"
@@ -48,23 +50,23 @@ export default function Detail() {
             <div className={styles["title"]}>
               <GradeCategory
                 style="medium"
-                genre={data.data.genre}
-                grade={data.data.grade}
+                genre={data?.data.genre}
+                grade={data?.data.grade}
               />
-              <span className={styles["nickname"]}>{data.data.nickname}</span>
+              <span className={styles["nickname"]}>{data?.data.nickname}</span>
             </div>
-            <div className={styles["content"]}>{data.data.description}</div>
+            <div className={styles["content"]}>{data?.data.description}</div>
             <div className={styles["bottom-container"]}>
               <div className={styles["price-container"]}>
                 <span className={styles["price"]}>가격</span>
                 <span className={styles["number-price"]}>
-                  {data.data.price} P
+                  {data?.data.price} P
                 </span>
               </div>
               <div className={styles["count-container"]}>
                 <span className={styles["count"]}>보유량</span>
                 <span className={styles["number-count"]}>
-                  {data.data.quantity}
+                  {data?.data.quantity}
                 </span>
               </div>
               <div className={styles["detail-btn"]}>
