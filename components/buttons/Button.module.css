@@ -341,6 +341,7 @@
 }
 
 .mobile-filter {
+  display: none;
   width: 35px;
   height: 35px;
   box-sizing: border-box;
@@ -413,5 +414,9 @@
     height: 40px;
     font-weight: 700;
     font-size: 0.75rem;
+  }
+
+  .mobile-filter {
+    display: block;
   }
 }
