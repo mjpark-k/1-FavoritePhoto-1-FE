@@ -11,12 +11,14 @@ import NonLogin from "./NonLogin";
 import useAuthStore from "@/store/useAuthStore";
 import { usePostSignout } from "@/lib/reactQuery/useAuth";
 
-export default function Nav({ handlePointModal }) {
+export default function Nav() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
   const [userDrop, setUserDrop] = useState(false);
 
   const usePostSignoutMutation = usePostSignout();
+
+  console.log(user);
 
   const handleUserDrop = () => {
     setUserDrop((prevState) => !prevState); // 이전 상태에 따라 토글
@@ -61,7 +63,6 @@ export default function Nav({ handlePointModal }) {
           </Link>
           {user ? (
             <>
-              <div onClick={handlePointModal}>🎁</div>
               <Loggedin
                 nickname={user.data.nickname}
                 point={user.data.point}

@@ -8,10 +8,15 @@ import {
   useGetLastAddTime,
 } from "@/lib/reactQuery/usePoint";
 import { useEffect, useState } from "react";
+import useTimerStore from "@/store/useTimerStore";
+import useAuthStore from "@/store/useAuthStore";
 
-export default function RandomPoint({ handlePointModal }) {
+export default function RandomPoint() {
   const { data, isLoading } = useGetLastAddTime();
   const [remainingTime, setRemainingTime] = useState(0);
+
+  const { handlePointModal, resetTimeout } = useTimerStore();
+  const { updatePoints } = useAuthStore();
 
   const useAddRandomPointMutation = useAddRandomPoint();
 
@@ -48,10 +53,9 @@ export default function RandomPoint({ handlePointModal }) {
           console.log("남은 시간 : ", remainingTime);
           handlePointModal();
 
-          // 3분 후에 모달 자동으로 켜지기
-          setTimeout(() => {
-            handlePointModal(); // 모달 다시 열기
-          }, 180000); // 3분(180,000ms)
+          updatePoints(data.data.point);
+
+          resetTimeout();
         } else {
           console.log("획득 포인트: ", data.data.earnedPoint);
           console.log("내 포인트: ", data.data.point);

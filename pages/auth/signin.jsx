@@ -3,6 +3,7 @@ import Input from "@/components/inputs/Input";
 import { useLoginValidation } from "@/hooks/useValidation/useLoginValidation";
 import { usePostSignin } from "@/lib/reactQuery/useAuth";
 import useAuthStore from "@/store/useAuthStore";
+import useTimerStore from "@/store/useTimerStore";
 import styles from "@/styles/Login.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import { useState } from "react";
 export default function Signin() {
   const router = useRouter();
   const { login } = useAuthStore();
+  const { resetTimeout } = useTimerStore();
   const [visibility, setVisibility] = useState(false);
   const {
     emailValue,
@@ -41,9 +43,11 @@ export default function Signin() {
           console.log("로그인 성공:", data);
           login(data);
           router.push("/"); // 성공 시 홈페이지로 이동
+          // 3분 후에 모달 자동으로 켜지기
+          resetTimeout();
         },
         onError: (error) => {
-          alert(error.response.data.message)
+          alert(error.response.data.message);
         },
       }
     );
