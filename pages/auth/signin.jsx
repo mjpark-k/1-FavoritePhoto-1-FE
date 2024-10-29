@@ -4,7 +4,7 @@ import { useLoginValidation } from "@/hooks/useValidation/useLoginValidation";
 import { usePostSignin } from "@/lib/reactQuery/useAuth";
 import useAuthStore from "@/store/useAuthStore";
 import useTimerStore from "@/store/useTimerStore";
-import styles from "@/styles/Login.module.css";
+import styles from "@/styles/signin.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
