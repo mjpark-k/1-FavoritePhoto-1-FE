@@ -2,14 +2,12 @@ import Button from '@/components/buttons/Button';
 import Input from '@/components/inputs/Input';
 import { useLoginValidation } from '@/hooks/useValidation/useLoginValidation';
 import { usePostSignin } from '@/lib/reactQuery/useAuth';
-import useAuthStore from '@/store/useAuthStore';
 import styles from '@/styles/signin.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Signin() {
-  const { login } = useAuthStore();
   const [visibility, setVisibility] = useState(false);
   const {
     emailValue,
