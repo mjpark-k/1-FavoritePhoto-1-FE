@@ -27,4 +27,12 @@
   .signup {
     display: none;
   }
+
+  .user-drop {
+    margin-top: 0;
+    position: fixed; /* 고정 위치 */
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
 }
