@@ -4,7 +4,7 @@ import Input from '@/components/inputs/Input';
 import styles from '@/components/modal/contents/CardExchange.module.css';
 import useSelectedStore from '@/store/useSelectedStore';
 
-export default function CardExchange({ onClick, exchangeClick }) {
+export default function CardExchange({ onClick, exchangeClick, onChange }) {
   const { selectedCard } = useSelectedStore();
   return (
     <>
@@ -21,6 +21,7 @@ export default function CardExchange({ onClick, exchangeClick }) {
               style={'textarea-440px'}
               placeholder={'내용을 입력해 주세요'}
               option={'textarea'}
+              onChange={onChange}
             />
             <div className={styles['button-container']}>
               <Button

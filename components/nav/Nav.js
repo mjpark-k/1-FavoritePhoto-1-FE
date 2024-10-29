@@ -13,7 +13,7 @@ import { usePostSignout } from "@/lib/reactQuery/useAuth";
 
 export default function Nav() {
   const router = useRouter();
-  const { user, logout } = useAuthStore();
+  const { user } = useAuthStore();
   const [userDrop, setUserDrop] = useState(false);
 
   const usePostSignoutMutation = usePostSignout();
@@ -28,16 +28,7 @@ export default function Nav() {
   };
 
   const handleSignout = () => {
-    usePostSignoutMutation.mutate(null, {
-      onSuccess: () => {
-        console.log("로그아웃 성공");
-        logout();
-        router.push("/"); // 홈페이지로 리다이렉트
-      },
-      onError: () => {
-        console.log("로그아웃 실패:", error);
-      },
-    });
+    usePostSignoutMutation.mutate();
   };
 
   return (

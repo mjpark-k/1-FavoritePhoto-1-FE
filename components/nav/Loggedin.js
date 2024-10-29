@@ -22,8 +22,7 @@ export default function Loggedin({
       <span className={styles["points"]}>
         {point.toLocaleString("ko-KR")} P
       </span>
-      <Image src={alarm} className={styles["alarm"]} alt="alarm" />
-
+      <Notification />
       <div className={styles["nickname-container"]}>
         <span className={styles["nickname"]} onClick={handleNicknameClick}>
           {nickname}

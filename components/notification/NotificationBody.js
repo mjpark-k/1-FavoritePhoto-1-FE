@@ -1,10 +1,18 @@
-import { checkNotification, deleteNotification } from "@/lib/api/notification";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import styles from "./NotificationBody.module.css";
+import {
+  useCheckNotification,
+  useDeleteNotification,
+  useGetMyNotificationQuery,
+} from "@/lib/reactQuery/useNotifications";
 
-const NotificaionBody = (data) => {
-  const { time, setTime } = useState("");
-  const { isDelete, setIsDelete } = useState(false);
+const NotificaionBody = ({ data, setMessageCount, setAlarm, idx, alarm }) => {
+  const [time, setTime] = useState("");
+  const [isDelete, setIsDelete] = useState(false);
+  const [IsCheck, setIsCheck] = useState("notification-box");
+  const usecheckNotificationMutation = useCheckNotification();
+  const useDeleteNotificationMutation = useDeleteNotification();
 
   useEffect(() => {
     const createAt = Math.floor(data.timeDifference / (1000 * 60)); // 1분
@@ -22,31 +30,65 @@ const NotificaionBody = (data) => {
     } else {
       setTime(`${Math.floor(createAt / (60 * 24 * 365))}년 전`);
     }
+
+    if (data.check) {
+      setIsCheck("notification-box-checked");
+    }
+    console.log(IsCheck);
   }, [data.timeDifference]);
 
   const notificationCheckHandler = () => {
-    checkNotification(data.id);
+    usecheckNotificationMutation.mutate(
+      { notificationId: data.id },
+      {
+        onSuccess: (data) => {
+          console.log("확인했습니다.:");
+          setIsCheck("notification-box-checked");
+          if (IsCheck === "notification-box") {
+            setMessageCount((prevMessageCount) => prevMessageCount - 1);
+          }
+        },
+        onError: (error) => {
+          console.error("오류가 발생했습니다.:", error);
+        },
+      }
+    );
   };
 
-  const notificationDeleteHandler = () => {
-    deleteNotification(data.id);
-    setIsDelete(true);
+  const notificationDeleteHandler = (event) => {
+    event.stopPropagation();
+    useDeleteNotificationMutation.mutate(
+      { notificationId: data.id },
+      {
+        onSuccess: (data) => {
+          setIsDelete(true);
+          console.log("삭제됐습니다.:");
+
+          if (IsCheck === "notification-box") {
+            setMessageCount((prevMessageCount) => prevMessageCount - 1);
+          }
+        },
+        onError: (error) => {
+          console.error("오류가 발생했습니다.:", error);
+        },
+      }
+    );
   };
 
   return (
     <>
       {!isDelete && (
-        <div ref={ref} onClick={notificationCheckHandler}>
+        <div onClick={notificationCheckHandler} className={styles[IsCheck]}>
           <div>{data.message}</div>
-          <div>{time}</div>
-          {/* <Image
-        src={}
-        className={}
-        width={}
-        height={}
-        alt="X"
-        onClick={notificationDeleteHandler}
-        /> */}
+          <div className={styles["notification-time"]}>{time}</div>
+          <Image
+            src="/close-button.svg"
+            className={styles["notification-btn"]}
+            width={18}
+            height={18}
+            alt="X"
+            onClick={notificationDeleteHandler}
+          />
         </div>
       )}
     </>

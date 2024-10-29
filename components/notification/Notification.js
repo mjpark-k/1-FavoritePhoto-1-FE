@@ -1,40 +1,19 @@
 import { useRef, useState, useEffect } from "react";
-import NotificaionBody from "./NotificationBody.js";
+import NotificationBody from "./NotificationBody.js";
 import styles from "./Notification.module.css";
 import { useGetMyNotificationQuery } from "@/lib/reactQuery/useNotifications.js";
+import Image from "next/image.js";
 
 export default function Notification() {
-  // `const observerRef = useRef();
-
-  // // 무한 스크롤을 위한 함수
-  // // Intersection Observer 콜백
-  // const lastItemRef = useCallback(
-  //   (node) => {
-  //     if (observerRef.current) observerRef.current.disconnect();
-  //     observerRef.current = new IntersectionObserver((entries) => {
-  //       if (entries[0].isIntersecting && hasMore) {
-  //         loadMore(); // 상위 컴포넌트에서 전달된 함수 호출
-  //       }
-  //     });
-  //     if (node) observerRef.current.observe(node);
-  //   },
-  //   [hasMore, loadMore]
-  // );`
-
   const [isOpen, setIsOpen] = useState(false);
+  const [messageCount, setMessageCount] = useState(0);
+  const [alarm, setAlarm] = useState([]);
   const [params, setParams] = useState({
-    pageSize: "10",
-    pageNun: "1",
+    pageSize: "100",
+    pageNum: "1",
   });
   const dropdownRef = useRef(null);
-
-  const { data, isLoading, error } = useGetMyNotificationQuery(params);
-
-  if (data) console.log(data);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
+  const { data } = useGetMyNotificationQuery(params);
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsOpen(false);
@@ -48,21 +27,53 @@ export default function Notification() {
     };
   }, []);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
   };
 
-  if (data) console.log(data);
+  useEffect(() => {
+    if (data) {
+      setAlarm(data.notifications);
+      const getMessageCount = data.notifications.filter(
+        (notification) => !notification.check
+      ).length;
+      setMessageCount(getMessageCount);
+    }
+  }, [data]);
 
   return (
-    <div
-      className={styles["notification-container"]}
-      onClick={toggleDropdown}
-      ref={dropdownRef}
-    >
-      {data.map((data, idx) => {
-        <NotificaionBody data={data} key={idx} />;
-      })}
+    <div className={styles["notification"]} ref={dropdownRef}>
+      <div className={styles["icon-container"]}>
+        <Image
+          src="/alarm-icon.svg"
+          width={24}
+          height={24}
+          className={styles["alarm"]}
+          alt="alarm"
+          onClick={toggleDropdown}
+        />
+        {messageCount !== 0 ? (
+          <div className={styles["alarm-indicator"]}>
+            {messageCount > 99 ? "99+" : messageCount}
+          </div>
+        ) : null}
+      </div>
+      {isOpen && (
+        <div className={styles["notification-container"]}>
+          {alarm &&
+            alarm.map((notification, idx) => (
+              <NotificationBody
+                data={notification}
+                key={idx}
+                setMessageCount={setMessageCount}
+                setAlarm={setAlarm}
+                idx={idx}
+                alarm={alarm}
+              />
+            ))}
+        </div>
+      )}
     </div>
   );
 }

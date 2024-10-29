@@ -152,7 +152,6 @@ export default function Home() {
 
   return (
     <div className={styles["home-container"]}>
-      <Notification />
       <div className={styles["home-nav"]}>
         <div className={styles["home-title"]}>마켓플레이스</div>
         <Button
@@ -220,7 +219,7 @@ export default function Home() {
               onClick={sellModalClick}
             />
           }
-        />
+        ></ModalContainer>
       )}
       {sellMyCard && (
         <ModalContainer onClick={sellModalClick}>
