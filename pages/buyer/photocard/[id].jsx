@@ -24,6 +24,15 @@ export async function getServerSideProps(context) {
   const cookies = context.req.headers.cookie || '';
   const shopCard = await getShopCard({ shopId: id, cookies });
 
+  if (shopCard.shopInfo.isOwner) {
+    return {
+      redirect: {
+        destination: `/seller/photocard/${shopCard.shopInfo.id}`,
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       card: shopCard.shopInfo ?? null,

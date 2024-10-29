@@ -40,7 +40,7 @@ export default function Signin() {
         onSuccess: (data) => {
           // 3분 후에 모달 자동으로 켜지기
           resetTimeout();
-        }
+        },
       }
     );
   };
