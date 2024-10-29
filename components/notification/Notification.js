@@ -41,7 +41,6 @@ export default function Notification() {
       setMessageCount(getMessageCount);
     }
   }, [data]);
-
   return (
     <div className={styles["notification"]} ref={dropdownRef}>
       <div className={styles["icon-container"]}>
@@ -65,7 +64,7 @@ export default function Notification() {
             alarm.map((notification, idx) => (
               <NotificationBody
                 data={notification}
-                key={idx}
+                key={notification.id}
                 setMessageCount={setMessageCount}
                 setAlarm={setAlarm}
                 idx={idx}

@@ -4,7 +4,6 @@ import styles from "./NotificationBody.module.css";
 import {
   useCheckNotification,
   useDeleteNotification,
-  useGetMyNotificationQuery,
 } from "@/lib/reactQuery/useNotifications";
 
 const NotificaionBody = ({ data, setMessageCount, setAlarm, idx, alarm }) => {
@@ -34,16 +33,19 @@ const NotificaionBody = ({ data, setMessageCount, setAlarm, idx, alarm }) => {
     if (data.check) {
       setIsCheck("notification-box-checked");
     }
-    console.log(IsCheck);
   }, [data.timeDifference]);
-
   const notificationCheckHandler = () => {
     usecheckNotificationMutation.mutate(
       { notificationId: data.id },
       {
         onSuccess: (data) => {
-          console.log("확인했습니다.:");
+          console.log("확인했습니다.:" + data);
           setIsCheck("notification-box-checked");
+          const newAlarm = [...alarm];
+          const timeDifference = newAlarm[idx].timeDifference;
+          data.timeDifference = timeDifference;
+          newAlarm[idx] = data;
+          setAlarm(newAlarm);
           if (IsCheck === "notification-box") {
             setMessageCount((prevMessageCount) => prevMessageCount - 1);
           }
@@ -63,6 +65,9 @@ const NotificaionBody = ({ data, setMessageCount, setAlarm, idx, alarm }) => {
         onSuccess: (data) => {
           setIsDelete(true);
           console.log("삭제됐습니다.:");
+          const newAlarm = [...alarm];
+          newAlarm.splice(idx, 1);
+          setAlarm(newAlarm);
 
           if (IsCheck === "notification-box") {
             setMessageCount((prevMessageCount) => prevMessageCount - 1);
@@ -74,7 +79,6 @@ const NotificaionBody = ({ data, setMessageCount, setAlarm, idx, alarm }) => {
       }
     );
   };
-
   return (
     <>
       {!isDelete && (
