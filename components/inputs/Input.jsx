@@ -1,6 +1,6 @@
-import styles from "@/components/inputs/Input.module.css";
-import classNames from "classnames";
-import Image from "next/image";
+import styles from '@/components/inputs/Input.module.css';
+import classNames from 'classnames';
+import Image from 'next/image';
 
 /**
  * @param option
@@ -12,8 +12,8 @@ import Image from "next/image";
  * @param style
  * 1. default
  * 2. password
- * 3. search
- * 4. textarea-width(440px)
+ * 3. search / search-modal
+ * 4. textarea-width(440px, 920px)
  * 5. price
  * @param visibility
  * password visibility(value : Boolean)
@@ -32,7 +32,7 @@ export default function Input({
 }) {
   const inputClass = classNames({
     [styles[style]]: style,
-    [styles["error"]]: error,
+    [styles['error']]: error,
   });
 
   const containerClass = classNames({
@@ -45,16 +45,16 @@ export default function Input({
       <div className={containerClass}>
         <input
           className={inputClass}
-          type={visibility ? "text" : "password"}
+          type={visibility ? 'text' : 'password'}
           {...props}
         />
         {visibility ? (
-          <div className={styles["visibility-on"]} onClick={onClick}>
-            <Image src={"/visibility-on.svg"} fill alt="visibility-on" />
+          <div className={styles['visibility-on']} onClick={onClick}>
+            <Image src={'/visibility-on.svg'} fill alt="visibility-on" />
           </div>
         ) : (
-          <div className={styles["visibility-off"]} onClick={onClick}>
-            <Image src={"/visibility-off.svg"} fill alt="visibility-off" />
+          <div className={styles['visibility-off']} onClick={onClick}>
+            <Image src={'/visibility-off.svg'} fill alt="visibility-off" />
           </div>
         )}
       </div>
@@ -62,7 +62,7 @@ export default function Input({
     search: (
       <div className={containerClass}>
         <input className={inputClass} {...props} />
-        <div className={styles["vector"]} onClick={onClick}>
+        <div className={styles['vector']} onClick={onClick}>
           <Image src="/vector.svg" fill alt="vector" />
         </div>
       </div>
@@ -77,5 +77,5 @@ export default function Input({
 
   const input = inputs[option];
 
-  return <div className={styles["input-container"]}>{input}</div>;
+  return <div className={styles['input-container']}>{input}</div>;
 }
