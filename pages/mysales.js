@@ -9,7 +9,7 @@ import useAuthStore from "@/store/useAuthStore";
 import Loading from "@/components/loading/Loading";
 import Link from "next/link";
 
-export default function mysales() {
+export default function Mysales() {
   const { user } = useAuthStore();
   const [inputValue, setInputValue] = useState();
   const [params, setParams] = useState({

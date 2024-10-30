@@ -10,7 +10,7 @@ import Link from "next/link";
 import useAuthStore from "@/store/useAuthStore";
 import Loading from "@/components/loading/Loading";
 
-export default function mygallery() {
+export default function Mygallery() {
   const { user } = useAuthStore();
   const [inputValue, setInputValue] = useState("");
   const [params, setParams] = useState({
@@ -168,7 +168,7 @@ export default function mygallery() {
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
-            {user && user.data.nickname}님이 보유한 포토카드
+            {user?.data.nickname}님이 보유한 포토카드
             {data && (
               <span className={styles["mygallery-grade-box-count"]}>
                 ({data.data.totalCount})
