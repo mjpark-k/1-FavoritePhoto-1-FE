@@ -81,7 +81,7 @@ export default function Index({ shop, card, exchangeInfo, exchangeList, c }) {
             ))}
           </div>
         ) : (
-          <div>교환 제시 목록이 텅 비었습니다.</div>
+          <div className={styles["blank"]}>교환 제시 목록이 텅 비었습니다.</div>
           // <ButtonCard style={"refuse-approval"} card={card} />
         )}
       </div>
