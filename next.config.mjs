@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://dev-1-favorite-photo-1-fe.vercel.app/:path*",
+        destination: "https://one-favoritephoto-1-be.onrender.com/:path*",
       },
     ];
   },
