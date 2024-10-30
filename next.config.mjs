@@ -4,8 +4,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'https://one-favoritephoto-1-be.onrender.com/:path*',
+        source: "/api/:path*",
+        destination: "https://one-favoritephoto-1-be.onrender.com/:path*",
       },
     ];
   },
