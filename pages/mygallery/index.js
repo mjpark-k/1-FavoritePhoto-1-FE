@@ -24,7 +24,10 @@ export default function Mygallery() {
   const [hasNextPage, setHasNextPage] = useState(false);
   const observerTarget = useRef(null);
 
-  const { data, isLoading, error } = useUsersMyCardListQuery(params);
+  const { data, isLoading, error } = useUsersMyCardListQuery({
+    ...params,
+    user,
+  });
 
   useEffect(() => {
     if (data) {
@@ -275,7 +278,7 @@ export default function Mygallery() {
               href={`/mygallery/${card.id}`}
               className={styles["mygallery-main-card-grid-item"]}
             >
-              <Card card={card} />
+              <Card card={card} quantity={"quantity"} />
             </Link>
           ))}
         </div>

@@ -26,8 +26,8 @@ export default function RandomPoint() {
     const lastGetPointTime = data.data.timeDifference;
     console.log(lastGetPointTime);
 
-    // setRemainingTime(Math.max(3600000 - timeDifference, 0));
-    setRemainingTime(Math.max(180000 - lastGetPointTime, 0));
+    setRemainingTime(Math.max(180000 - lastGetPointTime, 0)); // 3분 남은 시간
+    // setRemainingTime(Math.max(3600000 - timeDifference, 0));  // 1시간 남은 시간
 
     const interval = setInterval(() => {
       setRemainingTime((prevTime) => {
