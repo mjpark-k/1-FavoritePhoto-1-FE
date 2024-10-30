@@ -10,7 +10,7 @@ import Link from "next/link";
 import useAuthStore from "@/store/useAuthStore";
 import Loading from "@/components/loading/Loading";
 
-export default function mygallery() {
+export default function Mygallery() {
   const { user } = useAuthStore();
   const [inputValue, setInputValue] = useState("");
   const [params, setParams] = useState({
