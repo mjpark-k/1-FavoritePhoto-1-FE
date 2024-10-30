@@ -32,7 +32,7 @@ export default function Home() {
   const { data, isLoading, error } = useShopCards(params);
 
   // const { data: myCards } = useUsersMyCardListQuery(params);
-  console.log("테스트");
+  console.log("테스트 vercel");
 
   useEffect(() => {
     if (data) {
