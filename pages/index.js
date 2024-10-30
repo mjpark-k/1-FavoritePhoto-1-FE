@@ -31,6 +31,8 @@ export default function Home() {
 
   const { data, isLoading, error } = useShopCards(params);
 
+  const { data: myCards } = useUsersMyCardListQuery(params);
+
   useEffect(() => {
     if (data) {
       setCards(data.shops);
