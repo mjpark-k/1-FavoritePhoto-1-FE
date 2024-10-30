@@ -19,7 +19,7 @@ export default function ModalContainer({
   let containerClass = classNames(styles["container"], styles[option]);
 
   if (mobileBottom) {
-    containerClass = styles["container-mobile-bottom"];
+    containerClass = classNames(styles["container-mobile-bottom"]);
   }
 
   return (

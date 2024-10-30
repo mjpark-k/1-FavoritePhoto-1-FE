@@ -154,7 +154,7 @@
   }
 
   .home-sell-container {
-    position: sticky;
+    position: fixed;
     bottom: 15px;
     z-index: 9;
     margin: 0 auto;
