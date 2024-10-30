@@ -31,7 +31,8 @@ export default function Home() {
 
   const { data, isLoading, error } = useShopCards(params);
 
-  const { data: myCards } = useUsersMyCardListQuery(params);
+  // const { data: myCards } = useUsersMyCardListQuery(params);
+  console.log("테스트");
 
   useEffect(() => {
     if (data) {
