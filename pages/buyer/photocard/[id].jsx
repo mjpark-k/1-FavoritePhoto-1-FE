@@ -58,9 +58,8 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
     keyword: modalSearch || "",
   });
 
-  const { selectedCard, setSelectedCard } = useSelectedStore();
-
   const { user } = useAuthStore();
+  const { selectedCard, setSelectedCard } = useSelectedStore();
 
   const exchangeMutation = useCreateExchangeRequest();
   const exchangeCancelMutation = useDeleteExchange();
