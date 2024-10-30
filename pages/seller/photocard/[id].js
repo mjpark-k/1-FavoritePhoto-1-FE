@@ -71,7 +71,13 @@ export default function Index({ shop, card, exchangeInfo, exchangeList, c }) {
         {exchangeList.length > 0 ? (
           <div className={styles["exchange-container"]}>
             {exchangeList.map((card) => (
-              <ButtonCard key={card.id} style={"refuse-approval"} card={card} />
+              <ButtonCard
+                key={card.id}
+                style={"refuse-approval"}
+                card={card}
+                purchase={"purchase"}
+                price={card.pirce}
+              />
             ))}
           </div>
         ) : (

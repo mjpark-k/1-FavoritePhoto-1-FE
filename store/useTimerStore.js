@@ -13,6 +13,9 @@ const useTimerStore = create((set) => ({
       const id = setTimeout(() => {
         set({ pointModal: true }); // 3분 후 모달 열기
       }, 180000); // 3분 (180000ms)
+      // const id = setTimeout(() => {
+      //   set({ pointModal: true }); // 1시간 후 모달 열기
+      // }, 3600000); // 1시간 (3600000ms)
 
       return { timeoutId: id };
     });

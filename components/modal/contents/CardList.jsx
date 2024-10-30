@@ -49,7 +49,12 @@ export default function CardList({
           {isLoading ? <div>카드를 불러오는 중입니다.</div> : null}
           {data &&
             data.map((card) => (
-              <Card key={card.id} onClick={() => onClick(card)} card={card} />
+              <Card
+                key={card.id}
+                onClick={() => onClick(card)}
+                card={card}
+                quantity={"quantity"}
+              />
             ))}
         </div>
       </div>
