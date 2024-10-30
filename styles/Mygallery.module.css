@@ -39,6 +39,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 80px;
+  margin-bottom: 60px;
 }
 
 .mygallery-grade-box-wrapper {
@@ -104,4 +105,14 @@
   width: 80px;
   height: 23px;
   border-radius: 3px;
+}
+
+.loading-container {
+  width: fit-content;
+  margin: 50% auto;
+}
+
+.scroll-loading-container {
+  width: fit-content;
+  margin: 0 auto 60px;
 }

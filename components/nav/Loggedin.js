@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./Loggedin.module.css";
 import alarm from "@/public/alarm-icon.svg";
 import UserDrop from "./UserDrop";
+import Notification from "../notification/Notification";
 import useTimerStore from "@/store/useTimerStore";
 
 export default function Loggedin({
@@ -21,11 +22,11 @@ export default function Loggedin({
 
   return (
     <div className={styles["container"]}>
-      <div onClick={handlePointModal}>🎁</div>
+      <div className={styles["random-point"]} onClick={handlePointModal}>🎁</div>
       <span className={styles["points"]}>
         {point.toLocaleString("ko-KR")} P
       </span>
-      <Image src={alarm} className={styles["alarm"]} alt="alarm" />
+      <Notification />
       <div className={styles["nickname-container"]}>
         <span className={styles["nickname"]} onClick={handleNicknameClick}>
           {nickname}
@@ -37,6 +38,7 @@ export default function Loggedin({
               point={point}
               setUserDrop={setUserDrop}
               logout={logout}
+              handlePointModal={handlePointModal}
             />
           )}
         </div>

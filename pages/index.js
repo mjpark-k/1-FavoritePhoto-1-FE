@@ -5,12 +5,13 @@ import Input from "@/components/inputs/Input.jsx";
 import Dropdown from "@/components/dropdowns/Dropdown";
 import ModalContainer from "@/components/modal/ModalContainer";
 import CardList from "@/components/modal/contents/CardList";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
-import { useAcceptExchange } from "@/lib/reactQuery/useExchange";
 import MobileFilter from "@/components/modal/contents/MobileFilter";
+import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
+import useSelectedStore from "@/store/useSelectedStore";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -26,6 +27,45 @@ export default function Home() {
     pageSize: 9,
     keyword: inputValue,
   });
+  const [cards, setCards] = useState("");
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const observerTarget = useRef(null);
+
+  const { data, isLoading, error } = useShopCards(params);
+
+  useEffect(() => {
+    if (data) {
+      setCards(data.shops);
+      setHasNextPage(data.shops.length < data.totalCount);
+    }
+  }, [data]);
+
+  const loadMoreCards = () => {
+    if (!isLoading && hasNextPage) {
+      setParams((prevParams) => ({
+        ...prevParams,
+        pageSize: prevParams.pageSize + 6,
+      }));
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreCards();
+        }
+      },
+      { threshold: 1.0 }
+    );
+    if (observerTarget.current) observer.observe(observerTarget.current);
+    return () => {
+      if (observerTarget.current) observer.unobserve(observerTarget.current);
+    };
+  }, [loadMoreCards]);
+
+  const { selectedCard, setSelectedCard, clearSelectedCard } =
+    useSelectedStore();
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -47,17 +87,16 @@ export default function Home() {
     setInputValue(e.target.value);
   };
 
-  const { data, isLoading, error } = useShopCards(params);
-
   const myGalleryModalClick = () => {
     setShowFilter(false);
-    setShowMyGallery(!showMyGallery);
     setSellMyCard(false);
+    setShowMyGallery(!showMyGallery);
   };
 
-  const sellModalClick = () => {
-    setShowFilter(false);
+  const sellModalClick = (card) => {
+    setSelectedCard(card);
     setShowMyGallery(false);
+    setShowFilter(false);
     setSellMyCard(!sellMyCard);
   };
 
@@ -75,7 +114,7 @@ export default function Home() {
     }));
   };
 
-  if (isLoading)
+  if (isLoading && !cards)
     return (
       <div className={styles["home-container"]}>
         <div className={styles["home-nav"]}>
@@ -125,9 +164,11 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className={styles["loading-container"]}>
-          <Loading />
-        </div>
+        {!data && (
+          <div className={styles["loading-container"]}>
+            <Loading />
+          </div>
+        )}
         <div className={styles["home-sell-container"]}>
           <Button
             text={"나의 포토카드 판매하기"}
@@ -193,28 +234,33 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className={styles["home-main-card-grid"]}>
-        {data.shops.map((card, index) => (
-          <Card key={index} card={card} />
-        ))}
-      </div>
-      <div className={styles["scroll-loading-container"]}>
-        <Loading />
+      {cards && (
+        <div className={styles["home-main-card-grid"]}>
+          {cards.map((card, index) => (
+            <Card key={index} card={card} />
+          ))}
+        </div>
+      )}
+      <div ref={observerTarget} className={styles["scroll-loading-container"]}>
+        {hasNextPage && <Loading />}
       </div>
       {showMyGallery && (
-        <ModalContainer
-          onClick={myGalleryModalClick}
-          text={
-            <CardList
-              title={"나의 포토카드 판매하기"}
-              onClick={sellModalClick}
-            />
-          }
-        ></ModalContainer>
+        <ModalContainer onClick={myGalleryModalClick}>
+          <CardList
+            title={"나의 포토카드 판매하기"}
+            onClick={sellModalClick}
+            data={myCards.data.cards}
+          />
+        </ModalContainer>
       )}
       {sellMyCard && (
         <ModalContainer onClick={sellModalClick}>
-          <CardSell myGalleryModalClick={myGalleryModalClick} />
+          {selectedCard && (
+            <CardSell
+              myGalleryModalClick={myGalleryModalClick}
+              sellModalClick={sellModalClick}
+            />
+          )}
         </ModalContainer>
       )}
       <div className={styles["home-sell-container"]}>
