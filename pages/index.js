@@ -11,6 +11,7 @@ import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
 import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
 import useSelectedStore from "@/store/useSelectedStore";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -29,12 +30,22 @@ export default function Home() {
   const [hasNextPage, setHasNextPage] = useState(false);
   const observerTarget = useRef(null);
 
+  const { selectedCard, setSelectedCard, clearSelectedCard } =
+    useSelectedStore();
+
+  const { user } = useAuthStore();
+
   const { data, isLoading, error } = useShopCards(params);
 
-  const { data: myCards } = useUsersMyCardListQuery(params);
+  // 로그인 상태일 때만 쿼리 실행
+  const { data: myCards } = user
+    ? useUsersMyCardListQuery(params)
+    : { data: null };
+
+  // const { data: myCards } = useUsersMyCardListQuery(params);
 
   useEffect(() => {
-    if (data) {
+    if (data && data.shops) {
       setCards(data.shops);
       setHasNextPage(data.shops.length < data.totalCount);
     }
@@ -63,9 +74,6 @@ export default function Home() {
       if (observerTarget.current) observer.unobserve(observerTarget.current);
     };
   }, [loadMoreCards]);
-
-  const { selectedCard, setSelectedCard, clearSelectedCard } =
-    useSelectedStore();
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -161,11 +169,13 @@ export default function Home() {
     <div className={styles["home-container"]}>
       <div className={styles["home-nav"]}>
         <div className={styles["home-title"]}>마켓플레이스</div>
-        <Button
-          text={"나의 포토카드 판매하기"}
-          style={"thin-main-440px-60px"}
-          onClick={myGalleryModalClick}
-        />
+        {user && (
+          <Button
+            text={"나의 포토카드 판매하기"}
+            style={"thin-main-440px-60px"}
+            onClick={myGalleryModalClick}
+          />
+        )}
       </div>
       <div className={styles["home-main-container"]}>
         <div className={styles["home-main-container-nav-wrapper"]}>
