@@ -14,8 +14,9 @@ export default function CardList({
   onClick,
   onChange,
   setParams,
+  isLoading,
+  onKeyPress,
 }) {
-  console.log(data);
   return (
     <>
       <div className={styles["container"]}>
@@ -27,6 +28,7 @@ export default function CardList({
             option={"search"}
             placeholder={"검색"}
             onChange={onChange}
+            onKeyPress={onKeyPress}
           />
           <div className={styles["dropdown-container"]}>
             <Dropdown
@@ -44,6 +46,7 @@ export default function CardList({
           </div>
         </div>
         <div className={styles["card-list"]}>
+          {isLoading ? <div>카드를 불러오는 중입니다.</div> : null}
           {data &&
             data.map((card) => (
               <Card key={card.id} onClick={() => onClick(card)} card={card} />
