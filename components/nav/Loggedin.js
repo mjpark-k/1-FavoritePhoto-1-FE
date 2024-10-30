@@ -3,6 +3,7 @@ import styles from "./Loggedin.module.css";
 import alarm from "@/public/alarm-icon.svg";
 import UserDrop from "./UserDrop";
 import Notification from "../notification/Notification";
+import useTimerStore from "@/store/useTimerStore";
 
 export default function Loggedin({
   logout,
@@ -12,6 +13,8 @@ export default function Loggedin({
   nickname,
   point,
 }) {
+  const { handlePointModal } = useTimerStore();
+
   const handleNicknameClick = (e) => {
     e.stopPropagation();
     onClick();
@@ -19,6 +22,7 @@ export default function Loggedin({
 
   return (
     <div className={styles["container"]}>
+      <div className={styles["random-point"]} onClick={handlePointModal}>🎁</div>
       <span className={styles["points"]}>
         {point.toLocaleString("ko-KR")} P
       </span>
@@ -34,6 +38,7 @@ export default function Loggedin({
               point={point}
               setUserDrop={setUserDrop}
               logout={logout}
+              handlePointModal={handlePointModal}
             />
           )}
         </div>
