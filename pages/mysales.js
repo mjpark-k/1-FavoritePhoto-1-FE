@@ -7,6 +7,7 @@ import Card from "@/components/cards/Card";
 import classNames from "classnames";
 import useAuthStore from "@/store/useAuthStore";
 import Loading from "@/components/loading/Loading";
+import Link from "next/link";
 
 export default function mysales() {
   const { user } = useAuthStore();
@@ -287,7 +288,9 @@ export default function mysales() {
       {cards && (
         <div className={styles["mygallery-main-card-grid"]}>
           {cards.map((card, index) => (
-            <Card key={index} card={card} />
+            <Link href={`/seller/photocard/${card.id}`}>
+              <Card key={index} card={card} />
+            </Link>
           ))}
         </div>
       )}

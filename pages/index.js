@@ -12,6 +12,7 @@ import Loading from "@/components/loading/Loading";
 import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
 import useSelectedStore from "@/store/useSelectedStore";
 import useAuthStore from "@/store/useAuthStore";
+import Link from "next/link";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -213,7 +214,17 @@ export default function Home() {
       {cards && (
         <div className={styles["home-main-card-grid"]}>
           {cards.map((card, index) => (
-            <Card key={index} card={card} />
+            <Link
+              key={card.id}
+              href={
+                card.isOwner === true
+                  ? `/seller/photocard/${card.id}`
+                  : `/buyer/photocard/${card.id}`
+              }
+              className={styles["home-main-card-grid-item"]}
+            >
+              <Card key={index} card={card} />
+            </Link>
           ))}
         </div>
       )}
