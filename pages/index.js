@@ -11,6 +11,7 @@ import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
 import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
 import useSelectedStore from "@/store/useSelectedStore";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -28,10 +29,12 @@ export default function Home() {
   const [cards, setCards] = useState("");
   const [hasNextPage, setHasNextPage] = useState(false);
   const observerTarget = useRef(null);
+  const { user } = useAuthStore();
 
   const { data, isLoading, error } = useShopCards(params);
-
-  const { data: myCards } = useUsersMyCardListQuery(params);
+  const { data: myCards } = user
+    ? useUsersMyCardListQuery(params)
+    : { myCards: null };
 
   useEffect(() => {
     if (data) {

@@ -25,7 +25,7 @@ export default function mysales() {
   const [hasNextPage, setHasNextPage] = useState(false);
   const observerTarget = useRef(null);
 
-  const { data, isLoading, error } = useUsersShopQuery(params);
+  const { data, isLoading } = useUsersShopQuery(params);
 
   useEffect(() => {
     if (data) {
@@ -144,7 +144,6 @@ export default function mysales() {
         )}
       </div>
     );
-  if (error) return <div>Error: {error.message}</div>;
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -174,7 +173,7 @@ export default function mysales() {
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
-            {user.data.nickname}님이 보유한 포토카드
+            {user && user.data.nickname}님이 보유한 포토카드
             {data && (
               <span className={styles["mygallery-grade-box-count"]}>
                 ({data.data.totalCount})
@@ -189,7 +188,7 @@ export default function mysales() {
               )}
             >
               COMMON
-              {data && (
+              {data && data.data.countsGroupByGrade && (
                 <span className={styles["mygallery-grade-box-text"]}>
                   {!data.data.countsGroupByGrade[0]
                     ? 0
@@ -205,7 +204,7 @@ export default function mysales() {
               )}
             >
               RARE
-              {data && (
+              {data && data.data.countsGroupByGrade && (
                 <span className={styles["mygallery-grade-box-text"]}>
                   {!data.data.countsGroupByGrade[1]
                     ? 0
@@ -221,7 +220,7 @@ export default function mysales() {
               )}
             >
               SUPER RARE
-              {data && (
+              {data && data.data.countsGroupByGrade && (
                 <span className={styles["mygallery-grade-box-text"]}>
                   {!data.data.countsGroupByGrade[2]
                     ? 0
@@ -237,7 +236,7 @@ export default function mysales() {
               )}
             >
               LEGENDARY
-              {data && (
+              {data && data.data.countsGroupByGrade && (
                 <span className={styles["mygallery-grade-box-text"]}>
                   {!data.data.countsGroupByGrade[3]
                     ? 0
