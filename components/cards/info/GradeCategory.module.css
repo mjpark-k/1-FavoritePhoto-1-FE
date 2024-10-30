@@ -75,3 +75,15 @@
   font-weight: 400px;
   color: var(--gray-300);
 }
+
+.small > .purchase {
+  font-weight: 400;
+  display: flex;
+  gap: 5px;
+  color: var(--gray-300);
+}
+
+.small > .purchase > .purchase-point {
+  font-weight: 400;
+  color: var(--white);
+}

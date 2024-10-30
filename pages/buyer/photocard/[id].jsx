@@ -55,7 +55,7 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
     grade: "",
     pageNum: 1,
     pageSize: 9,
-    keyword: modalSearch,
+    keyword: modalSearch || "",
   });
 
   const { selectedCard, setSelectedCard } = useSelectedStore();
@@ -111,6 +111,15 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
   const purchaseCardClick = () => {
     purchaseCardMuatation.mutate({ shopId: card.id, purchaseQuantity: num });
     setPurchaseModal(false);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      setParams(() => ({
+        keyword: modalSearch,
+        pageNum: 1,
+      }));
+    }
   };
 
   return (
@@ -219,19 +228,15 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
       )}
       {exchangeModal && (
         <ModalContainer onClick={exchangeModalClick} option={"click"}>
-          {isLoading ? (
-            <div>카드를 불러오는 중입니다.</div>
-          ) : error ? (
-            <div>카드를 불러오지 못했습니다. 다시 시도해주세요.</div>
-          ) : (
-            <CardList
-              title={"포토카드 교환하기"}
-              onClick={selectClick}
-              data={data.data.cards}
-              onChange={setModalSearch}
-              setParams={setParams}
-            />
-          )}
+          <CardList
+            title={"포토카드 교환하기"}
+            onClick={selectClick}
+            data={data?.data.cards}
+            onChange={setModalSearch}
+            setParams={setParams}
+            onKeyPress={handleKeyPress}
+            isLoading={isLoading}
+          />
         </ModalContainer>
       )}
       {exchangeDetailModal && (

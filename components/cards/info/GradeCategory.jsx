@@ -9,8 +9,16 @@ import classNames from "classnames";
  * 0-COMMON, 1-RARE, 2-SUPER RARE, 3-LEGENDARY, default-등급정보없음
  * @param genre
  * 0-풍경, 1-인물, 2-동물, 3-정물, 4-추상, default-기타
+ * @param price - 구매가격
+ * @param purchase - 구매가격 옵션
  */
-export default function GradeCategory({ style, grade, genre }) {
+export default function GradeCategory({
+  style,
+  grade,
+  genre,
+  purchase,
+  price,
+}) {
   const textStyle = classNames({
     [styles[style]]: style,
   });
@@ -46,6 +54,14 @@ export default function GradeCategory({ style, grade, genre }) {
       </div>
       <div className={styles["bar"]}>|</div>
       <div className={styles["category"]}>{genreText}</div>
+      {purchase ? (
+        <>
+          <div className={styles["bar"]}>|</div>
+          <div className={styles["purchase"]}>
+            <div className={styles["purchase-point"]}>{price} P</div>에 구매
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }

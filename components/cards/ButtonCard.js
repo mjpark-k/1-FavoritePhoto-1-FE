@@ -18,7 +18,7 @@ import ExchangeAuth from "../modal/contents/ExchangeAuth";
  *
  */
 
-export default function ButtonCard({ style, card, onClick }) {
+export default function ButtonCard({ style, card, onClick, purchase, price }) {
   const [isMobile, setIsMobile] = useState(false); // 모바일 뷰 감지 상태
   const [exchangeAuth, setExchangeAuth] = useState(null);
 
@@ -74,6 +74,8 @@ export default function ButtonCard({ style, card, onClick }) {
                 style={"small"}
                 grade={card.grade}
                 genre={card.genre}
+                purchase={purchase}
+                price={price}
               />
               <p className={styles["card-nickname"]}>{card.creatorNickname}</p>
             </div>

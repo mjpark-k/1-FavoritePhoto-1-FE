@@ -168,7 +168,7 @@ export default function Mygallery() {
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
-            {user.data.nickname}님이 보유한 포토카드
+            {user?.data.nickname}님이 보유한 포토카드
             {data && (
               <span className={styles["mygallery-grade-box-count"]}>
                 ({data.data.totalCount})

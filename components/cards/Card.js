@@ -4,7 +4,7 @@ import Image from "next/image";
 import GradeCategory from "./info/GradeCategory";
 import { useEffect, useState } from "react";
 
-export default function Card({ onClick, card }) {
+export default function Card({ onClick, card, quantity }) {
   const [isSelling, setIsSelling] = useState("card-sellout-no");
   const router = useRouter();
   const { pathname } = router;
@@ -64,13 +64,21 @@ export default function Card({ onClick, card }) {
           <p className={styles["card-price"]}>{card.price} P</p>
         </div>
         <div className={styles["card-stock-wrapper"]}>
-          <p className={styles["card-stock-tag"]}>잔여</p>
+          <p className={styles["card-stock-tag"]}>
+            {quantity ? "수량" : "잔여"}
+          </p>
           <p className={styles["card-stock"]}>
-            {isInMyGallery ? card.quantity : card.remainingQuantity}
-            {!isInMyGallery && (
-              <span className={styles["card-stock-denominator"]}>
-                / {card.totalQuantity}
-              </span>
+            {quantity ? (
+              card.price
+            ) : (
+              <>
+                {isInMyGallery ? card.quantity : card.remainingQuantity}
+                {!isInMyGallery && (
+                  <span className={styles["card-stock-denominator"]}>
+                    / {card.totalQuantity}
+                  </span>
+                )}
+              </>
             )}
           </p>
         </div>
