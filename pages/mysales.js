@@ -8,7 +8,7 @@ import classNames from "classnames";
 import useAuthStore from "@/store/useAuthStore";
 import Loading from "@/components/loading/Loading";
 
-export default function mysales() {
+export default function Mysales() {
   const { user } = useAuthStore();
   const [inputValue, setInputValue] = useState();
   const [params, setParams] = useState({
