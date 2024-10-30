@@ -8,6 +8,7 @@ import CardList from "@/components/modal/contents/CardList";
 import CardSell from "@/components/modal/contents/CardSell";
 import { useRouter } from "next/router";
 import { useUsersMyCardsQuery } from "@/lib/reactQuery/useUsers";
+import Loading from "@/components/loading/Loading";
 
 export default function Detail() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -20,7 +21,12 @@ export default function Detail() {
     enabled: !!id,
   });
 
-  if (isLoading) return <>loading</>;
+  if (isLoading)
+    return (
+      <div className={styles["loading-container"]}>
+        <Loading />
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
 
   console.log(data);

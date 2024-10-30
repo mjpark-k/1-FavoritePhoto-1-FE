@@ -7,6 +7,7 @@ import Card from "@/components/cards/Card";
 import classNames from "classnames";
 import useAuthStore from "@/store/useAuthStore";
 import Loading from "@/components/loading/Loading";
+import Link from "next/link";
 
 export default function Mysales() {
   const { user } = useAuthStore();
@@ -25,7 +26,7 @@ export default function Mysales() {
   const [hasNextPage, setHasNextPage] = useState(false);
   const observerTarget = useRef(null);
 
-  const { data, isLoading, error } = useUsersShopQuery(params);
+  const { data, isLoading } = useUsersShopQuery(params);
 
   useEffect(() => {
     if (data) {
@@ -144,7 +145,6 @@ export default function Mysales() {
         )}
       </div>
     );
-  if (error) return <div>Error: {error.message}</div>;
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -174,7 +174,7 @@ export default function Mysales() {
         </div>
         <div className={styles["mygallery-grade-box-wrapper"]}>
           <p className={styles["mygallery-grade-box-title"]}>
-            {user.data.nickname}님이 보유한 포토카드
+            {user && user.data.nickname}님이 보유한 포토카드
             {data && (
               <span className={styles["mygallery-grade-box-count"]}>
                 ({data.data.totalCount})
@@ -189,7 +189,7 @@ export default function Mysales() {
               )}
             >
               COMMON
-              {data && (
+              {data && data.data.countsGroupByGrade && (
                 <span className={styles["mygallery-grade-box-text"]}>
                   {!data.data.countsGroupByGrade[0]
                     ? 0
@@ -205,7 +205,7 @@ export default function Mysales() {
               )}
             >
               RARE
-              {data && (
+              {data && data.data.countsGroupByGrade && (
                 <span className={styles["mygallery-grade-box-text"]}>
                   {!data.data.countsGroupByGrade[1]
                     ? 0
@@ -221,7 +221,7 @@ export default function Mysales() {
               )}
             >
               SUPER RARE
-              {data && (
+              {data && data.data.countsGroupByGrade && (
                 <span className={styles["mygallery-grade-box-text"]}>
                   {!data.data.countsGroupByGrade[2]
                     ? 0
@@ -237,7 +237,7 @@ export default function Mysales() {
               )}
             >
               LEGENDARY
-              {data && (
+              {data && data.data.countsGroupByGrade && (
                 <span className={styles["mygallery-grade-box-text"]}>
                   {!data.data.countsGroupByGrade[3]
                     ? 0
@@ -288,7 +288,9 @@ export default function Mysales() {
       {cards && (
         <div className={styles["mygallery-main-card-grid"]}>
           {cards.map((card, index) => (
-            <Card key={index} card={card} />
+            <Link key={card.id} href={`/seller/photocard/${card.id}`}>
+              <Card key={index} card={card} />
+            </Link>
           ))}
         </div>
       )}
