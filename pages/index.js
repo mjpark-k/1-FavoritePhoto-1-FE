@@ -11,6 +11,8 @@ import { useShopCards } from "@/lib/reactQuery/useShop";
 import Loading from "@/components/loading/Loading";
 import { useUsersMyCardListQuery } from "@/lib/reactQuery/useUsers";
 import useSelectedStore from "@/store/useSelectedStore";
+import useAuthStore from "@/store/useAuthStore";
+import Link from "next/link";
 
 export default function Home() {
   const [showMyGallery, setShowMyGallery] = useState(false);
@@ -25,14 +27,22 @@ export default function Home() {
     pageSize: 9,
     keyword: inputValue,
   });
+  const [myParams, setMyParams] = useState({
+    sort: "recent",
+    genre: "",
+    sellout: "",
+    grade: "",
+    pageNum: 1,
+    pageSize: 9,
+    keyword: inputValue,
+  });
   const [cards, setCards] = useState("");
   const [hasNextPage, setHasNextPage] = useState(false);
   const observerTarget = useRef(null);
+  const { user } = useAuthStore();
 
   const { data, isLoading, error } = useShopCards(params);
-
-  // const { data: myCards } = useUsersMyCardListQuery(params);
-  console.log("테스트 vercel 1");
+  const { data: myCards } = useUsersMyCardListQuery({ ...params, user });
 
   useEffect(() => {
     if (data) {
@@ -41,6 +51,7 @@ export default function Home() {
     }
   }, [data]);
 
+  console.log(myCards);
   const loadMoreCards = () => {
     if (!isLoading && hasNextPage) {
       setParams((prevParams) => ({
@@ -77,7 +88,7 @@ export default function Home() {
     }
   };
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     setParams(() => ({
       keyword: inputValue,
       pageNum: 1,
@@ -104,11 +115,13 @@ export default function Home() {
       <div className={styles["home-container"]}>
         <div className={styles["home-nav"]}>
           <div className={styles["home-title"]}>마켓플레이스</div>
-          <Button
-            text={"나의 포토카드 판매하기"}
-            style={"thin-main-440px-60px"}
-            onClick={myGalleryModalClick}
-          />
+          {user && (
+            <Button
+              text={"나의 포토카드 판매하기"}
+              style={"thin-main-440px-60px"}
+              onClick={myGalleryModalClick}
+            />
+          )}
         </div>
         <div className={styles["home-main-container"]}>
           <div className={styles["home-main-container-nav-wrapper"]}>
@@ -162,11 +175,13 @@ export default function Home() {
     <div className={styles["home-container"]}>
       <div className={styles["home-nav"]}>
         <div className={styles["home-title"]}>마켓플레이스</div>
-        <Button
-          text={"나의 포토카드 판매하기"}
-          style={"thin-main-440px-60px"}
-          onClick={myGalleryModalClick}
-        />
+        {user && (
+          <Button
+            text={"나의 포토카드 판매하기"}
+            style={"thin-main-440px-60px"}
+            onClick={myGalleryModalClick}
+          />
+        )}
       </div>
       <div className={styles["home-main-container"]}>
         <div className={styles["home-main-container-nav-wrapper"]}>
@@ -211,7 +226,17 @@ export default function Home() {
       {cards && (
         <div className={styles["home-main-card-grid"]}>
           {cards.map((card, index) => (
-            <Card key={index} card={card} />
+            <Link
+              key={card.id}
+              href={
+                card.isOwner === true
+                  ? `/seller/photocard/${card.id}`
+                  : `/buyer/photocard/${card.id}`
+              }
+              className={styles["home-main-card-grid-item"]}
+            >
+              <Card key={index} card={card} />
+            </Link>
           ))}
         </div>
       )}
@@ -223,7 +248,8 @@ export default function Home() {
           <CardList
             title={"나의 포토카드 판매하기"}
             onClick={sellModalClick}
-            data={myCards.data.cards}
+            data={myCards?.data.cards}
+            setParams={setParams}
           />
         </ModalContainer>
       )}
