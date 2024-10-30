@@ -288,7 +288,7 @@ export default function Mysales() {
       {cards && (
         <div className={styles["mygallery-main-card-grid"]}>
           {cards.map((card, index) => (
-            <Link href={`/seller/photocard/${card.id}`}>
+            <Link key={card.id} href={`/seller/photocard/${card.id}`}>
               <Card key={index} card={card} />
             </Link>
           ))}

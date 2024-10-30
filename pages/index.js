@@ -27,15 +27,22 @@ export default function Home() {
     pageSize: 9,
     keyword: inputValue,
   });
+  const [myParams, setMyParams] = useState({
+    sort: "recent",
+    genre: "",
+    sellout: "",
+    grade: "",
+    pageNum: 1,
+    pageSize: 9,
+    keyword: inputValue,
+  });
   const [cards, setCards] = useState("");
   const [hasNextPage, setHasNextPage] = useState(false);
   const observerTarget = useRef(null);
   const { user } = useAuthStore();
 
   const { data, isLoading, error } = useShopCards(params);
-  const { data: myCards } = user
-    ? useUsersMyCardListQuery(params)
-    : { myCards: null };
+  const { data: myCards } = useUsersMyCardListQuery({ ...params, user });
 
   useEffect(() => {
     if (data) {
@@ -44,6 +51,7 @@ export default function Home() {
     }
   }, [data]);
 
+  console.log(myCards);
   const loadMoreCards = () => {
     if (!isLoading && hasNextPage) {
       setParams((prevParams) => ({
@@ -107,11 +115,13 @@ export default function Home() {
       <div className={styles["home-container"]}>
         <div className={styles["home-nav"]}>
           <div className={styles["home-title"]}>마켓플레이스</div>
-          <Button
-            text={"나의 포토카드 판매하기"}
-            style={"thin-main-440px-60px"}
-            onClick={myGalleryModalClick}
-          />
+          {user && (
+            <Button
+              text={"나의 포토카드 판매하기"}
+              style={"thin-main-440px-60px"}
+              onClick={myGalleryModalClick}
+            />
+          )}
         </div>
         <div className={styles["home-main-container"]}>
           <div className={styles["home-main-container-nav-wrapper"]}>
@@ -165,11 +175,13 @@ export default function Home() {
     <div className={styles["home-container"]}>
       <div className={styles["home-nav"]}>
         <div className={styles["home-title"]}>마켓플레이스</div>
-        <Button
-          text={"나의 포토카드 판매하기"}
-          style={"thin-main-440px-60px"}
-          onClick={myGalleryModalClick}
-        />
+        {user && (
+          <Button
+            text={"나의 포토카드 판매하기"}
+            style={"thin-main-440px-60px"}
+            onClick={myGalleryModalClick}
+          />
+        )}
       </div>
       <div className={styles["home-main-container"]}>
         <div className={styles["home-main-container-nav-wrapper"]}>
@@ -236,7 +248,8 @@ export default function Home() {
           <CardList
             title={"나의 포토카드 판매하기"}
             onClick={sellModalClick}
-            data={myCards.data.cards}
+            data={myCards?.data.cards}
+            setParams={setParams}
           />
         </ModalContainer>
       )}
