@@ -58,13 +58,17 @@ export default function Index({ card, exchangeList, exchangeInfo }) {
     keyword: modalSearch || "",
   });
 
+  const { user } = useAuthStore();
   const { selectedCard, setSelectedCard } = useSelectedStore();
 
   const exchangeMutation = useCreateExchangeRequest();
   const exchangeCancelMutation = useDeleteExchange();
   const purchaseCardMuatation = usePurchaseShopCard();
 
-  const { data, isLoading, error } = useUsersMyCardListQuery(params);
+  const { data, isLoading, error } = useUsersMyCardListQuery({
+    ...params,
+    user,
+  });
 
   const purchaseModalClick = () => {
     setExchangeDetailModal(false);
