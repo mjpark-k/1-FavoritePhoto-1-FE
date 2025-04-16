@@ -264,4 +264,4 @@
 
 # 😊 프로젝트 회고록
 
-[프로젝트 회고록](https://www.notion.so/a2b855ffc5a14def8a4308a78fb80b74)
+[박명준 - 프로젝트 회고록](https://www.notion.so/1193c19d1a2f814e835bded5c4210fa7)
